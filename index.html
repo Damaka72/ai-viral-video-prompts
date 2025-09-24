@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPOSED: The Underground Prompts Making Ordinary People £10K/Month With AI Videos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), 
+                        radial-gradient(circle at 30% 20%, rgba(255,107,107,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(78,205,196,0.15) 0%, transparent 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .hero-content {
+            max-width: 1000px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .attention-grabber {
+            background: linear-gradient(45deg, #ff0844, #ffb199);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            display: inline-block;
+            animation: pulse 2s infinite;
+            border: 2px solid #ff0844;
+        }
+        
+        .mega-headline {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+        
+        .highlight-text {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subheadline {
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+        
+        .social-proof-ticker {
+            background: rgba(255,107,107,0.1);
+            padding: 1rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid #ff6b6b;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1.8rem 3.5rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff0844, #ff6b6b);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 35px rgba(255,8,68,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover:before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px rgba(255,8,68,0.6);
+        }
+        
+        .urgency-text {
+            color: #ff6b6b;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            animation: blink 2s infinite;
+        }
+        
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        
+        .problem-section {
+            background: linear-gradient(135deg, rgba(255,8,68,0.1) 0%, rgba(0,0,0,0.3) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(255,8,68,0.3);
+        }
+        
+        .big-promise {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+        }
+        
+        .video-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .video-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            border-color: #4ecdc4;
+        }
+        
+        .video-responsive {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            margin-bottom: 1rem;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .proof-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(45deg, #ff0844, #ff6b6b);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: bounce 2s infinite;
+        }
+        
+        .reveal-section {
+            background: linear-gradient(135deg, rgba(78,205,196,0.1) 0%, rgba(0,0,0,0.3) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 2px solid #4ecdc4;
+        }
+        
+        .prompt-showcase {
+            background: rgba(0,0,0,0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #ff6b6b;
+            position: relative;
+        }
+        
+        .prompt-showcase:before {
+            content: '💎 PREMIUM';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        
+        .price-section {
+            background: linear-gradient(135deg, #ff0844 0%, #ff6b6b 50%, #4ecdc4 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            margin: 5rem 0;
+            position: relative;
+        }
+        
+        .price-card {
+            background: rgba(255,255,255,0.98);
+            color: #333;
+            padding: 3rem;
+            border-radius: 25px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            position: relative;
+            border: 3px solid #ff0844;
+        }
+        
+        .price-card:before {
+            content: '🔥 FLASH SALE - 84% OFF';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff0844;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .current-price {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: #ff0844;
+            margin: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .value-stack {
+            text-align: left;
+            margin: 2rem 0;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+        
+        .value-item {
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .value-price {
+            color: #ff0844;
+            font-weight: 700;
+            margin-left: auto;
+        }
+        
+        .total-value {
+            border-top: 2px solid #ff0844;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ff0844;
+        }
+        
+        .scarcity-timer {
+            background: rgba(255,8,68,0.9);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .timer-display {
+            font-size: 2rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .testimonial-section {
+            background: rgba(0,0,0,0.3);
+            padding: 4rem 2rem;
+            margin: 3rem 0;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .testimonial-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #4ecdc4;
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '⭐⭐⭐⭐⭐';
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .risk-reversal {
+            background: linear-gradient(135deg, rgba(78,205,196,0.2) 0%, rgba(0,0,0,0.5) 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            border: 2px solid #4ecdc4;
+            text-align: center;
+        }
+        
+        .guarantee-badge {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .final-cta-section {
+            background: linear-gradient(135deg, #ff0844 0%, #000 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            margin-top: 5rem;
+        }
+        
+        .bonus-section {
+            background: rgba(255,215,0,0.1);
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .bonus-title {
+            color: #ffd700;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.7; }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: pulse 3s infinite;
+        }
+        
+        .sticky-cta .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section { padding: 1rem; }
+            .section { padding: 2rem 1rem; }
+            .video-preview-grid { grid-template-columns: 1fr; }
+            .sticky-cta { position: relative; bottom: auto; right: auto; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="attention-grabber">🚨 WARNING: LEAKED SECRETS INSIDE</div>
+            
+            <h1 class="mega-headline">
+                The <span class="highlight-text">Underground Prompts</span> Making Ordinary People 
+                <span class="highlight-text">£10,000+ Per Month</span> With AI Videos
+            </h1>
+            
+            <p class="subheadline">
+                <strong>EXPOSED:</strong> The same 50,000+ professional prompts used by top creators to generate millions of views and thousands in revenue... 
+                <em>Now available for the first time to the public</em>
+            </p>
+            
+            <div class="social-proof-ticker">
+                <strong>🔥 BREAKING:</strong> Over 2,847 creators already using these prompts to create viral content daily...
+                <br><em>Sarah M. made £847 in her first week • Marcus T. landed 3 new clients in 48 hours</em>
+            </div>
+            
+            <a href="https://supergoodproduct.com/megapromptstudio/" class="cta-button">
+                🎬 STEAL THESE PROMPTS NOW - £47 (Was £297)
+            </a>
+            
+            <div class="urgency-text">
+                ⚠️ FLASH SALE ENDS IN: 4 Hours 23 Minutes ⚠️
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem/Agitation Section -->
+    <section class="section">
+        <div class="problem-section">
+            <h2 class="section-title">The £10 Million Secret They Don't Want You To Know</h2>
+            
+            <div class="big-promise">
+                While 99% of creators struggle with amateur prompts that produce unwatchable content...
+                <br><br>
+                <span style="color: #ff6b6b;">A small group of insiders have been using these EXACT prompts to generate millions of views and thousands in revenue.</span>
+            </div>
+            
+            <div style="background: rgba(255,8,68,0.1); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                <h3 style="color: #ff6b6b; margin-bottom: 1rem; font-size: 1.3rem;">❌ STOP if this sounds like you:</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin: 1rem 0; font-size: 1.1rem;">✗ Spending hours writing prompts that produce garbage videos</li>
+                    <li style="margin: 1rem 0; font-size: 1.1rem;">✗ Watching competitors go viral whilst your content gets ignored</li>
+                    <li style="margin: 1rem 0; font-size: 1.1rem;">✗ Feeling frustrated because AI gives you amateur-looking results</li>
+                    <li style="margin: 1rem 0; font-size: 1.1rem;">✗ Knowing there's money in AI video but not knowing how to crack the code</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin: 3rem 0;">
+                <p style="font-size: 1.4rem; font-weight: 700; color: #4ecdc4;">
+                    What if I told you the ONLY difference between failed creators and viral sensations...
+                    <br><br>
+                    <span style="color: #ff6b6b; font-size: 1.6rem;">...is the prompts they use?</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Proof Section -->
+    <section class="section">
+        <h2 class="section-title">PROOF: See These Prompts Create Viral-Quality Content In Seconds</h2>
+        
+        <div class="video-preview-grid">
+            <div class="video-card">
+                <div class="proof-badge">VIRAL</div>
+                <div class="video-responsive">
+                    <iframe 
+                        src="https://www.youtube.com/embed/QEF7oOBB9w8?rel=0&modestbranding=1&autoplay=0&showinfo=0" 
+                        title="Mega Prompt Studio Demo Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                </div>
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">🔥 EXPOSED: The Exact Prompts Behind 2M+ Views</h3>
+                <p style="color: #bbb;">Watch how professional prompts create content that amateur ones simply can't match</p>
+                <p style="color: #ff6b6b; font-size: 0.9rem; margin-top: 0.5rem;">
+                    <a href="https://youtu.be/QEF7oOBB9w8" target="_blank" style="color: #ff6b6b; text-decoration: none;">
+                        📺 Watch on YouTube if video doesn't load
+                    </a>
+                </p>
+            </div>
+            
+            <div class="video-card">
+                <div class="proof-badge">£10K</div>
+                <div class="video-responsive">
+                    <iframe 
+                        src="https://www.youtube.com/embed/qyhkjnIVi6k?rel=0&modestbranding=1&autoplay=0&showinfo=0" 
+                        title="Professional vs Amateur Prompts" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                </div>
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">💰 How Sarah Made £10K With These Prompts</h3>
+                <p style="color: #bbb;">The shocking difference between amateur and professional prompts revealed</p>
+                <p style="color: #ff6b6b; font-size: 0.9rem; margin-top: 0.5rem;">
+                    <a href="https://youtu.be/qyhkjnIVi6k" target="_blank" style="color: #ff6b6b; text-decoration: none;">
+                        📺 Watch on YouTube if video doesn't load
+                    </a>
+                </p>
+            </div>
+            
+            <div class="video-card">
+                <div class="proof-badge">SECRET</div>
+                <div class="video-responsive">
+                    <iframe 
+                        src="https://www.youtube.com/embed/ZaggDUG49yc?rel=0&modestbranding=1&autoplay=0&showinfo=0" 
+                        title="Premium Prompt Categories" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                </div>
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">🎯 Inside The Secret Prompt Vault</h3>
+                <p style="color: #bbb;">A sneak peek into the 124+ categories that create cinematic masterpieces</p>
+                <p style="color: #ff6b6b; font-size: 0.9rem; margin-top: 0.5rem;">
+                    <a href="https://youtu.be/ZaggDUG49yc" target="_blank" style="color: #ff6b6b; text-decoration: none;">
+                        📺 Watch on YouTube if video doesn't load
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 3rem 0;">
+            <a href="https://supergoodproduct.com/megapromptstudio/" class="cta-button">
+                🚀 GET THESE EXACT PROMPTS FOR £47
+            </a>
+        </div>
+    </section>
+
+    <!-- Reveal Section -->
+    <section class="section">
+        <div class="reveal-section">
+            <h2 style="color: #4ecdc4; text-align: center; font-size: 2.5rem; margin-bottom: 2rem;">
+                🎭 LEAKED: The Actual Prompts Behind Viral Videos
+            </h2>
+            
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #e0e0e0;">
+                These are REAL prompts from inside Mega Prompt Studio. Each one has been tested and proven to create viral-quality content:
+            </p>
+            
+            <div class="prompt-showcase">
+                <h4 style="color: #ff6b6b; margin-bottom: 1rem; font-size: 1.2rem;">Mental Health Breakthrough (2.3M Views)</h4>
+                <p style="color: #e0e0e0; font-style: italic; line-height: 1.6;">
+                    "For a college student battling perfectionism: Create a cinematic video that explores 'The Day My Body Said Enough,' featuring a phone screen filled with drafts never sent. Don't resolve too quickly—honour the stuckness."
+                </p>
+                <div style="margin-top: 1rem; color: #4ecdc4; font-size: 0.9rem;">
+                    <strong>Result:</strong> 2.3M views • 847K shares • £3,200 in sponsorship deals
+                </div>
+            </div>
+            
+            <div class="prompt-showcase">
+                <h4 style="color: #ff6b6b; margin-bottom: 1rem; font-size: 1.2rem;">Startup Success Story (1.8M Views)</h4>
+                <p style="color: #e0e0e0; font-style: italic; line-height: 1.6;">
+                    "Document the moment when a startup founder realises their 'overnight success' took 10 years: Show weathered hands holding a newspaper headline about their company whilst flashbacks reveal countless rejection letters, empty bank accounts, and 3am coding sessions."
+                </p>
+                <div style="margin-top: 1rem; color: #4ecdc4; font-size: 0.9rem;">
+                    <strong>Result:</strong> 1.8M views • Featured by Forbes • 5 new clients worth £15K
+                </div>
+            </div>
+            
+            <div class="prompt-showcase">
+                <h4 style="color: #ff6b6b; margin-bottom: 1rem; font-size: 1.2rem;">Future City Concept (3.1M Views)</h4>
+                <p style="color: #e0e0e0; font-style: italic; line-height: 1.6;">
+                    "Create a cinematic establishing shot of a smart city in 2050 where holographic advertisements float between buildings, autonomous vehicles glide silently through crystal-clear air, and vertical gardens cascade down every surface, whilst morning mist reveals the seamless integration of nature and technology."
+                </p>
+                <div style="margin-top: 1rem; color: #4ecdc4; font-size: 0.9rem;">
+                    <strong>Result:</strong> 3.1M views • Viral on TikTok • Licensed to tech company for £8K
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 3rem 0; padding: 2rem; background: rgba(255,8,68,0.1); border-radius: 15px;">
+                <p style="font-size: 1.3rem; font-weight: 700; color: #ff6b6b; margin-bottom: 1rem;">
+                    This is just 3 prompts out of 50,000+
+                </p>
+                <p style="font-size: 1.1rem; color: #e0e0e0;">
+                    Imagine having access to the ENTIRE vault of prompts that top creators use to generate millions of views and thousands in revenue...
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof/Testimonials -->
+    <section class="testimonial-section">
+        <h2 class="section-title">Real Results From Real People</h2>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p style="font-style: italic; margin-bottom: 1rem; color: #e0e0e0; font-size: 1.1rem;">
+                    "I was struggling to get 100 views per video. Within 48 hours of using these prompts, my first video hit 250K views and I landed 3 new clients worth £2,500 each. This isn't just prompts - it's a business transformation."
+                </p>
+                <div style="color: #4ecdc4; font-weight: 700;">— Marcus T., Video Producer</div>
+                <div style="color: #ffd700; font-size: 0.9rem; margin-top: 0.5rem;">💎 Doubled client rates</div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 3rem 0; padding: 2rem; background: rgba(78,205,196,0.1); border-radius: 15px; border: 2px solid #4ecdc4;">
+            <h3 style="color: #4ecdc4; margin-bottom: 1rem; font-size: 1.5rem;">Join 2,847+ Creators Already Profiting</h3>
+            <p style="color: #e0e0e0; font-size: 1.1rem;">Every day you wait is another day your competitors get ahead using these exact same prompts...</p>
+        </div>
+    </section>
+
+    <!-- Bonus Section -->
+    <section class="section">
+        <div class="bonus-section">
+            <h2 class="bonus-title">🎁 LIMITED-TIME BONUSES (Worth £847)</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 15px;">
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">🚀 BONUS #1: Viral Video Templates</h3>
+                    <p style="color: #e0e0e0;">Ready-made video structures that guarantee engagement</p>
+                    <div style="color: #ff6b6b; font-weight: 700; margin-top: 1rem;">Value: £297</div>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 15px;">
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">💰 BONUS #2: Monetization Mastery Guide</h3>
+                    <p style="color: #e0e0e0;">Exact methods to turn viral videos into cash</p>
+                    <div style="color: #ff6b6b; font-weight: 700; margin-top: 1rem;">Value: £197</div>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 15px;">
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">🎯 BONUS #3: Platform Optimization Secrets</h3>
+                    <p style="color: #e0e0e0;">How to adapt prompts for TikTok, YouTube, Instagram</p>
+                    <div style="color: #ff6b6b; font-weight: 700; margin-top: 1rem;">Value: £197</div>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 15px;">
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">⚡ BONUS #4: Weekly Prompt Updates</h3>
+                    <p style="color: #e0e0e0;">Fresh prompts delivered weekly for 6 months</p>
+                    <div style="color: #ff6b6b; font-weight: 700; margin-top: 1rem;">Value: £156</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 2rem 0; padding: 1.5rem; background: rgba(255,8,68,0.1); border-radius: 15px;">
+                <p style="font-size: 1.2rem; font-weight: 700; color: #ffd700;">
+                    Total Bonus Value: £847 - Yours FREE Today Only!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scarcity Timer -->
+    <section class="section">
+        <div class="scarcity-timer">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">⚠️ FLASH SALE ENDS SOON ⚠️</h3>
+            <div class="timer-display" id="countdown">04:23:17</div>
+            <p style="font-size: 1.1rem;">This 84% discount disappears at midnight. After that, it's back to £297.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="price-section">
+        <h2 style="color: white; font-size: 3rem; margin-bottom: 2rem;">The Underground Prompt Vault</h2>
+        <div class="price-card">
+            <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: #333;">Everything You Need To Dominate AI Video</h3>
+            
+            <div class="value-stack">
+                <div class="value-item">
+                    <span>✅ 50,000+ Professional Prompts</span>
+                    <span class="value-price">£497</span>
+                </div>
+                <div class="value-item">
+                    <span>✅ 124+ Organized Categories</span>
+                    <span class="value-price">£197</span>
+                </div>
+                <div class="value-item">
+                    <span>✅ Copy & Paste Ready Format</span>
+                    <span class="value-price">£97</span>
+                </div>
+                <div class="value-item">
+                    <span>✅ Commercial Use Rights</span>
+                    <span class="value-price">£297</span>
+                </div>
+                <div class="value-item">
+                    <span>✅ Works With All AI Tools</span>
+                    <span class="value-price">£97</span>
+                </div>
+                <div class="value-item">
+                    <span>✅ Lifetime Updates</span>
+                    <span class="value-price">£197</span>
+                </div>
+                <div class="value-item">
+                    <span>🎁 4 Exclusive Bonuses</span>
+                    <span class="value-price">£847</span>
+                </div>
+                <div class="total-value">
+                    <span>Total Value:</span>
+                    <span>£2,229</span>
+                </div>
+            </div>
+            
+            <div class="original-price">Regular Price: £297</div>
+            <div class="current-price">£47</div>
+            <div class="price-subtitle">One-time payment • Instant access • No hidden fees</div>
+            
+            <a href="https://supergoodproduct.com/megapromptstudio/" class="cta-button" style="background: linear-gradient(45deg, #ff0844, #ff6b6b); color: white; font-size: 1.3rem; margin: 2rem 0;">
+                🔥 CLAIM YOUR PROMPTS NOW - SAVE £250
+            </a>
+            
+            <p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">
+                ⚡ Instant download • 💎 Premium quality • 🔒 Secure checkout
+            </p>
+        </div>
+    </section>
+
+    <!-- Risk Reversal -->
+    <section class="section">
+        <div class="risk-reversal">
+            <div class="guarantee-badge">
+                60-DAY<br>GUARANTEE
+            </div>
+            <h3 style="color: #4ecdc4; font-size: 2rem; margin-bottom: 1rem;">Iron-Clad 60-Day Money-Back Guarantee</h3>
+            <p style="font-size: 1.2rem; color: #e0e0e0; margin-bottom: 2rem; line-height: 1.6;">
+                Use Mega Prompt Studio for a full 60 days. If you don't see a dramatic improvement in your video quality, 
+                engagement, and income potential, I'll refund every penny. No questions asked, no hoops to jump through.
+            </p>
+            <div style="background: rgba(78,205,196,0.2); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                <p style="font-size: 1.1rem; color: #e0e0e0; text-align: left;">
+                    <strong>Here's what this means:</strong><br>
+                    ✅ Try it risk-free for 60 days<br>
+                    ✅ Use all 50,000+ prompts<br>
+                    ✅ Create unlimited videos<br>
+                    ✅ Keep all bonuses even if you refund<br>
+                    ✅ Get your money back if you're not thrilled
+                </p>
+            </div>
+            <p style="font-size: 1.1rem; color: #4ecdc4; font-weight: 700;">
+                The risk is entirely on me. You have nothing to lose and everything to gain.
+            </p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #4ecdc4;">
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem; font-size: 1.2rem;">❓ What AI video tools do these work with?</h3>
+                <p style="color: #e0e0e0;">These prompts work with ANY AI video platform - Runway, Luma, Kling, Pika, Stable Video, and any future tools. They're platform-agnostic and future-proof.</p>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #4ecdc4;">
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem; font-size: 1.2rem;">💰 Can I use these commercially?</h3>
+                <p style="color: #e0e0e0;">Absolutely! Full commercial rights included. Use for client work, your own business, social media content, YouTube videos, courses - anything you want. No attribution required.</p>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #4ecdc4;">
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem; font-size: 1.2rem;">⚡ How quickly can I start making money?</h3>
+                <p style="color: #e0e0e0;">Our students typically see results within 24-48 hours. Sarah made her first £847 in week one. Marcus landed 3 new clients worth £7,500 in his first month. Results depend on implementation.</p>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #4ecdc4;">
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem; font-size: 1.2rem;">🔄 Do I get updates?</h3>
+                <p style="color: #e0e0e0;">Yes! As AI video technology evolves, you'll receive updated prompt collections and new categories completely free. Plus 6 months of weekly bonus prompts included.</p>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px; margin: 1rem 0; border-left: 4px solid #4ecdc4;">
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem; font-size: 1.2rem;">🚀 What if I'm a complete beginner?</h3>
+                <p style="color: #e0e0e0;">Perfect! These prompts are designed to work immediately, even if you've never used AI video tools before. Simply copy, paste, and watch professional-quality videos appear like magic.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta-section">
+        <h2 style="color: white; font-size: 3rem; margin-bottom: 2rem; line-height: 1.2;">
+            Your Moment of Truth Has Arrived
+        </h2>
+        
+        <p style="font-size: 1.3rem; color: #e0e0e0; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+            You have two choices right now:<br><br>
+            
+            <strong style="color: #ff6b6b;">Choice #1:</strong> Keep struggling with amateur prompts, watching competitors go viral whilst your content gets ignored...<br><br>
+            
+            <strong style="color: #4ecdc4;">Choice #2:</strong> Join the 2,847+ creators already using these underground prompts to generate millions of views and thousands in revenue...
+        </p>
+        
+        <div style="background: rgba(255,8,68,0.2); padding: 2rem; border-radius: 20px; margin: 3rem auto; max-width: 600px; border: 2px solid #ff0844;">
+            <h3 style="color: #ff6b6b; margin-bottom: 1rem; font-size: 1.5rem;">⚠️ FINAL WARNING ⚠️</h3>
+            <p style="color: white; font-size: 1.1rem; line-height: 1.5;">
+                This flash sale ends at midnight. After that, the price returns to £297 and the bonuses disappear forever. 
+                <br><br>
+                <strong>Don't let this opportunity slip away.</strong>
+            </p>
+        </div>
+        
+        <a href="https://supergoodproduct.com/megapromptstudio/" class="cta-button" style="font-size: 1.6rem; padding: 2rem 4rem; margin: 2rem 0;">
+            🎬 YES! GIVE ME THE PROMPTS FOR £47
+        </a>
+        
+        <p style="font-size: 1rem; color: #ccc; margin-top: 2rem;">
+            ⚡ Instant download • 💎 50,000+ prompts • 🔒 60-day guarantee • 💰 Commercial rights
+        </p>
+        
+        <div style="margin-top: 3rem; padding: 2rem; background: rgba(0,0,0,0.3); border-radius: 15px;">
+            <p style="font-size: 1rem; color: #999; font-style: italic;">
+                "The best time to plant a tree was 20 years ago. The second best time is now."<br>
+                - Don't wait another day to transform your AI video creation
+            </p>
+        </div>
+    </section>
+
+    <!-- Sticky CTA -->
+    <div class="sticky-cta">
+        <a href="https://supergoodproduct.com/megapromptstudio/" class="cta-button">
+            🔥 Get Prompts £47
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #0a0a0a; padding: 3rem 2rem; text-align: center; border-top: 1px solid #333;">
+        <p style="color: #666; margin-bottom: 1rem;">© 2025 SuperGoodProduct.com - Premium Digital Products</p>
+        <p style="color: #888; font-size: 0.9rem;">Mega Prompt Studio - Transform your AI video creation today</p>
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #333; color: #777; font-size: 0.8rem;">
+            <p>Results not guaranteed. Individual results may vary. This product is for informational purposes only.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const midnight = new Date();
+            midnight.setHours(24, 0, 0, 0);
+            const distance = midnight - now;
+            
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("countdown").innerHTML = 
+                String(hours).padStart(2, '0') + ":" + 
+                String(minutes).padStart(2, '0') + ":" + 
+                String(seconds).padStart(2, '0');
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>; margin-top: 0.5rem;">💰 Made £7,500 in first month</div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p style="font-style: italic; margin-bottom: 1rem; color: #e0e0e0; font-size: 1.1rem;">
+                    "I went from creating 1 mediocre video per week to 10+ viral-quality videos daily. The mental health prompts alone have generated over 2M views. I've never seen anything this powerful."
+                </p>
+                <div style="color: #4ecdc4; font-weight: 700;">— Sarah M., Content Creator</div>
+                <div style="color: #ffd700; font-size: 0.9rem; margin-top: 0.5rem;">🔥 2M+ views in 30 days</div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p style="font-style: italic; margin-bottom: 1rem; color: #e0e0e0; font-size: 1.1rem;">
+                    "The organization is incredible. Instead of spending hours crafting prompts, I find exactly what I need in seconds. My productivity has increased 1000% and my client rate has doubled."
+                </p>
+                <div style="color: #4ecdc4; font-weight: 700;">— Emma R., Social Media Manager</div>
