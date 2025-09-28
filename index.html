@@ -134,6 +134,108 @@
             font-weight: 800;
             color: #ffffff;
         }
+
+        .video-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .video-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            border-color: #4ecdc4;
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            cursor: pointer;
+        }
+        
+        .play-button {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        .proof-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(45deg, #ff0844, #ff6b6b);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: bounce 2s infinite;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            background-color: #222;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: white;
+        }
         
         .products-grid {
             display: grid;
@@ -322,6 +424,7 @@
             .hero-section { padding: 1rem; }
             .section { padding: 2rem 1rem; }
             .products-grid { grid-template-columns: 1fr; }
+            .video-preview-grid { grid-template-columns: 1fr; }
             .cta-button { 
                 padding: 1.2rem 2rem; 
                 font-size: 1.1rem;
@@ -346,11 +449,11 @@
                 <em>Transform your content creation with AI-powered video prompts that actually work.</em>
             </p>
             
-            <a href="#products" class="cta-button">
-                🚀 BROWSE COLLECTIONS
+            <a href="#examples" class="cta-button">
+                🎥 SEE EXAMPLES
             </a>
             
-            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" class="cta-button secondary">
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" target="_blank" class="cta-button secondary">
                 🎁 GET MEGA BUNDLE - $97
             </a>
         </div>
@@ -378,6 +481,95 @@
         </div>
     </section>
 
+    <!-- Video Examples Section -->
+    <section class="section" id="examples">
+        <h2 class="section-title">🎥 Examples: Videos Created With Our Prompts</h2>
+        
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #e0e0e0;">
+            These videos were created using prompts from our collection. Click any video to see the exact prompt used.
+        </p>
+        
+        <div class="video-preview-grid">
+            <div class="video-card">
+                <div class="proof-badge">CULTURAL</div>
+                <div class="video-thumbnail" onclick="openModal('modal1')">
+                    <span>🏔️</span>
+                    <div class="play-button">▶</div>
+                </div>
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Sculptor Inuit Clay Creation</h3>
+                <p style="color: #bbb; margin-bottom: 1rem;">Cultural storytelling and traditional craftsmanship</p>
+                <button onclick="openModal('modal1')" style="background: #4ecdc4; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; width: 100%;">
+                    👁️ View Exact Prompt
+                </button>
+            </div>
+            
+            <div class="video-card">
+                <div class="proof-badge">FAMILY</div>
+                <div class="video-thumbnail" onclick="openModal('modal2')">
+                    <span>🎭</span>
+                    <div class="play-button">▶</div>
+                </div>
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Cultural Festival Through Child's Eyes</h3>
+                <p style="color: #bbb; margin-bottom: 1rem;">Emotional storytelling and human experience</p>
+                <button onclick="openModal('modal2')" style="background: #4ecdc4; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; width: 100%;">
+                    👁️ View Exact Prompt
+                </button>
+            </div>
+            
+            <div class="video-card">
+                <div class="proof-badge">CREATIVE</div>
+                <div class="video-thumbnail" onclick="openModal('modal3')">
+                    <span>✨</span>
+                    <div class="play-button">▶</div>
+                </div>
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Modern Family Tale - Magical Objects</h3>
+                <p style="color: #bbb; margin-bottom: 1rem;">Imaginative storytelling and fantasy elements</p>
+                <button onclick="openModal('modal3')" style="background: #4ecdc4; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; width: 100%;">
+                    👁️ View Exact Prompt
+                </button>
+            </div>
+            
+            <div class="video-card">
+                <div class="proof-badge">PERSONAL</div>
+                <div class="video-thumbnail" onclick="openModal('modal4')">
+                    <span>🌙</span>
+                    <div class="play-button">▶</div>
+                </div>
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">The Night I Made A Promise</h3>
+                <p style="color: #bbb; margin-bottom: 1rem;">Personal development and emotional storytelling</p>
+                <button onclick="openModal('modal4')" style="background: #4ecdc4; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; width: 100%;">
+                    👁️ View Exact Prompt
+                </button>
+            </div>
+            
+            <div class="video-card">
+                <div class="proof-badge">LIFESTYLE</div>
+                <div class="video-thumbnail" onclick="openModal('modal5')">
+                    <span>🎵</span>
+                    <div class="play-button">▶</div>
+                </div>
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Festival DJ Midnight Beach Rave</h3>
+                <p style="color: #bbb; margin-bottom: 1rem;">Lifestyle and entertainment content</p>
+                <button onclick="openModal('modal5')" style="background: #4ecdc4; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; width: 100%;">
+                    👁️ View Exact Prompt
+                </button>
+            </div>
+            
+            <div class="video-card">
+                <div class="proof-badge">BUSINESS</div>
+                <div class="video-thumbnail" onclick="openModal('modal6')">
+                    <span>🏯</span>
+                    <div class="play-button">▶</div>
+                </div>
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Prosperity Stories - Osaka Japan</h3>
+                <p style="color: #bbb; margin-bottom: 1rem;">Business success and cultural fusion</p>
+                <button onclick="openModal('modal6')" style="background: #4ecdc4; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; width: 100%;">
+                    👁️ View Exact Prompt
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Products Section -->
     <section class="section" id="products">
         <h2 class="section-title">🎯 Professional AI Video Prompt Collections</h2>
@@ -395,7 +587,7 @@
                     <strong>8,025 prompts</strong> • Artistic Creation • Design Processes
                 </div>
                 <div class="product-price">$29</div>
-                <a href="https://aiviralvideoprompts.gumroad.com/l/jjhsh" class="product-button live">
+                <a href="https://aiviralvideoprompts.gumroad.com/l/jjhsh" target="_blank" class="product-button live">
                     🎨 GET CREATIVITY PROMPTS
                 </a>
             </div>
@@ -410,7 +602,7 @@
                     <strong>8,024 prompts</strong> • Business Strategy • Corporate Content
                 </div>
                 <div class="product-price">$29</div>
-                <a href="https://aiviralvideoprompts.gumroad.com/l/cyonc" class="product-button live">
+                <a href="https://aiviralvideoprompts.gumroad.com/l/cyonc" target="_blank" class="product-button live">
                     💼 GET BUSINESS PROMPTS
                 </a>
             </div>
@@ -425,7 +617,7 @@
                     <strong>2,624 prompts</strong> • Educational Content • Social Change
                 </div>
                 <div class="product-price">$19</div>
-                <a href="https://aiviralvideoprompts.gumroad.com/l/llskfw" class="product-button live">
+                <a href="https://aiviralvideoprompts.gumroad.com/l/llskfw" target="_blank" class="product-button live">
                     📚 GET EDUCATION PROMPTS
                 </a>
             </div>
@@ -440,7 +632,7 @@
                     <strong>2,025 prompts</strong> • Cultural Heritage • Global Diversity
                 </div>
                 <div class="product-price">$17</div>
-                <a href="https://aiviralvideoprompts.gumroad.com/l/ct" class="product-button live">
+                <a href="https://aiviralvideoprompts.gumroad.com/l/ct" target="_blank" class="product-button live">
                     🌍 GET CULTURE PROMPTS
                 </a>
             </div>
@@ -455,7 +647,7 @@
                     <strong>2,025 prompts</strong> • Future Technology • Innovation
                 </div>
                 <div class="product-price">$17</div>
-                <a href="https://aiviralvideoprompts.gumroad.com/l/hgbde" class="product-button live">
+                <a href="https://aiviralvideoprompts.gumroad.com/l/hgbde" target="_blank" class="product-button live">
                     🚀 GET FUTURE TECH PROMPTS
                 </a>
             </div>
@@ -470,7 +662,7 @@
                     <strong>2,025 prompts</strong> • Emotional Stories • Human Connection
                 </div>
                 <div class="product-price">$17</div>
-                <a href="https://aiviralvideoprompts.gumroad.com/l/mzsrzs" class="product-button live">
+                <a href="https://aiviralvideoprompts.gumroad.com/l/mzsrzs" target="_blank" class="product-button live">
                     💫 GET INSPIRATION PROMPTS
                 </a>
             </div>
@@ -485,7 +677,7 @@
                     <strong>2,025 prompts</strong> • Fantasy Worlds • Creative Stories
                 </div>
                 <div class="product-price">$17</div>
-                <a href="https://aiviralvideoprompts.gumroad.com/l/im" class="product-button live">
+                <a href="https://aiviralvideoprompts.gumroad.com/l/im" target="_blank" class="product-button live">
                     ✨ GET IMAGINATIVE PROMPTS
                 </a>
             </div>
@@ -599,7 +791,7 @@
                 <div style="font-size: 3rem; font-weight: 900; color: #ff6b6b; margin-bottom: 1rem;">$97</div>
                 <div style="color: #4ecdc4; font-weight: 700; font-size: 1.2rem;">Save $194 (67% OFF!)</div>
             </div>
-            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" class="cta-button" style="font-size: 1.6rem; padding: 2rem 4rem;">
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" target="_blank" class="cta-button" style="font-size: 1.6rem; padding: 2rem 4rem;">
                 🎁 GET MEGA BUNDLE - $97
             </a>
             <p style="margin-top: 1rem; color: #999; font-size: 0.9rem;">
@@ -607,6 +799,133 @@
             </p>
         </div>
     </section>
+
+    <!-- Modals for Videos -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal1')">&times;</span>
+            <h2 style="color: #4ecdc4; margin-bottom: 1rem;">Sculptor Inuit Clay Creation</h2>
+            <div style="background: rgba(0,0,0,0.5); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">Exact Prompt Used:</h4>
+                <p style="color: #e0e0e0; font-style: italic; line-height: 1.6;">
+                    "Create a cinematic close-up of weathered Inuit hands shaping clay with ancestral precision, surrounded by traditional tools and arctic light filtering through ice windows, capturing the sacred connection between artisan and earth."
+                </p>
+            </div>
+            <p style="color: #ccc; margin: 1rem 0;">
+                <strong>Collection:</strong> Mega Prompt Studio<br>
+                <strong>Category:</strong> Cultural Storytelling<br>
+                <strong>Type:</strong> Traditional Craftsmanship
+            </p>
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" target="_blank" class="cta-button" style="width: 100%; text-align: center; margin-top: 1rem;">
+                Get This Collection
+            </a>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2')">&times;</span>
+            <h2 style="color: #4ecdc4; margin-bottom: 1rem;">Cultural Festival Through Child's Eyes</h2>
+            <div style="background: rgba(0,0,0,0.5); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">Exact Prompt Used:</h4>
+                <p style="color: #e0e0e0; font-style: italic; line-height: 1.6;">
+                    "Film a cultural festival through the wide-eyed wonder of a 7-year-old, capturing their perspective as they navigate colourful costumes, hear unfamiliar music, and experience tradition for the first time with pure amazement."
+                </p>
+            </div>
+            <p style="color: #ccc; margin: 1rem 0;">
+                <strong>Collection:</strong> Mega Prompt Studio<br>
+                <strong>Category:</strong> Coming-of-Age Narratives<br>
+                <strong>Type:</strong> Human Experience
+            </p>
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" target="_blank" class="cta-button" style="width: 100%; text-align: center; margin-top: 1rem;">
+                Get This Collection
+            </a>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal3')">&times;</span>
+            <h2 style="color: #4ecdc4; margin-bottom: 1rem;">Modern Family Tale - Magical Objects</h2>
+            <div style="background: rgba(0,0,0,0.5); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">Exact Prompt Used:</h4>
+                <p style="color: #e0e0e0; font-style: italic; line-height: 1.6;">
+                    "Create a whimsical family story where everyday household objects possess hidden magical powers - the coffee mug that grants morning clarity, the lamp that illuminates truth, the mirror that shows one's heart's desire."
+                </p>
+            </div>
+            <p style="color: #ccc; margin: 1rem 0;">
+                <strong>Collection:</strong> Mega Prompt Studio<br>
+                <strong>Category:</strong> Fantasy Worlds & Alternate Realities<br>
+                <strong>Type:</strong> Imaginative Storytelling
+            </p>
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" target="_blank" class="cta-button" style="width: 100%; text-align: center; margin-top: 1rem;">
+                Get This Collection
+            </a>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal4')">&times;</span>
+            <h2 style="color: #4ecdc4; margin-bottom: 1rem;">The Night I Made A Promise</h2>
+            <div style="background: rgba(0,0,0,0.5); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">Exact Prompt Used:</h4>
+                <p style="color: #e0e0e0; font-style: italic; line-height: 1.6;">
+                    "Create a cinematic video exploring the pivotal night when someone makes a life-changing promise to themselves, capturing the weight of that moment through shadows, reflections, and symbolic imagery."
+                </p>
+            </div>
+            <p style="color: #ccc; margin: 1rem 0;">
+                <strong>Collection:</strong> Mega Prompt Studio<br>
+                <strong>Category:</strong> Personal Growth Journeys<br>
+                <strong>Type:</strong> Emotional Storytelling
+            </p>
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" target="_blank" class="cta-button" style="width: 100%; text-align: center; margin-top: 1rem;">
+                Get This Collection
+            </a>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal5')">&times;</span>
+            <h2 style="color: #4ecdc4; margin-bottom: 1rem;">Festival DJ Midnight Beach Rave</h2>
+            <div style="background: rgba(0,0,0,0.5); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">Exact Prompt Used:</h4>
+                <p style="color: #e0e0e0; font-style: italic; line-height: 1.6;">
+                    "Capture the electric energy of a festival DJ headlining a midnight beach rave, with pulsing lights reflecting off ocean waves, silhouetted dancers, and the raw euphoria of music under starlit skies."
+                </p>
+            </div>
+            <p style="color: #ccc; margin: 1rem 0;">
+                <strong>Collection:</strong> Mega Prompt Studio<br>
+                <strong>Category:</strong> Luxury Lifestyle & Aesthetic Showcases<br>
+                <strong>Type:</strong> High-Energy Entertainment
+            </p>
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" target="_blank" class="cta-button" style="width: 100%; text-align: center; margin-top: 1rem;">
+                Get This Collection
+            </a>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal6')">&times;</span>
+            <h2 style="color: #4ecdc4; margin-bottom: 1rem;">Prosperity Stories - Osaka Japan</h2>
+            <div style="background: rgba(0,0,0,0.5); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">Exact Prompt Used:</h4>
+                <p style="color: #e0e0e0; font-style: italic; line-height: 1.6;">
+                    "Document midday prosperity stories in Osaka, Japan, showcasing successful entrepreneurs against the backdrop of modern skyscrapers and traditional markets, capturing the harmony of old wisdom and new opportunity."
+                </p>
+            </div>
+            <p style="color: #ccc; margin: 1rem 0;">
+                <strong>Collection:</strong> Visual Rampage<br>
+                <strong>Category:</strong> Business Marketing Prompts<br>
+                <strong>Type:</strong> Entrepreneurship Success Stories
+            </p>
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" target="_blank" class="cta-button" style="width: 100%; text-align: center; margin-top: 1rem;">
+                Get This Collection
+            </a>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -621,13 +940,35 @@
     </footer>
 
     <script>
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
