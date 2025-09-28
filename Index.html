@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Viral Video Prompts - Professional AI Video Creation Made Simple</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), 
+                        radial-gradient(circle at 30% 20%, rgba(255,107,107,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(78,205,196,0.15) 0%, transparent 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .hero-content {
+            max-width: 1000px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .attention-grabber {
+            background: linear-gradient(45deg, #ff0844, #ffb199);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            display: inline-block;
+            animation: pulse 2s infinite;
+            border: 2px solid #ff0844;
+        }
+        
+        .mega-headline {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+        
+        .highlight-text {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subheadline {
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1.8rem 3.5rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff0844, #ff6b6b);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            margin: 2rem 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 35px rgba(255,8,68,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover:before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px rgba(255,8,68,0.6);
+        }
+        
+        .cta-button.secondary {
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            box-shadow: 0 15px 35px rgba(78,205,196,0.4);
+        }
+        
+        .cta-button.secondary:hover {
+            box-shadow: 0 20px 45px rgba(78,205,196,0.6);
+        }
+        
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .product-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: center;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            border-color: #4ecdc4;
+        }
+        
+        .product-card.live {
+            border-color: #4ecdc4;
+            background: rgba(78,205,196,0.05);
+        }
+        
+        .product-card.coming-soon {
+            border-color: #ffd700;
+            background: rgba(255,215,0,0.05);
+        }
+        
+        .product-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+        
+        .product-description {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .product-stats {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        
+        .product-price {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ff6b6b;
+            margin: 1rem 0;
+        }
+        
+        .product-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .product-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(78,205,196,0.4);
+        }
+        
+        .product-button.live {
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+        }
+        
+        .product-button.coming-soon {
+            background: linear-gradient(45deg, #ffd700, #ffb347);
+            color: #333;
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: bounce 2s infinite;
+        }
+        
+        .status-badge.live {
+            background: #4ecdc4;
+            color: white;
+        }
+        
+        .status-badge.coming-soon {
+            background: #ffd700;
+            color: #333;
+        }
+        
+        .featured-section {
+            background: linear-gradient(135deg, rgba(255,8,68,0.1) 0%, rgba(78,205,196,0.1) 100%);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 2px solid rgba(255,8,68,0.3);
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: #cccccc;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .footer {
+            background: #0a0a0a;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid #333;
+            margin-top: 5rem;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section { padding: 1rem; }
+            .section { padding: 2rem 1rem; }
+            .products-grid { grid-template-columns: 1fr; }
+            .cta-button { 
+                padding: 1.2rem 2rem; 
+                font-size: 1.1rem;
+                margin: 1rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="attention-grabber">🎬 PROFESSIONAL AI VIDEO PROMPTS</div>
+            
+            <h1 class="mega-headline">
+                Create <span class="highlight-text">Viral Videos</span> with 
+                <span class="highlight-text">Professional AI Prompts</span>
+            </h1>
+            
+            <p class="subheadline">
+                <strong>46,000+ professional prompts</strong> used by top creators to generate millions of views and thousands in revenue. 
+                <em>Transform your content creation with AI-powered video prompts that actually work.</em>
+            </p>
+            
+            <a href="#products" class="cta-button">
+                🚀 BROWSE COLLECTIONS
+            </a>
+            
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" class="cta-button secondary">
+                🎁 GET MEGA BUNDLE - $97
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">46,000+</div>
+                <div class="stat-label">Professional Prompts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">13</div>
+                <div class="stat-label">Specialized Collections</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Products Live Now</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$15-$29</div>
+                <div class="stat-label">Individual Collections</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section" id="products">
+        <h2 class="section-title">🎯 Professional AI Video Prompt Collections</h2>
+        
+        <div class="products-grid">
+            <!-- LIVE PRODUCTS -->
+            
+            <!-- Creativity & Art -->
+            <div class="product-card live">
+                <div class="status-badge live">LIVE ✅</div>
+                <span class="product-icon">🎨</span>
+                <h3 class="product-title">Creativity & Art Prompts</h3>
+                <p class="product-description">8,025 professional prompts for artistic creation, design processes, and creative inspiration content.</p>
+                <div class="product-stats">
+                    <strong>8,025 prompts</strong> • Artistic Creation • Design Processes
+                </div>
+                <div class="product-price">$29</div>
+                <a href="https://aiviralvideoprompts.gumroad.com/l/jjhsh" class="product-button live">
+                    🎨 GET CREATIVITY PROMPTS
+                </a>
+            </div>
+
+            <!-- Business & Innovation -->
+            <div class="product-card live">
+                <div class="status-badge live">LIVE ✅</div>
+                <span class="product-icon">💼</span>
+                <h3 class="product-title">Business & Innovation</h3>
+                <p class="product-description">8,024 professional prompts for entrepreneurship, innovation, and corporate storytelling.</p>
+                <div class="product-stats">
+                    <strong>8,024 prompts</strong> • Business Strategy • Corporate Content
+                </div>
+                <div class="product-price">$29</div>
+                <a href="https://aiviralvideoprompts.gumroad.com/l/cyonc" class="product-button live">
+                    💼 GET BUSINESS PROMPTS
+                </a>
+            </div>
+
+            <!-- Education & Social Impact -->
+            <div class="product-card live">
+                <div class="status-badge live">LIVE ✅</div>
+                <span class="product-icon">📚</span>
+                <h3 class="product-title">Education & Social Impact</h3>
+                <p class="product-description">2,624 prompts for educational content, learning, and social change storytelling.</p>
+                <div class="product-stats">
+                    <strong>2,624 prompts</strong> • Educational Content • Social Change
+                </div>
+                <div class="product-price">$19</div>
+                <a href="https://aiviralvideoprompts.gumroad.com/l/llskfw" class="product-button live">
+                    📚 GET EDUCATION PROMPTS
+                </a>
+            </div>
+
+            <!-- Culture & Traditions -->
+            <div class="product-card live">
+                <div class="status-badge live">LIVE ✅</div>
+                <span class="product-icon">🌍</span>
+                <h3 class="product-title">Culture & Traditions</h3>
+                <p class="product-description">2,025 prompts for cultural exploration, traditions, and identity storytelling.</p>
+                <div class="product-stats">
+                    <strong>2,025 prompts</strong> • Cultural Heritage • Global Diversity
+                </div>
+                <div class="product-price">$17</div>
+                <a href="https://aiviralvideoprompts.gumroad.com/l/ct" class="product-button live">
+                    🌍 GET CULTURE PROMPTS
+                </a>
+            </div>
+
+            <!-- Future & Tech Visions -->
+            <div class="product-card live">
+                <div class="status-badge live">LIVE ✅</div>
+                <span class="product-icon">🚀</span>
+                <h3 class="product-title">Future & Tech Visions</h3>
+                <p class="product-description">2,025 prompts for futuristic technology, innovation, and next-generation concepts.</p>
+                <div class="product-stats">
+                    <strong>2,025 prompts</strong> • Future Technology • Innovation
+                </div>
+                <div class="product-price">$17</div>
+                <a href="https://aiviralvideoprompts.gumroad.com/l/hgbde" class="product-button live">
+                    🚀 GET FUTURE TECH PROMPTS
+                </a>
+            </div>
+
+            <!-- Inspiration & Human Experience -->
+            <div class="product-card live">
+                <div class="status-badge live">LIVE ✅</div>
+                <span class="product-icon">💫</span>
+                <h3 class="product-title">Inspiration & Human Experience</h3>
+                <p class="product-description">2,025 prompts for emotional storytelling, human experiences, and inspirational content.</p>
+                <div class="product-stats">
+                    <strong>2,025 prompts</strong> • Emotional Stories • Human Connection
+                </div>
+                <div class="product-price">$17</div>
+                <a href="https://aiviralvideoprompts.gumroad.com/l/mzsrzs" class="product-button live">
+                    💫 GET INSPIRATION PROMPTS
+                </a>
+            </div>
+
+            <!-- Imaginative Prompts -->
+            <div class="product-card live">
+                <div class="status-badge live">LIVE ✅</div>
+                <span class="product-icon">✨</span>
+                <h3 class="product-title">Imaginative Prompts</h3>
+                <p class="product-description">2,025 prompts for fantasy worlds, dream sequences, and creative storytelling.</p>
+                <div class="product-stats">
+                    <strong>2,025 prompts</strong> • Fantasy Worlds • Creative Stories
+                </div>
+                <div class="product-price">$17</div>
+                <a href="https://aiviralvideoprompts.gumroad.com/l/im" class="product-button live">
+                    ✨ GET IMAGINATIVE PROMPTS
+                </a>
+            </div>
+
+            <!-- COMING SOON PRODUCTS -->
+            
+            <!-- Life & Mindset -->
+            <div class="product-card coming-soon">
+                <div class="status-badge coming-soon">COMING SOON</div>
+                <span class="product-icon">🧠</span>
+                <h3 class="product-title">Life & Mindset Prompts</h3>
+                <p class="product-description">5,224 prompts for personal development, mindset transformation, and life coaching content.</p>
+                <div class="product-stats">
+                    <strong>5,224 prompts</strong> • Personal Development • Mindset
+                </div>
+                <div class="product-price">$27</div>
+                <div class="product-button coming-soon">
+                    🧠 LAUNCHING SOON
+                </div>
+            </div>
+
+            <!-- Lifestyle & Trends -->
+            <div class="product-card coming-soon">
+                <div class="status-badge coming-soon">COMING SOON</div>
+                <span class="product-icon">🌟</span>
+                <h3 class="product-title">Lifestyle & Trends</h3>
+                <p class="product-description">8,025 prompts for viral lifestyle content, travel, fashion, and influencer marketing.</p>
+                <div class="product-stats">
+                    <strong>8,025 prompts</strong> • Lifestyle Content • Viral Trends
+                </div>
+                <div class="product-price">$29</div>
+                <div class="product-button coming-soon">
+                    🌟 LAUNCHING SOON
+                </div>
+            </div>
+
+            <!-- Cinematic Formats -->
+            <div class="product-card coming-soon">
+                <div class="status-badge coming-soon">COMING SOON</div>
+                <span class="product-icon">🎬</span>
+                <h3 class="product-title">Cinematic Formats & Genres</h3>
+                <p class="product-description">1,824 film-quality prompts for every genre and professional video format.</p>
+                <div class="product-stats">
+                    <strong>1,824 prompts</strong> • Film Quality • All Genres
+                </div>
+                <div class="product-price">$19</div>
+                <div class="product-button coming-soon">
+                    🎬 LAUNCHING SOON
+                </div>
+            </div>
+
+            <!-- Social Media & Viral -->
+            <div class="product-card coming-soon">
+                <div class="status-badge coming-soon">COMING SOON</div>
+                <span class="product-icon">📱</span>
+                <h3 class="product-title">Social Media & Viral Formats</h3>
+                <p class="product-description">1,824 platform-optimized prompts for TikTok, Instagram, YouTube, and viral content.</p>
+                <div class="product-stats">
+                    <strong>1,824 prompts</strong> • Platform Optimized • Viral Content
+                </div>
+                <div class="product-price">$19</div>
+                <div class="product-button coming-soon">
+                    📱 LAUNCHING SOON
+                </div>
+            </div>
+
+            <!-- Thinking & Learning -->
+            <div class="product-card coming-soon">
+                <div class="status-badge coming-soon">COMING SOON</div>
+                <span class="product-icon">🤔</span>
+                <h3 class="product-title">Thinking & Learning</h3>
+                <p class="product-description">2,024 prompts for educational content, philosophy, and intellectual exploration.</p>
+                <div class="product-stats">
+                    <strong>2,024 prompts</strong> • Educational • Philosophy
+                </div>
+                <div class="product-price">$17</div>
+                <div class="product-button coming-soon">
+                    🤔 LAUNCHING SOON
+                </div>
+            </div>
+
+            <!-- Social Good -->
+            <div class="product-card coming-soon">
+                <div class="status-badge coming-soon">COMING SOON</div>
+                <span class="product-icon">🌱</span>
+                <h3 class="product-title">Social Good & World Change</h3>
+                <p class="product-description">1,020 prompts for activism, social justice, and positive impact storytelling.</p>
+                <div class="product-stats">
+                    <strong>1,020 prompts</strong> • Social Impact • Activism
+                </div>
+                <div class="product-price">$15</div>
+                <div class="product-button coming-soon">
+                    🌱 LAUNCHING SOON
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Bundle Section -->
+    <section class="section">
+        <div class="featured-section">
+            <h2 style="color: #4ecdc4; font-size: 2.5rem; margin-bottom: 2rem;">
+                🎁 AI Mega Video Prompts - Ultimate Bundle
+            </h2>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem; color: #e0e0e0;">
+                Get ALL 13 specialized collections for one incredible price. 
+                <strong>46,714 professional prompts</strong> covering every content niche imaginable.
+            </p>
+            <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                <div style="font-size: 1.5rem; color: #cccccc; margin-bottom: 1rem;">Individual Value: <span style="text-decoration: line-through;">$291</span></div>
+                <div style="font-size: 3rem; font-weight: 900; color: #ff6b6b; margin-bottom: 1rem;">$97</div>
+                <div style="color: #4ecdc4; font-weight: 700; font-size: 1.2rem;">Save $194 (67% OFF!)</div>
+            </div>
+            <a href="https://aiviralvideoprompts.gumroad.com/l/aimega" class="cta-button" style="font-size: 1.6rem; padding: 2rem 4rem;">
+                🎁 GET MEGA BUNDLE - $97
+            </a>
+            <p style="margin-top: 1rem; color: #999; font-size: 0.9rem;">
+                ✅ All 13 Collections • 💎 46,714 Prompts • 🔒 Commercial Rights • 🔄 Lifetime Updates
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <h3 style="color: #4ecdc4; margin-bottom: 1rem;">AI Viral Video Prompts</h3>
+        <p style="color: #666; margin-bottom: 1rem;">Professional AI Video Creation Made Simple</p>
+        <p style="color: #888; font-size: 0.9rem;">
+            ✅ Commercial Use Rights • 🔄 Lifetime Updates • 💎 Professional Quality
+        </p>
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #333; color: #777; font-size: 0.8rem;">
+            <p>© 2025 AI Viral Video Prompts - Transform your content creation today</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add loading animation to buttons
+        document.querySelectorAll('.product-button.live').forEach(button => {
+            button.addEventListener('click', function() {
+                this.innerHTML = '⏳ Opening Store...';
+                setTimeout(() => {
+                    this.innerHTML = this.getAttribute('data-original') || this.innerHTML;
+                }, 2000);
+            });
+        });
+
+        // Store original button text
+        document.querySelectorAll('.product-button.live').forEach(button => {
+            button.setAttribute('data-original', button.innerHTML);
+        });
+    </script>
+</body>
+</html>
