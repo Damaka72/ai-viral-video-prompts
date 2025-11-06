@@ -1,0 +1,264 @@
+Constant Contact Integration Instructions
+AI Viral Video Prompts - Lead Magnet Setup
+
+========================================
+
+🎉 YOUR LEAD MAGNET POPUP IS READY!
+
+Your website now has a professional lead magnet popup offering 50 FREE AI Video Prompts.
+
+========================================
+
+✅ WHAT'S ALREADY SET UP
+
+1. Beautiful Popup Design - Matches your site's style
+
+2. Smart Triggers:
+   • Exit Intent (when user tries to leave)
+   • Time Delay (15 seconds after page load)
+   • Scroll Depth (70% down the page)
+
+3. Cookie Management - Won't annoy visitors (shows once per 7 days)
+
+4. Mobile Responsive - Works perfectly on all devices
+
+========================================
+
+🔌 HOW TO CONNECT CONSTANT CONTACT
+
+STEP 1: Create a Form in Constant Contact
+
+1. Log in to your Constant Contact account
+2. Go to Contacts → Sign-up Forms
+3. Click Create → Inline Form or Pop-up Form
+4. Design your form (or use a simple template)
+5. Click Save & Publish
+
+STEP 2: Get Your Form Embed Code or API Endpoint
+
+Option A: Using Constant Contact's Form Action URL
+
+1. After creating the form, click Get Code
+2. Look for the <form action="..."> line in the embed code
+3. Copy the URL in the action attribute
+4. Example: https://visitor2.constantcontact.com/api/signup
+
+Option B: Using Constant Contact API (Advanced)
+
+1. Go to Account → API Keys
+2. Generate an API key
+3. Use the Constant Contact API to submit contacts
+
+STEP 3: Update Your Website Code
+
+Open scripts.js and find line 262:
+
+const constantContactFormURL = 'YOUR_CONSTANT_CONTACT_FORM_URL_HERE';
+
+Replace with your actual Constant Contact form URL:
+
+const constantContactFormURL = 'https://visitor2.constantcontact.com/api/signup?YOUR_FORM_ID';
+
+Then UNCOMMENT lines 266-281 (remove the /* and */):
+
+const formData = new FormData();
+formData.append('email', email);
+formData.append('first_name', name);
+
+fetch(constantContactFormURL, {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+}).then(() => {
+    handleSuccessfulSubmission();
+}).catch((error) => {
+    console.error('Error:', error);
+    alert('There was an error. Please try again.');
+});
+
+And COMMENT OUT line 284:
+
+// handleSuccessfulSubmission(); // Remove this line or comment it out
+
+STEP 4: Create Your Free Prompt Delivery
+
+You need to create the 50 FREE prompts to deliver to new subscribers:
+
+Option 1: Automated Email via Constant Contact
+
+1. In Constant Contact, create an Automated Welcome Email
+2. Set it to trigger when someone joins your list
+3. Include a download link to your free prompts (PDF or Google Doc)
+
+Option 2: Use a Service Like Gumroad
+
+1. Create a FREE product on Gumroad with your 50 prompts
+2. Set up an automation to send the link when someone subscribes
+
+========================================
+
+📝 ALTERNATIVE: MANUAL TESTING
+
+For now, the popup will show a success message without actually submitting to Constant Contact. This lets you:
+
+• Test the popup appearance and functionality
+• See the user experience
+• Make sure everything looks good
+
+When you're ready to connect Constant Contact, follow the steps above!
+
+========================================
+
+🎯 POPUP BEHAVIOR
+
+• First Visit: Shows after 15 seconds OR when scrolling 70% OR exit intent
+• Cookie Duration: Won't show again for 7 days after viewing
+• After Submission: Never shows again to that user
+• Mobile Friendly: Fully responsive design
+
+========================================
+
+🛠️ CUSTOMIZATION OPTIONS
+
+You can customize the popup in these files:
+
+• index.html (lines 736-788): Change text, benefits list, offer details
+• styles.css (lines 504-679): Modify colors, spacing, animations
+• scripts.js (lines 149-315): Change trigger timing, cookie duration
+
+Change Trigger Timing
+
+In scripts.js, line 219:
+
+}, 15000); // Change to 10000 for 10 seconds, 30000 for 30 seconds
+
+Change Number of Free Prompts
+
+In index.html, line 745:
+
+<h2 id="popup-title" class="lead-popup-title">
+    Get 50 FREE AI Video Prompts!  <!-- Change to any number -->
+</h2>
+
+========================================
+
+🚀 NEXT STEPS
+
+1. ✅ Test the popup on your site
+2. ✅ Create your 50 free prompts PDF
+3. ✅ Set up Constant Contact form
+4. ✅ Connect the integration
+5. ✅ Set up automated email delivery
+6. ✅ Start collecting leads!
+
+========================================
+
+📧 CONSTANT CONTACT AUTOMATION SETUP
+
+Once you have contacts coming in, set up this automation:
+
+1. In Constant Contact, go to Campaigns → Automations
+2. Click Create → Welcome Email
+3. Set trigger: "When a contact is added to [Your List]"
+4. Create email with subject: "Your 50 FREE AI Video Prompts Are Ready!"
+5. In email body, include:
+   • Thank you message
+   • Download link to your free prompts
+   • Brief introduction to your paid products
+   • Call-to-action button to your main offer
+
+Sample Email Template:
+
+Subject: Your 50 FREE AI Video Prompts Are Ready! 🎉
+
+Hi [First Name],
+
+Thanks for joining AI Viral Video Prompts!
+
+Your 50 FREE professional video prompts are ready to download:
+
+[DOWNLOAD YOUR FREE PROMPTS BUTTON]
+
+These prompts are designed to help you create engaging, viral-worthy content for TikTok, Instagram, YouTube, and more.
+
+Inside, you'll find prompts for:
+✅ Cultural storytelling
+✅ Business and innovation
+✅ Creative and imaginative content
+✅ Educational videos
+✅ And much more!
+
+Ready for even more? Check out our complete collections with 46,000+ prompts:
+[VIEW ALL COLLECTIONS]
+
+Happy creating!
+The AI Viral Video Prompts Team
+
+P.S. Having trouble with the download? Just reply to this email and we'll help you out!
+
+========================================
+
+💡 TIPS FOR SUCCESS
+
+1. Create High-Quality Free Prompts
+   • Make sure your 50 prompts are genuinely valuable
+   • Cover multiple content categories
+   • Format as a clean PDF with your branding
+
+2. Test Everything Before Launch
+   • Submit test emails to yourself
+   • Check that automation emails arrive
+   • Verify download links work
+
+3. Track Your Results
+   • Monitor signup rates in Constant Contact
+   • Track which traffic sources convert best
+   • A/B test different popup timings if needed
+
+4. Follow Up with Value
+   • Send regular emails with tips and content ideas
+   • Promote your paid products (but don't spam)
+   • Build relationships with your subscribers
+
+========================================
+
+🔒 PRIVACY & COMPLIANCE
+
+Make sure you're compliant:
+
+✅ Privacy policy link (already on your site)
+✅ Unsubscribe option (Constant Contact includes this automatically)
+✅ GDPR compliance if serving EU visitors
+✅ CAN-SPAM compliance (include physical address in emails)
+
+Your popup already includes: "🔒 We respect your privacy. Unsubscribe anytime."
+
+========================================
+
+📊 RECOMMENDED METRICS TO TRACK
+
+• Popup View Rate: How many visitors see the popup
+• Conversion Rate: % of popup viewers who submit
+• Email Open Rate: % who open your welcome email
+• Click-Through Rate: % who click download link
+• Purchase Conversion: % who eventually buy paid products
+
+Use Constant Contact's analytics to track these metrics!
+
+========================================
+
+Need Help?
+
+If you need assistance:
+• Constant Contact Support: support.constantcontact.com
+• Your developer can help with API integration
+• Use manual testing mode until you're ready to go live
+
+========================================
+
+Your popup is live and ready to collect emails! 🎉
+
+Website: aiviralvideoprompts.com
+Branch: claude/fix-youtube-links-011CUs7tXgV2yjoveLArwMgX
+
+All code changes have been committed and pushed!
