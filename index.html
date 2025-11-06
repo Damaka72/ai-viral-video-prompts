@@ -4,15 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Viral Video Prompts - Professional AI Video Creation Made Simple</title>
-    <!-- Using Inter font for better typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <meta name="description" content="46,000+ professional AI video prompts used by top creators to generate millions of views. Get specialized collections for business, lifestyle, education, and more. Save 67% on the Ultimate Bundle.">
+    <meta name="keywords" content="AI video prompts, viral video creation, AI content creation, video marketing, social media content, AI prompts">
+    <meta name="author" content="AI Viral Video Prompts">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aiviralvideoprompts.com/">
+    <meta property="og:title" content="AI Viral Video Prompts - Create Viral Videos with Professional AI">
+    <meta property="og:description" content="46,000+ professional AI video prompts. Transform your content creation with AI-powered prompts that actually work.">
+    <meta property="og:image" content="https://aiviralvideoprompts.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://aiviralvideoprompts.com/">
+    <meta property="twitter:title" content="AI Viral Video Prompts - Create Viral Videos with Professional AI">
+    <meta property="twitter:description" content="46,000+ professional AI video prompts. Transform your content creation with AI-powered prompts that actually work.">
+    <meta property="twitter:image" content="https://aiviralvideoprompts.com/og-image.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://aiviralvideoprompts.com/">
+
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://aiviralvideoprompts.gumroad.com">
+
+    <!-- Optimized Font Loading -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- Critical CSS for Above-the-Fold Content -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        /* Critical above-the-fold styles only */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
@@ -20,10 +45,21 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-        
+        .skip-to-content {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #4ecdc4;
+            color: #000;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+            font-weight: bold;
+        }
+        .skip-to-content:focus { top: 0; }
         .hero-section {
             min-height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), 
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)),
                         radial-gradient(circle at 30% 20%, rgba(255,107,107,0.15) 0%, transparent 50%),
                         radial-gradient(circle at 70% 80%, rgba(78,205,196,0.15) 0%, transparent 50%);
             display: flex;
@@ -33,12 +69,7 @@
             position: relative;
             padding: 2rem;
         }
-        
-        .hero-content {
-            max-width: 1000px;
-            animation: fadeInUp 1s ease-out;
-        }
-        
+        .hero-content { max-width: 1000px; }
         .attention-grabber {
             background: linear-gradient(45deg, #ff0844, #ffb199);
             padding: 1rem 2rem;
@@ -49,10 +80,8 @@
             letter-spacing: 2px;
             margin-bottom: 2rem;
             display: inline-block;
-            animation: pulse 2s infinite;
             border: 2px solid #ff0844;
         }
-        
         .mega-headline {
             font-size: clamp(2rem, 6vw, 4rem);
             font-weight: 900;
@@ -60,14 +89,12 @@
             margin-bottom: 2rem;
             color: #ffffff;
         }
-        
         .highlight-text {
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
         .subheadline {
             font-size: clamp(1.1rem, 3vw, 1.8rem);
             margin-bottom: 3rem;
@@ -75,7 +102,6 @@
             font-weight: 400;
             line-height: 1.4;
         }
-        
         .cta-button {
             display: inline-block;
             padding: 1.8rem 3.5rem;
@@ -92,407 +118,50 @@
             letter-spacing: 1px;
             position: relative;
             overflow: hidden;
-            border: none; /* Ensure no default button border */
+            border: none;
         }
-        
-        .cta-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .cta-button:hover:before {
-            left: 100%;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 45px rgba(255,8,68,0.6);
-        }
-        
         .cta-button.secondary {
             background: linear-gradient(45deg, #4ecdc4, #45b7d1);
             box-shadow: 0 15px 35px rgba(78,205,196,0.4);
         }
-        
-        .cta-button.secondary:hover {
-            box-shadow: 0 20px 45px rgba(78,205,196,0.6);
-        }
-        
-        .section {
-            padding: 4rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            text-align: center;
-            margin-bottom: 3rem;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        .video-preview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted min-width for better mobile layout */
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        
-        .video-card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 20px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            cursor: pointer; /* Indicate that the entire card is clickable */
-        }
-        
-        .video-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            border-color: #4ecdc4;
-        }
-        
-        .video-thumbnail {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-        
-        .play-button {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #333;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .video-card:hover .play-button {
-            transform: scale(1.1);
-            background: white;
-        }
-        
-        .proof-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: linear-gradient(45deg, #ff0844, #ffb199);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            animation: bounce 2s infinite;
-            z-index: 10;
-        }
-        
-        /* New Responsive Video Container for Modals */
-        .video-responsive-container {
-            position: relative;
-            width: 100%;
-            /* 16:9 Aspect Ratio */
-            padding-top: 56.25%; 
-            margin-bottom: 1.5rem;
-            border-radius: 15px;
-            overflow: hidden;
-            background: #000;
-        }
-        
-        .video-responsive-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.95);
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-            padding: 1rem; /* Added padding for smaller screens */
-        }
-        
-        .modal-content {
-            background-color: #222;
-            margin: 5% auto;
-            padding: 2rem;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 800px;
-            position: relative;
-            animation: slideIn 0.3s ease-out;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        
-        .close {
-            color: #ff6b6b;
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .close:hover {
-            color: white;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        
-        .product-card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            text-align: center;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            border-color: #4ecdc4;
-        }
-        
-        .product-card.live {
-            border-color: #4ecdc4;
-            background: rgba(78,205,196,0.05);
-        }
-        
-        .product-card.coming-soon {
-            border-color: #ffd700;
-            background: rgba(255,215,0,0.05);
-        }
-        
-        .product-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-        
-        .product-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #ffffff;
-        }
-        
-        .product-description {
-            color: #cccccc;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-            height: 60px; /* fixed height for alignment */
-            overflow: hidden;
-        }
-        
-        .product-stats {
-            background: rgba(0,0,0,0.3);
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-        
-        .product-price {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #ff6b6b;
-            margin: 1rem 0;
-        }
-        
-        .product-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 1rem;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .product-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(78,205,196,0.4);
-        }
-        
-        .product-button.live {
-            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-        }
-        
-        .product-button.coming-soon {
-            background: linear-gradient(45deg, #ffd700, #ffb347);
-            color: #333;
-            cursor: default;
-        }
-        
-        .status-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            animation: bounce 2s infinite;
-        }
-        
-        .status-badge.live {
-            background: #4ecdc4;
-            color: white;
-        }
-        
-        .status-badge.coming-soon {
-            background: #ffd700;
-            color: #333;
-        }
-        
-        .featured-section {
-            background: linear-gradient(135deg, rgba(255,8,68,0.1) 0%, rgba(78,205,196,0.1) 100%);
-            border-radius: 25px;
-            padding: 3rem;
-            margin: 3rem 0;
-            border: 2px solid rgba(255,8,68,0.3);
-            text-align: center;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-        
-        .stat-card {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-        }
-        
-        .stat-number {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 900;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .stat-label {
-            color: #cccccc;
-            font-weight: 600;
-            margin-top: 0.5rem;
-        }
-        
-        .footer {
-            background: #0a0a0a;
-            padding: 3rem 2rem;
-            text-align: center;
-            border-top: 1px solid #333;
-            margin-top: 5rem;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero-section { padding: 1rem; }
-            .section { padding: 2rem 1rem; }
-            .products-grid { grid-template-columns: 1fr; }
-            .video-preview-grid { grid-template-columns: 1fr; }
-            .cta-button { 
-                padding: 1.2rem 2rem; 
-                font-size: 1.1rem;
-                margin: 1rem 0.5rem;
-            }
-            .modal-content {
-                margin: 20% auto;
-            }
-            .product-description {
-                height: auto; /* Remove fixed height on mobile */
-            }
-        }
     </style>
+
+    <!-- Load full stylesheet asynchronously -->
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "AI Mega Video Prompts - Ultimate Bundle",
+        "description": "46,714 professional AI video prompts covering every content niche for viral video creation",
+        "brand": {
+            "@type": "Organization",
+            "name": "AI Viral Video Prompts"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "97.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://aiviralvideoprompts.gumroad.com/l/hnjjmr"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "100"
+        }
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip to Content Link for Accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" role="banner">
         <div class="hero-content">
             <div class="attention-grabber">🎬 PROFESSIONAL AI VIDEO PROMPTS</div>
             
@@ -540,6 +209,7 @@
 
     <!-- Video Examples Section (Simplified structure for better conversion flow) -->
     <section class="section" id="examples">
+        <a id="main-content"></a>
         <h2 class="section-title">🎥 Examples: Videos Created With Our Prompts</h2>
         
         <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #e0e0e0;">
@@ -548,75 +218,99 @@
         
         <div class="video-preview-grid">
             <!-- Video Card 1 (Inuit Clay - Updated video ID: D4liZ58W9Jk) -->
-            <div class="video-card" data-video-id="D4liZ58W9Jk" onclick="openModal('modal1')">
-                <div class="proof-badge">CULTURAL</div>
-                <div class="video-thumbnail">
+            <div class="video-card"
+                 data-video-id="D4liZ58W9Jk"
+                 onclick="openModal('modal1')"
+                 role="button"
+                 aria-label="Play video: Sculptor Intuitive Clay Creation - Cultural storytelling and traditional craftsmanship"
+                 tabindex="0">
+                <div class="proof-badge" aria-label="Category">CULTURAL</div>
+                <div class="video-thumbnail" aria-hidden="true">
                     <span>🏺</span>
-                    <div class="play-button">▶</div>
+                    <div class="play-button" aria-hidden="true">▶</div>
                 </div>
                 <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Sculptor Intuitive Clay Creation</h3>
                 <p style="color: #bbb; margin-bottom: 1rem;">Cultural storytelling and traditional craftsmanship</p>
-                <!-- Removed redundant button here -->
             </div>
 
             <!-- Video Card 2 (Cultural Festival - Updated video ID: BFtC3BO6MCs) -->
-            <div class="video-card" data-video-id="BFtC3BO6MCs" onclick="openModal('modal2')">
-                <div class="proof-badge">FAMILY</div>
-                <div class="video-thumbnail">
+            <div class="video-card"
+                 data-video-id="BFtC3BO6MCs"
+                 onclick="openModal('modal2')"
+                 role="button"
+                 aria-label="Play video: Cultural Festival Through Child's Eyes - Emotional storytelling and human experience"
+                 tabindex="0">
+                <div class="proof-badge" aria-label="Category">FAMILY</div>
+                <div class="video-thumbnail" aria-hidden="true">
                     <span>🎭</span>
-                    <div class="play-button">▶</div>
+                    <div class="play-button" aria-hidden="true">▶</div>
                 </div>
                 <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Cultural Festival Through Child's Eyes</h3>
                 <p style="color: #bbb; margin-bottom: 1rem;">Emotional storytelling and human experience</p>
-                <!-- Removed redundant button here -->
             </div>
-            
+
             <!-- Video Card 3 (Magical Objects - Updated video ID: 2KDo4OnZe-E) -->
-            <div class="video-card" data-video-id="2KDo4OnZe-E" onclick="openModal('modal3')">
-                <div class="proof-badge">CREATIVE</div>
-                <div class="video-thumbnail">
+            <div class="video-card"
+                 data-video-id="2KDo4OnZe-E"
+                 onclick="openModal('modal3')"
+                 role="button"
+                 aria-label="Play video: Modern Family Tale - Magical Objects - Imaginative storytelling and fantasy elements"
+                 tabindex="0">
+                <div class="proof-badge" aria-label="Category">CREATIVE</div>
+                <div class="video-thumbnail" aria-hidden="true">
                     <span>✨</span>
-                    <div class="play-button">▶</div>
+                    <div class="play-button" aria-hidden="true">▶</div>
                 </div>
                 <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Modern Family Tale - Magical Objects</h3>
                 <p style="color: #bbb; margin-bottom: 1rem;">Imaginative storytelling and fantasy elements</p>
-                <!-- Removed redundant button here -->
             </div>
-            
+
             <!-- Video Card 4 (The Overnight Success Myth - UPDATED VIDEO ID) -->
-            <div class="video-card" data-video-id="UxzGX1c7Th4" onclick="openModal('modal4')">
-                <div class="proof-badge">BUSINESS</div>
-                <div class="video-thumbnail">
-                    <span>💡</span> <!-- Changed icon to fit new theme -->
-                    <div class="play-button">▶</div>
+            <div class="video-card"
+                 data-video-id="UxzGX1c7Th4"
+                 onclick="openModal('modal4')"
+                 role="button"
+                 aria-label="Play video: The Overnight Success Myth - Entrepreneurship, business strategy, and innovative marketing"
+                 tabindex="0">
+                <div class="proof-badge" aria-label="Category">BUSINESS</div>
+                <div class="video-thumbnail" aria-hidden="true">
+                    <span>💡</span>
+                    <div class="play-button" aria-hidden="true">▶</div>
                 </div>
-                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">The Overnight Success Myth</h3> <!-- New Title -->
-                <p style="color: #bbb; margin-bottom: 1rem;">Entrepreneurship, business strategy, and innovative marketing</p> <!-- New description -->
-                <!-- Removed redundant button here -->
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">The Overnight Success Myth</h3>
+                <p style="color: #bbb; margin-bottom: 1rem;">Entrepreneurship, business strategy, and innovative marketing</p>
             </div>
-            
+
             <!-- Video Card 5 (When Perfect Isn't Enough: A Mental Health Wake-Up Call - UPDATED) -->
-            <div class="video-card" data-video-id="JGkOUmt54FM" onclick="openModal('modal5')">
-                <div class="proof-badge">SOCIAL MEDIA</div> <!-- Updated badge -->
-                <div class="video-thumbnail">
-                    <span>🧠</span> <!-- Updated icon for mental health -->
-                    <div class="play-button">▶</div>
+            <div class="video-card"
+                 data-video-id="JGkOUmt54FM"
+                 onclick="openModal('modal5')"
+                 role="button"
+                 aria-label="Play video: When Perfect Isn't Enough: A Mental Health Wake-Up Call - Mental health awareness and perfectionism"
+                 tabindex="0">
+                <div class="proof-badge" aria-label="Category">SOCIAL MEDIA</div>
+                <div class="video-thumbnail" aria-hidden="true">
+                    <span>🧠</span>
+                    <div class="play-button" aria-hidden="true">▶</div>
                 </div>
-                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">When Perfect Isn't Enough: A Mental Health Wake-Up Call</h3> <!-- Updated Title -->
-                <p style="color: #bbb; margin-bottom: 1rem;">Mental health awareness, perfectionism, and quiet realism in viral content.</p> <!-- Updated description -->
-                <!-- Removed redundant button here -->
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">When Perfect Isn't Enough: A Mental Health Wake-Up Call</h3>
+                <p style="color: #bbb; margin-bottom: 1rem;">Mental health awareness, perfectionism, and quiet realism in viral content.</p>
             </div>
-            
+
             <!-- Video Card 6 (Making Physics Beautiful: Science Experiments Go Viral) -->
-            <div class="video-card" data-video-id="s1f9-sjkz-8" onclick="openModal('modal6')">
-                <div class="proof-badge">EDUCATION</div> <!-- Updated badge -->
-                <div class="video-thumbnail">
-                    <span>🔬</span> <!-- Updated icon -->
-                    <div class="play-button">▶</div>
+            <div class="video-card"
+                 data-video-id="s1f9-sjkz-8"
+                 onclick="openModal('modal6')"
+                 role="button"
+                 aria-label="Play video: Making Physics Beautiful - Science Experiments Go Viral - Educational physics and real-world science"
+                 tabindex="0">
+                <div class="proof-badge" aria-label="Category">EDUCATION</div>
+                <div class="video-thumbnail" aria-hidden="true">
+                    <span>🔬</span>
+                    <div class="play-button" aria-hidden="true">▶</div>
                 </div>
-                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Making Physics Beautiful: Science Experiments Go Viral</h3> <!-- New Title -->
-                <p style="color: #bbb; margin-bottom: 1rem;">Educational physics, real-world science, and viral content</p> <!-- Updated description -->
-                <!-- Removed redundant button here -->
+                <h3 style="color: #4ecdc4; margin-bottom: 1rem;">Making Physics Beautiful: Science Experiments Go Viral</h3>
+                <p style="color: #bbb; margin-bottom: 1rem;">Educational physics, real-world science, and viral content</p>
             </div>
         </div>
 
@@ -863,10 +557,10 @@
         </div>
     </section>
 
-    <!-- Modals for Videos (Content unchanged, structure for reference) -->
-    <div id="modal1" class="modal">
+    <!-- Modals for Videos -->
+    <div id="modal1" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal1-title" aria-hidden="true">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('modal1')">&times;</span>
+            <button class="close" onclick="closeModal('modal1')" aria-label="Close modal">&times;</button>
             <h2 id="modal1-title" style="color: #4ecdc4; margin-bottom: 1rem;">Sculptor Intuitive Clay Creation</h2>
             
             <div id="modal1-video" class="video-responsive-container">
@@ -890,9 +584,9 @@
         </div>
     </div>
 
-    <div id="modal2" class="modal">
+    <div id="modal2" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal2-title" aria-hidden="true">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('modal2')">&times;</span>
+            <button class="close" onclick="closeModal('modal2')" aria-label="Close modal">&times;</button>
             <h2 id="modal2-title" style="color: #4ecdc4; margin-bottom: 1rem;">Cultural Festival Through Child's Eyes</h2>
 
             <div id="modal2-video" class="video-responsive-container">
@@ -916,9 +610,9 @@
         </div>
     </div>
 
-    <div id="modal3" class="modal">
+    <div id="modal3" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal3-title" aria-hidden="true">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('modal3')">&times;</span>
+            <button class="close" onclick="closeModal('modal3')" aria-label="Close modal">&times;</button>
             <h2 id="modal3-title" style="color: #4ecdc4; margin-bottom: 1rem;">Modern Family Tale - Magical Objects</h2>
 
             <div id="modal3-video" class="video-responsive-container">
@@ -942,9 +636,9 @@
         </div>
     </div>
 
-    <div id="modal4" class="modal">
+    <div id="modal4" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal4-title" aria-hidden="true">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('modal4')">&times;</span>
+            <button class="close" onclick="closeModal('modal4')" aria-label="Close modal">&times;</button>
             <h2 id="modal4-title" style="color: #4ecdc4; margin-bottom: 1rem;">The Overnight Success Myth</h2>
 
             <div id="modal4-video" class="video-responsive-container">
@@ -968,9 +662,9 @@
         </div>
     </div>
 
-    <div id="modal5" class="modal">
+    <div id="modal5" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal5-title" aria-hidden="true">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('modal5')">&times;</span>
+            <button class="close" onclick="closeModal('modal5')" aria-label="Close modal">&times;</button>
             <h2 id="modal5-title" style="color: #4ecdc4; margin-bottom: 1rem;">When Perfect Isn't Enough: A Mental Health Wake-Up Call</h2>
 
             <div id="modal5-video" class="video-responsive-container">
@@ -994,9 +688,9 @@
         </div>
     </div>
 
-    <div id="modal6" class="modal">
+    <div id="modal6" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal6-title" aria-hidden="true">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('modal6')">&times;</span>
+            <button class="close" onclick="closeModal('modal6')" aria-label="Close modal">&times;</button>
             <h2 id="modal6-title" style="color: #4ecdc4; margin-bottom: 1rem;">Making Physics Beautiful: Science Experiments Go Viral</h2>
 
             <div id="modal6-video" class="video-responsive-container">
@@ -1021,16 +715,15 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <h3 style="color: #4ecdc4; margin-bottom: 1rem;">AI Viral Video Prompts</h3>
         <p style="color: #666; margin-bottom: 1rem;">Professional AI Video Creation Made Simple</p>
         
-        <!-- NEW FOOTER LINKS -->
-        <div style="margin-bottom: 1rem; font-size: 1rem;">
+        <!-- Footer Navigation -->
+        <nav aria-label="Legal" style="margin-bottom: 1rem; font-size: 1rem;">
             <a href="terms_of_service.html" style="color: #4ecdc4; text-decoration: none; margin-right: 20px; font-weight: 600;">Terms of Service</a>
             <a href="privacy_policy.html" style="color: #4ecdc4; text-decoration: none; font-weight: 600;">Privacy Policy</a>
-        </div>
-        <!-- END NEW FOOTER LINKS -->
+        </nav>
 
         <p style="color: #888; font-size: 0.9rem;">
             ✅ Commercial Use Rights • 🔄 Lifetime Updates • 💎 Professional Quality
@@ -1040,104 +733,7 @@
         </div>
     </footer>
 
-    <script>
-        // Modal functions
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (!modal) return;
-
-            // 1. Find the parent video card to get the video ID
-            // We use document.querySelector for reliability across all click targets that open this modal
-            
-            // Find the video card that has the matching modal ID set in its onclick attribute
-            let cardElement = document.querySelector(`.video-card[onclick*="${modalId}"]`);
-
-            // If the card wasn't found (e.g., if the button was clicked), try finding the card via the button's parent
-            if (!cardElement) {
-                const button = document.querySelector(`button[onclick*="${modalId}"]`);
-                if (button) {
-                    cardElement = button.closest('.video-card');
-                }
-            }
-
-            const videoId = cardElement ? cardElement.getAttribute('data-video-id') : null;
-
-            if (videoId) {
-                // 2. Inject the YouTube iframe with autoplay into the modal's video container
-                const videoContainer = modal.querySelector(`#${modalId}-video`);
-                if (videoContainer) {
-                    // ?autoplay=1 is added to start playback immediately upon opening the modal
-                    videoContainer.innerHTML = `
-                        <iframe
-                            width="100%"
-                            height="100%"
-                            src="https://www.youtube.com/embed/${videoId}?autoplay=1"
-                            title="Video Example"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
-                    `;
-                }
-            }
-
-            // 3. Display the modal
-            modal.style.display = 'block';
-        }
-        
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (!modal) return;
-
-            // Stop video playback by clearing the container content
-            const videoContainer = modal.querySelector(`#${modalId}-video`);
-            if (videoContainer) {
-                videoContainer.innerHTML = ''; // This unloads the iframe and stops the video
-            }
-
-            modal.style.display = 'none';
-        }
-        
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    closeModal(modal.id); // Use the improved closeModal function
-                }
-            });
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Add loading animation to buttons
-        document.querySelectorAll('.product-button.live').forEach(button => {
-            button.addEventListener('click', function() {
-                // Only animate if it's an external link (not a modal trigger)
-                if (this.tagName === 'A') {
-                    this.innerHTML = '⏳ Opening Store...';
-                    setTimeout(() => {
-                        this.innerHTML = this.getAttribute('data-original') || this.innerHTML;
-                    }, 2000);
-                }
-            });
-        });
-
-        // Store original button text
-        document.querySelectorAll('.product-button.live').forEach(button => {
-            button.setAttribute('data-original', button.innerHTML);
-        });
-    </script>
+    <!-- External JavaScript with defer for better performance -->
+    <script src="scripts.js" defer></script>
 </body>
 </html>
