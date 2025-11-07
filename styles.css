@@ -501,6 +501,183 @@ body {
     }
 }
 
+/* Lead Magnet Popup Styles */
+.lead-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.lead-popup.active {
+    display: block;
+}
+
+.lead-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+}
+
+.lead-popup-content {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    max-width: 550px;
+    margin: 5% auto;
+    padding: 3rem 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(78, 205, 196, 0.3);
+    animation: slideInDown 0.4s ease-out;
+    text-align: center;
+    border: 2px solid rgba(78, 205, 196, 0.2);
+}
+
+.lead-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+}
+
+.lead-popup-close:hover {
+    color: #ff6b6b;
+    transform: rotate(90deg);
+}
+
+.lead-popup-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+.lead-popup-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.lead-popup-subtitle {
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.lead-popup-benefits {
+    list-style: none;
+    text-align: left;
+    margin: 2rem auto;
+    max-width: 400px;
+}
+
+.lead-popup-benefits li {
+    font-size: 1rem;
+    color: #cccccc;
+    margin-bottom: 0.8rem;
+    padding-left: 0;
+}
+
+.lead-popup-form {
+    margin: 2rem 0;
+}
+
+.lead-popup-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.lead-popup-input:focus {
+    outline: none;
+    border-color: #4ecdc4;
+    background: rgba(78, 205, 196, 0.1);
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.2);
+}
+
+.lead-popup-input::placeholder {
+    color: #888;
+}
+
+.lead-popup-button {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(45deg, #ff0844, #ff6b6b);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(255, 8, 68, 0.4);
+}
+
+.lead-popup-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(255, 8, 68, 0.6);
+}
+
+.lead-popup-button:active {
+    transform: translateY(0);
+}
+
+.lead-popup-privacy {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 1rem;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-section { padding: 1rem; }
@@ -517,5 +694,16 @@ body {
     }
     .product-description {
         height: auto;
+    }
+    .lead-popup-content {
+        margin: 10% 1rem;
+        padding: 2rem 1.5rem;
+    }
+    .lead-popup-title {
+        font-size: 1.8rem;
+    }
+    .lead-popup-button {
+        font-size: 1rem;
+        padding: 1.2rem 1.5rem;
     }
 }

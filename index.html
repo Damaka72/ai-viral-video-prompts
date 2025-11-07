@@ -733,6 +733,68 @@
         </div>
     </footer>
 
+    <!-- TEST BUTTON (Remove after testing) -->
+    <button
+        onclick="openLeadPopup()"
+        style="position: fixed; bottom: 20px; right: 20px; background: linear-gradient(45deg, #ff0844, #ff6b6b); color: white; border: none; padding: 20px 30px; border-radius: 50px; font-size: 18px; font-weight: 900; cursor: pointer; z-index: 99999; box-shadow: 0 8px 25px rgba(255, 8, 68, 0.6); animation: pulse 2s infinite; text-transform: uppercase; letter-spacing: 1px;"
+        aria-label="Test popup">
+        🎁 CLICK ME
+    </button>
+
+    <!-- Lead Magnet Popup -->
+    <div id="leadMagnetPopup" class="lead-popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-hidden="true">
+        <div class="lead-popup-overlay" onclick="closeLeadPopup()"></div>
+        <div class="lead-popup-content">
+            <button class="lead-popup-close" onclick="closeLeadPopup()" aria-label="Close popup">&times;</button>
+
+            <div class="lead-popup-icon">🎁</div>
+
+            <h2 id="popup-title" class="lead-popup-title">
+                Get 50 FREE AI Video Prompts!
+            </h2>
+
+            <p class="lead-popup-subtitle">
+                Start creating viral videos today with our hand-picked collection of proven prompts.
+            </p>
+
+            <ul class="lead-popup-benefits">
+                <li>✅ 50 Professional Video Prompts</li>
+                <li>✅ Proven to Generate Engagement</li>
+                <li>✅ Multiple Content Categories</li>
+                <li>✅ Instant Digital Download</li>
+            </ul>
+
+            <!-- Constant Contact Form -->
+            <form id="leadMagnetForm" class="lead-popup-form" onsubmit="return handleLeadSubmit(event)">
+                <input
+                    type="text"
+                    id="leadName"
+                    name="name"
+                    placeholder="Your Name"
+                    required
+                    class="lead-popup-input"
+                    aria-label="Your Name"
+                >
+                <input
+                    type="email"
+                    id="leadEmail"
+                    name="email"
+                    placeholder="Your Email Address"
+                    required
+                    class="lead-popup-input"
+                    aria-label="Your Email Address"
+                >
+                <button type="submit" class="lead-popup-button">
+                    🎁 GET MY FREE PROMPTS NOW
+                </button>
+            </form>
+
+            <p class="lead-popup-privacy">
+                🔒 We respect your privacy. Unsubscribe anytime.
+            </p>
+        </div>
+    </div>
+
     <!-- External JavaScript with defer for better performance -->
     <script src="scripts.js" defer></script>
 </body>

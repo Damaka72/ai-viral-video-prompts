@@ -141,4 +141,208 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Initialize Lead Magnet Popup
+    initLeadMagnetPopup();
 });
+
+// ============================================
+// LEAD MAGNET POPUP FUNCTIONS
+// ============================================
+
+// Cookie helper functions
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+}
+
+function getCookie(name) {
+    const nameEQ = name + '=';
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+// Open lead popup
+function openLeadPopup() {
+    const popup = document.getElementById('leadMagnetPopup');
+    if (popup) {
+        popup.classList.add('active');
+        popup.style.display = 'block';
+        popup.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        // Set cookie to prevent showing again for 7 days
+        setCookie('leadPopupShown', 'true', 7);
+    }
+}
+
+// Close lead popup
+function closeLeadPopup() {
+    const popup = document.getElementById('leadMagnetPopup');
+    if (popup) {
+        popup.classList.remove('active');
+        popup.style.display = 'none';
+        popup.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+}
+
+// Initialize popup triggers
+function initLeadMagnetPopup() {
+    // Check if popup was already shown
+    if (getCookie('leadPopupShown') || getCookie('leadPopupSubmitted')) {
+        console.log('Lead popup already shown - skipping');
+        return; // Don't show popup if already shown or submitted
+    }
+
+    console.log('Lead popup initialized - will show in 15 seconds or on scroll/exit');
+    let popupTriggered = false;
+
+    // Trigger 1: Exit Intent (when mouse moves toward top of browser)
+    document.addEventListener('mouseleave', function(e) {
+        if (!popupTriggered && e.clientY < 10) {
+            console.log('Exit intent detected - showing popup');
+            openLeadPopup();
+            popupTriggered = true;
+        }
+    });
+
+    // Trigger 2: Time delay (5 seconds after page load for easier testing)
+    setTimeout(function() {
+        if (!popupTriggered && !getCookie('leadPopupShown')) {
+            console.log('Time trigger - showing popup after 5 seconds');
+            openLeadPopup();
+            popupTriggered = true;
+        }
+    }, 5000); // 5 seconds (change to 15000 for 15 seconds in production)
+
+    // Trigger 3: Scroll depth (50% down the page for easier testing on mobile)
+    let scrollTriggered = false;
+    window.addEventListener('scroll', function() {
+        if (!popupTriggered && !scrollTriggered) {
+            const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            if (scrollPercent > 50) {
+                console.log('Scroll depth 50% reached - showing popup');
+                openLeadPopup();
+                popupTriggered = true;
+                scrollTriggered = true;
+            }
+        }
+    });
+
+    // Close popup when clicking overlay
+    const overlay = document.querySelector('.lead-popup-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', closeLeadPopup);
+    }
+
+    // Close popup on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+            const popup = document.getElementById('leadMagnetPopup');
+            if (popup && popup.classList.contains('active')) {
+                closeLeadPopup();
+            }
+        }
+    });
+}
+
+// Handle form submission - INTEGRATE WITH CONSTANT CONTACT
+function handleLeadSubmit(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('leadName').value;
+    const email = document.getElementById('leadEmail').value;
+
+    // ============================================
+    // CONSTANT CONTACT INTEGRATION
+    // ============================================
+    // Replace this URL with your Constant Contact form action URL
+    const constantContactFormURL = 'YOUR_CONSTANT_CONTACT_FORM_URL_HERE';
+
+    // Option 1: Direct form submission to Constant Contact
+    // Uncomment and configure once you have your Constant Contact form URL:
+    /*
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('first_name', name);
+
+    fetch(constantContactFormURL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+    }).then(() => {
+        handleSuccessfulSubmission();
+    }).catch((error) => {
+        console.error('Error:', error);
+        alert('There was an error. Please try again.');
+    });
+    */
+
+    // Option 2: For now, show success message (replace with actual integration)
+    handleSuccessfulSubmission();
+
+    return false;
+}
+
+function handleSuccessfulSubmission() {
+    // Set cookie to never show popup again after submission
+    setCookie('leadPopupSubmitted', 'true', 365);
+
+    // Show success message
+    const popupContent = document.querySelector('.lead-popup-content');
+    if (popupContent) {
+        popupContent.innerHTML = `
+            <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 5rem; margin-bottom: 1rem;">🎉</div>
+                <h2 style="color: #4ecdc4; font-size: 2rem; margin-bottom: 1rem;">Success!</h2>
+                <p style="font-size: 1.2rem; color: #e0e0e0; margin-bottom: 2rem;">
+                    Check your email for your <strong>50 FREE AI Video Prompts!</strong>
+                </p>
+                <p style="color: #999; font-size: 0.9rem;">
+                    (Don't forget to check your spam folder)
+                </p>
+                <button onclick="closeLeadPopup()" class="lead-popup-button" style="margin-top: 2rem;">
+                    CLOSE
+                </button>
+            </div>
+        `;
+    }
+
+    // Close popup after 5 seconds
+    setTimeout(closeLeadPopup, 5000);
+}
+
+// ============================================
+// TESTING FUNCTIONS (for manual testing)
+// ============================================
+
+// Clear popup cookies to test again
+window.testResetPopup = function() {
+    document.cookie = 'leadPopupShown=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'leadPopupSubmitted=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    console.log('✅ Popup cookies cleared! Reload the page to test again.');
+};
+
+// Manually trigger the popup (ignores cookies)
+window.testShowPopup = function() {
+    console.log('🎯 Manually triggering popup...');
+    openLeadPopup();
+};
+
+// Check popup status
+window.testPopupStatus = function() {
+    const shown = getCookie('leadPopupShown');
+    const submitted = getCookie('leadPopupSubmitted');
+    console.log('📊 Popup Status:');
+    console.log('- Already shown:', shown ? 'YES' : 'NO');
+    console.log('- Already submitted:', submitted ? 'YES' : 'NO');
+    console.log('\nTo reset and test again, run: testResetPopup()');
+    console.log('To show popup immediately, run: testShowPopup()');
+};
