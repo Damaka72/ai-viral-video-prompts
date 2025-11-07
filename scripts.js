@@ -257,12 +257,13 @@ function initLeadMagnetPopup() {
 function handleLeadSubmit(event) {
     event.preventDefault();
 
-    const name = document.getElementById('leadName').value;
     const email = document.getElementById('leadEmail').value;
+    const firstName = document.getElementById('leadFirstName').value;
+    const lastName = document.getElementById('leadLastName').value;
 
     // Validate inputs
-    if (!name || !email) {
-        alert('Please fill in both name and email fields.');
+    if (!email || !firstName || !lastName) {
+        alert('Please fill in all fields.');
         return false;
     }
 
@@ -276,9 +277,11 @@ function handleLeadSubmit(event) {
 
     const formData = new FormData();
     formData.append('email', email);
-    formData.append('first_name', name);
+    formData.append('first_name', firstName);
+    formData.append('last_name', lastName);
     formData.append('p', 'fc92c44f1838432aae4e81fdaacbb4f9'); // Account ID
     formData.append('m', 'fc92c44f1838432aae4e81fdaacbb4f9'); // Account ID
+    formData.append('form_id', '3b459d42-13d6-4348-949a-6397f1fe6a76'); // Form ID
     formData.append('source', 'EFD'); // Embedded Form Data
 
     // Submit to Constant Contact

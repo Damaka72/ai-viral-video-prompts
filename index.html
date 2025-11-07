@@ -759,15 +759,6 @@
             <!-- Constant Contact Form -->
             <form id="leadMagnetForm" class="lead-popup-form" onsubmit="return handleLeadSubmit(event)">
                 <input
-                    type="text"
-                    id="leadName"
-                    name="name"
-                    placeholder="Your Name"
-                    required
-                    class="lead-popup-input"
-                    aria-label="Your Name"
-                >
-                <input
                     type="email"
                     id="leadEmail"
                     name="email"
@@ -775,6 +766,24 @@
                     required
                     class="lead-popup-input"
                     aria-label="Your Email Address"
+                >
+                <input
+                    type="text"
+                    id="leadFirstName"
+                    name="first_name"
+                    placeholder="First Name"
+                    required
+                    class="lead-popup-input"
+                    aria-label="First Name"
+                >
+                <input
+                    type="text"
+                    id="leadLastName"
+                    name="last_name"
+                    placeholder="Last Name"
+                    required
+                    class="lead-popup-input"
+                    aria-label="Last Name"
                 >
                 <button type="submit" class="lead-popup-button">
                     🎁 GET MY FREE PROMPTS NOW
