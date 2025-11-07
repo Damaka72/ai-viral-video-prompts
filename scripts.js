@@ -197,14 +197,17 @@ function closeLeadPopup() {
 function initLeadMagnetPopup() {
     // Check if popup was already shown
     if (getCookie('leadPopupShown') || getCookie('leadPopupSubmitted')) {
+        console.log('Lead popup already shown - skipping');
         return; // Don't show popup if already shown or submitted
     }
 
+    console.log('Lead popup initialized - will show in 15 seconds or on scroll/exit');
     let popupTriggered = false;
 
     // Trigger 1: Exit Intent (when mouse moves toward top of browser)
     document.addEventListener('mouseleave', function(e) {
         if (!popupTriggered && e.clientY < 10) {
+            console.log('Exit intent detected - showing popup');
             openLeadPopup();
             popupTriggered = true;
         }
@@ -213,6 +216,7 @@ function initLeadMagnetPopup() {
     // Trigger 2: Time delay (15 seconds after page load)
     setTimeout(function() {
         if (!popupTriggered && !getCookie('leadPopupShown')) {
+            console.log('Time trigger - showing popup after 15 seconds');
             openLeadPopup();
             popupTriggered = true;
         }
@@ -224,6 +228,7 @@ function initLeadMagnetPopup() {
         if (!popupTriggered && !scrollTriggered) {
             const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
             if (scrollPercent > 70) {
+                console.log('Scroll depth 70% reached - showing popup');
                 openLeadPopup();
                 popupTriggered = true;
                 scrollTriggered = true;
@@ -313,3 +318,31 @@ function handleSuccessfulSubmission() {
     // Close popup after 5 seconds
     setTimeout(closeLeadPopup, 5000);
 }
+
+// ============================================
+// TESTING FUNCTIONS (for manual testing)
+// ============================================
+
+// Clear popup cookies to test again
+window.testResetPopup = function() {
+    document.cookie = 'leadPopupShown=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'leadPopupSubmitted=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    console.log('✅ Popup cookies cleared! Reload the page to test again.');
+};
+
+// Manually trigger the popup (ignores cookies)
+window.testShowPopup = function() {
+    console.log('🎯 Manually triggering popup...');
+    openLeadPopup();
+};
+
+// Check popup status
+window.testPopupStatus = function() {
+    const shown = getCookie('leadPopupShown');
+    const submitted = getCookie('leadPopupSubmitted');
+    console.log('📊 Popup Status:');
+    console.log('- Already shown:', shown ? 'YES' : 'NO');
+    console.log('- Already submitted:', submitted ? 'YES' : 'NO');
+    console.log('\nTo reset and test again, run: testResetPopup()');
+    console.log('To show popup immediately, run: testShowPopup()');
+};
