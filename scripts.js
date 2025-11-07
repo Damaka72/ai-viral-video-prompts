@@ -213,22 +213,22 @@ function initLeadMagnetPopup() {
         }
     });
 
-    // Trigger 2: Time delay (15 seconds after page load)
+    // Trigger 2: Time delay (5 seconds after page load for easier testing)
     setTimeout(function() {
         if (!popupTriggered && !getCookie('leadPopupShown')) {
-            console.log('Time trigger - showing popup after 15 seconds');
+            console.log('Time trigger - showing popup after 5 seconds');
             openLeadPopup();
             popupTriggered = true;
         }
-    }, 15000); // 15 seconds
+    }, 5000); // 5 seconds (change to 15000 for 15 seconds in production)
 
-    // Trigger 3: Scroll depth (70% down the page)
+    // Trigger 3: Scroll depth (50% down the page for easier testing on mobile)
     let scrollTriggered = false;
     window.addEventListener('scroll', function() {
         if (!popupTriggered && !scrollTriggered) {
             const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-            if (scrollPercent > 70) {
-                console.log('Scroll depth 70% reached - showing popup');
+            if (scrollPercent > 50) {
+                console.log('Scroll depth 50% reached - showing popup');
                 openLeadPopup();
                 popupTriggered = true;
                 scrollTriggered = true;
