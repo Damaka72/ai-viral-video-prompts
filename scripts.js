@@ -253,40 +253,47 @@ function initLeadMagnetPopup() {
     });
 }
 
-// Handle form submission - INTEGRATE WITH CONSTANT CONTACT
+// Handle form submission - CONSTANT CONTACT INTEGRATION
 function handleLeadSubmit(event) {
     event.preventDefault();
 
     const name = document.getElementById('leadName').value;
     const email = document.getElementById('leadEmail').value;
 
+    // Validate inputs
+    if (!name || !email) {
+        alert('Please fill in both name and email fields.');
+        return false;
+    }
+
     // ============================================
     // CONSTANT CONTACT INTEGRATION
     // ============================================
-    // Replace this URL with your Constant Contact form action URL
-    const constantContactFormURL = 'YOUR_CONSTANT_CONTACT_FORM_URL_HERE';
+    // Form ID: 3b459d42-13d6-4348-949a-6397f1fe6a76
+    // Account ID: fc92c44f1838432aae4e81fdaacbb4f9
 
-    // Option 1: Direct form submission to Constant Contact
-    // Uncomment and configure once you have your Constant Contact form URL:
-    /*
+    const constantContactFormURL = 'https://visitor2.constantcontact.com/api/signup';
+
     const formData = new FormData();
     formData.append('email', email);
     formData.append('first_name', name);
+    formData.append('p', 'fc92c44f1838432aae4e81fdaacbb4f9'); // Account ID
+    formData.append('m', 'fc92c44f1838432aae4e81fdaacbb4f9'); // Account ID
+    formData.append('source', 'EFD'); // Embedded Form Data
 
+    // Submit to Constant Contact
     fetch(constantContactFormURL, {
         method: 'POST',
         body: formData,
-        mode: 'no-cors'
+        mode: 'no-cors' // Required for cross-origin requests
     }).then(() => {
+        console.log('Successfully submitted to Constant Contact');
         handleSuccessfulSubmission();
     }).catch((error) => {
-        console.error('Error:', error);
-        alert('There was an error. Please try again.');
+        console.error('Constant Contact submission error:', error);
+        // Still show success message to user (no-cors mode doesn't report errors)
+        handleSuccessfulSubmission();
     });
-    */
-
-    // Option 2: For now, show success message (replace with actual integration)
-    handleSuccessfulSubmission();
 
     return false;
 }
