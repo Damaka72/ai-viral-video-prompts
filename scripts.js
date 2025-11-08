@@ -286,58 +286,106 @@ function handleLeadSubmit(event) {
     // Wait for Constant Contact form to be fully loaded
     setTimeout(function() {
         try {
-            // Find the Constant Contact form fields in the hidden form
+            // Find the Constant Contact form
             const hiddenFormContainer = document.querySelector('#ctct-hidden-form');
             console.log('Hidden form container found:', hiddenFormContainer ? 'YES' : 'NO');
 
-            if (hiddenFormContainer) {
-                // Look for email field
-                const ccEmailField = hiddenFormContainer.querySelector('input[type="email"], input[name*="email"]');
-                // Look for first name field
-                const ccFirstNameField = hiddenFormContainer.querySelector('input[name*="first"], input[placeholder*="First"]');
-                // Look for last name field
-                const ccLastNameField = hiddenFormContainer.querySelector('input[name*="last"], input[placeholder*="Last"]');
-
-                console.log('Email field found:', ccEmailField ? 'YES' : 'NO');
-                console.log('First name field found:', ccFirstNameField ? 'YES' : 'NO');
-                console.log('Last name field found:', ccLastNameField ? 'YES' : 'NO');
-
-                // Fill in the fields if found
-                if (ccEmailField) ccEmailField.value = email;
-                if (ccFirstNameField) ccFirstNameField.value = firstName;
-                if (ccLastNameField) ccLastNameField.value = lastName;
-
-                // Find and submit the Constant Contact form
-                const ccForm = hiddenFormContainer.querySelector('form');
-                console.log('CC Form found:', ccForm ? 'YES' : 'NO');
-
-                if (ccForm) {
-                    console.log('Submitting to Constant Contact...');
-                    ccForm.submit();
-
-                    // Wait a bit to ensure submission completes
-                    setTimeout(function() {
-                        handleSuccessfulSubmission();
-                    }, 2000); // Wait 2 seconds before showing success
-                } else {
-                    console.error('Constant Contact form not found - showing success anyway');
-                    alert('Note: Email may not have been submitted to Constant Contact. Please contact support.');
-                    submitButton.innerHTML = originalButtonText;
-                    submitButton.disabled = false;
-                }
-            } else {
-                console.error('Hidden form container not found');
+            if (!hiddenFormContainer) {
                 alert('Error: Constant Contact form not loaded. Please refresh and try again.');
                 submitButton.innerHTML = originalButtonText;
                 submitButton.disabled = false;
+                return;
             }
+
+            const ccForm = hiddenFormContainer.querySelector('form');
+            console.log('CC Form found:', ccForm ? 'YES' : 'NO');
+
+            if (!ccForm) {
+                alert('Note: Email may not have been submitted to Constant Contact. Please contact support.');
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+                return;
+            }
+
+            // Find all input fields and log them for debugging
+            const allInputs = ccForm.querySelectorAll('input');
+            console.log('Total input fields found:', allInputs.length);
+            allInputs.forEach(function(input, index) {
+                console.log('Input ' + index + ':', input.type, input.name, input.placeholder);
+            });
+
+            // Find fields by various selectors (case-insensitive)
+            let ccEmailField, ccFirstNameField, ccLastNameField;
+
+            allInputs.forEach(function(input) {
+                const name = (input.name || '').toLowerCase();
+                const placeholder = (input.placeholder || '').toLowerCase();
+                const type = (input.type || '').toLowerCase();
+
+                // Email field
+                if (type === 'email' || name.includes('email') || placeholder.includes('email')) {
+                    ccEmailField = input;
+                }
+                // First name field
+                if (name.includes('first') || placeholder.includes('first')) {
+                    ccFirstNameField = input;
+                }
+                // Last name field
+                if (name.includes('last') || placeholder.includes('last')) {
+                    ccLastNameField = input;
+                }
+            });
+
+            console.log('Email field found:', ccEmailField ? 'YES' : 'NO');
+            console.log('First name field found:', ccFirstNameField ? 'YES' : 'NO');
+            console.log('Last name field found:', ccLastNameField ? 'YES' : 'NO');
+
+            // Fill in the fields
+            if (ccEmailField) {
+                ccEmailField.value = email;
+                ccEmailField.dispatchEvent(new Event('input', { bubbles: true }));
+                ccEmailField.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            if (ccFirstNameField) {
+                ccFirstNameField.value = firstName;
+                ccFirstNameField.dispatchEvent(new Event('input', { bubbles: true }));
+                ccFirstNameField.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            if (ccLastNameField) {
+                ccLastNameField.value = lastName;
+                ccLastNameField.dispatchEvent(new Event('input', { bubbles: true }));
+                ccLastNameField.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+
+            // Find and click the submit button
+            const submitBtn = ccForm.querySelector('button[type="submit"], input[type="submit"], button');
+            console.log('Submit button found:', submitBtn ? 'YES' : 'NO');
+
+            if (submitBtn) {
+                console.log('Clicking Constant Contact submit button...');
+                submitBtn.click();
+
+                // Show success after brief delay
+                setTimeout(function() {
+                    handleSuccessfulSubmission();
+                }, 2000);
+            } else {
+                // Try form.submit() as fallback
+                console.log('No submit button, trying form.submit()...');
+                ccForm.submit();
+
+                setTimeout(function() {
+                    handleSuccessfulSubmission();
+                }, 2000);
+            }
+
         } catch (error) {
             console.error('Error submitting to Constant Contact:', error);
-            alert('An error occurred. Please try again or contact support.');
+            alert('An error occurred: ' + error.message);
             submitButton.innerHTML = originalButtonText;
             submitButton.disabled = false;
         }
-    }, 2000); // Wait 2 seconds for CC widget to fully load
+    }, 3000); // Wait 3 seconds for CC widget to fully load
 
     return false;
 }
