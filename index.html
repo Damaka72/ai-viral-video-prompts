@@ -746,6 +746,14 @@
         🎁 TEST POPUP
     </button>
 
+    <!-- DEBUG BUTTON - Check if CC form loaded -->
+    <button
+        onclick="const hiddenForm = document.querySelector('#ctct-hidden-form'); const form = hiddenForm ? hiddenForm.querySelector('form') : null; alert('Hidden container: ' + (hiddenForm ? 'FOUND' : 'NOT FOUND') + '\nCC Form inside: ' + (form ? 'FOUND' : 'NOT FOUND') + '\nForm HTML length: ' + (hiddenForm ? hiddenForm.innerHTML.length : 0));"
+        style="position: fixed; bottom: 90px; right: 20px; background: linear-gradient(45deg, #4ecdc4, #45b7d1); color: white; border: none; padding: 15px 20px; border-radius: 50px; font-size: 14px; font-weight: 900; cursor: pointer; z-index: 99999; box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4); text-transform: uppercase;"
+        aria-label="Debug">
+        🔍 DEBUG CC
+    </button>
+
     <!-- Lead Magnet Popup -->
     <div id="leadMagnetPopup" class="lead-popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-hidden="true">
         <div class="lead-popup-overlay" onclick="closeLeadPopup()"></div>
