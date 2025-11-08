@@ -733,6 +733,11 @@
         </div>
     </footer>
 
+    <!-- Hidden Constant Contact Form (loaded but not displayed) -->
+    <div id="ctct-hidden-form" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+        <div class="ctct-inline-form" data-form-id="3b459d42-13d6-4348-949a-6397f1fe6a76"></div>
+    </div>
+
     <!-- TEST BUTTON - For testing the popup and Constant Contact -->
     <button
         onclick="document.cookie='leadPopupShown=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; document.cookie='leadPopupSubmitted=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; openLeadPopup();"
@@ -806,5 +811,9 @@
 
     <!-- External JavaScript with defer for better performance -->
     <script src="scripts.js" defer></script>
+
+    <!-- Constant Contact Active Forms -->
+    <script> var _ctct_m = "fc92c44f1838432aae4e81fdaacbb4f9"; </script>
+    <script id="signupScript" src="//static.ctctcdn.com/js/signup-form-widget/current/signup-form-widget.min.js" async defer></script>
 </body>
 </html>

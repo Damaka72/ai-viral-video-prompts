@@ -270,33 +270,46 @@ function handleLeadSubmit(event) {
     // ============================================
     // CONSTANT CONTACT INTEGRATION
     // ============================================
-    // Form ID: 3b459d42-13d6-4348-949a-6397f1fe6a76
-    // Account ID: fc92c44f1838432aae4e81fdaacbb4f9
+    // Fill in the hidden Constant Contact form programmatically
 
-    const constantContactFormURL = 'https://visitor2.constantcontact.com/api/signup';
+    // Wait for Constant Contact form to be fully loaded
+    setTimeout(function() {
+        try {
+            // Find the Constant Contact form fields in the hidden form
+            const hiddenFormContainer = document.querySelector('#ctct-hidden-form');
 
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('first_name', firstName);
-    formData.append('last_name', lastName);
-    formData.append('p', 'fc92c44f1838432aae4e81fdaacbb4f9'); // Account ID
-    formData.append('m', 'fc92c44f1838432aae4e81fdaacbb4f9'); // Account ID
-    formData.append('form_id', '3b459d42-13d6-4348-949a-6397f1fe6a76'); // Form ID
-    formData.append('source', 'EFD'); // Embedded Form Data
+            if (hiddenFormContainer) {
+                // Look for email field
+                const ccEmailField = hiddenFormContainer.querySelector('input[type="email"], input[name*="email"]');
+                // Look for first name field
+                const ccFirstNameField = hiddenFormContainer.querySelector('input[name*="first"], input[placeholder*="First"]');
+                // Look for last name field
+                const ccLastNameField = hiddenFormContainer.querySelector('input[name*="last"], input[placeholder*="Last"]');
 
-    // Submit to Constant Contact
-    fetch(constantContactFormURL, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors' // Required for cross-origin requests
-    }).then(() => {
-        console.log('Successfully submitted to Constant Contact');
-        handleSuccessfulSubmission();
-    }).catch((error) => {
-        console.error('Constant Contact submission error:', error);
-        // Still show success message to user (no-cors mode doesn't report errors)
-        handleSuccessfulSubmission();
-    });
+                // Fill in the fields if found
+                if (ccEmailField) ccEmailField.value = email;
+                if (ccFirstNameField) ccFirstNameField.value = firstName;
+                if (ccLastNameField) ccLastNameField.value = lastName;
+
+                // Find and submit the Constant Contact form
+                const ccForm = hiddenFormContainer.querySelector('form');
+                if (ccForm) {
+                    console.log('Submitting to Constant Contact...');
+                    ccForm.submit();
+                    handleSuccessfulSubmission();
+                } else {
+                    console.error('Constant Contact form not found');
+                    handleSuccessfulSubmission(); // Still show success to user
+                }
+            } else {
+                console.error('Hidden form container not found');
+                handleSuccessfulSubmission(); // Still show success to user
+            }
+        } catch (error) {
+            console.error('Error submitting to Constant Contact:', error);
+            handleSuccessfulSubmission(); // Still show success to user
+        }
+    }, 1000); // Wait 1 second for CC widget to fully load
 
     return false;
 }
