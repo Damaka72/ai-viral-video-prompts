@@ -157,6 +157,13 @@
     </script>
 </head>
 <body>
+    <!-- Sticky Discount Banner -->
+    <div id="discount-banner" style="position: fixed; top: 0; left: 0; width: 100%; background: #ff0844; color: white; font-weight: bold; text-align: center; padding: 0.75rem 3rem; z-index: 9999; font-size: 1rem; line-height: 1.4;">
+        🔥 LIMITED TIME OFFER — Use code <strong>50OFFNOW</strong> for 50% off everything!
+        <button onclick="document.getElementById('discount-banner').style.display='none'" aria-label="Close banner" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; font-weight: bold; line-height: 1;">&times;</button>
+    </div>
+    <div id="discount-banner-spacer" style="height: 44px;"></div>
+
     <!-- Skip to Content Link for Accessibility -->
     <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
@@ -197,12 +204,12 @@
                 <div class="stat-label">Specialized Collections</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">13</div> <!-- Products Live Now -->
+                <div class="stat-number">7</div>
                 <div class="stat-label">Products Live Now</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">$15-$29</div>
-                <div class="stat-label">Individual Collections</div>
+                <div class="stat-label">Individual Collections<br><small style="font-size:0.7em; color:#4ecdc4;">(Use code 50OFFNOW for 50% off)</small></div>
             </div>
         </div>
     </section>
@@ -714,6 +721,16 @@
         </div>
     </div>
 
+    <!-- Follow on Gumroad CTA -->
+    <section class="section" style="padding: 3rem 2rem; text-align: center; background: rgba(0,0,0,0.3);">
+        <p style="font-size: 1.3rem; margin-bottom: 1.5rem; color: #e0e0e0;">
+            🛍️ Follow our Gumroad store to get notified when new collections drop!
+        </p>
+        <a href="https://aiviralvideoprompts.gumroad.com/subscribe" target="_blank" class="cta-button secondary" style="font-size: 1.1rem; padding: 1.2rem 2.5rem;">
+            Follow on Gumroad
+        </a>
+    </section>
+
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
         <h3 style="color: #4ecdc4; margin-bottom: 1rem;">AI Viral Video Prompts</h3>
@@ -724,6 +741,16 @@
             <a href="terms_of_service.html" style="color: #4ecdc4; text-decoration: none; margin-right: 20px; font-weight: 600;">Terms of Service</a>
             <a href="privacy_policy.html" style="color: #4ecdc4; text-decoration: none; font-weight: 600;">Privacy Policy</a>
         </nav>
+
+        <!-- Social Media Links -->
+        <div style="margin: 1.5rem 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
+            <a href="https://www.instagram.com/aiviralvideoprompts?igsh=MWVwMHg2ZnVrMndyaw==" target="_blank" style="color: #e0e0e0; text-decoration: none; font-size: 1rem;" aria-label="Follow on Instagram">📸 Instagram</a>
+            <a href="https://www.tiktok.com/@aiviralvideoprompts?_r=1&_t=ZN-94lulQG48lW" target="_blank" style="color: #e0e0e0; text-decoration: none; font-size: 1rem;" aria-label="Follow on TikTok">🎵 TikTok</a>
+            <a href="https://m.youtube.com/channel/UCj5LgseYOC0u4ls1yptIPcg" target="_blank" style="color: #e0e0e0; text-decoration: none; font-size: 1rem;" aria-label="Subscribe on YouTube">📺 YouTube</a>
+            <a href="https://www.facebook.com/profile.php?id=61583626041208" target="_blank" style="color: #e0e0e0; text-decoration: none; font-size: 1rem;" aria-label="Follow on Facebook">📘 Facebook</a>
+            <a href="https://pin.it/7AyU0pmoU" target="_blank" style="color: #e0e0e0; text-decoration: none; font-size: 1rem;" aria-label="Follow on Pinterest">📌 Pinterest</a>
+            <a href="https://www.linkedin.com/company/109539232/admin/dashboard/" target="_blank" style="color: #e0e0e0; text-decoration: none; font-size: 1rem;" aria-label="Follow on LinkedIn">💼 LinkedIn</a>
+        </div>
 
         <p style="color: #888; font-size: 0.9rem;">
             ✅ Commercial Use Rights • 🔄 Lifetime Updates • 💎 Professional Quality
