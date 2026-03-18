@@ -436,6 +436,8 @@ tr:hover td{background:var(--g50);}
           <label>Board IDs <span class="opt">(comma-separated)</span></label>
           <input type="text" id="s-boards" placeholder="1234567890, 0987654321" oninput="onBoards()"/>
           <div class="hint">Find board IDs in the Pinterest URL when viewing a board.</div>
+          <button type="button" class="btn btn-ghost" id="fetch-boards-btn" onclick="fetchBoards()" style="margin-top:8px;">Fetch my boards</button>
+          <div id="fetch-boards-results" style="display:none;margin-top:8px;"></div>
         </div>
         <div class="divider"></div>
         <div class="field">
@@ -933,6 +935,38 @@ function saveSettings(){
   setTimeout(()=>m.className='msg hidden',3000);
 }
 function showMsg(el,type,text){el.className=`msg ${type}`;el.textContent=text;}
+
+async function fetchBoards(){
+  if(!token){showMsg(document.getElementById('s-msg'),'error','Paste your access token first.');return;}
+  const btn=document.getElementById('fetch-boards-btn');
+  const res=document.getElementById('fetch-boards-results');
+  btn.disabled=true;btn.textContent='Fetching…';
+  res.style.display='none';
+  try{
+    const r=await fetch('https://api.pinterest.com/v5/boards?page_size=25',{
+      headers:{'Authorization':`Bearer ${token}`}
+    });
+    const data=await r.json();
+    if(!r.ok)throw new Error(data.message||'Pinterest API error');
+    const items=data.items||[];
+    if(!items.length){res.style.display='';res.innerHTML='<span style="font-size:12px;color:var(--g400);">No boards found on this account.</span>';return;}
+    res.style.display='';
+    res.innerHTML='<div style="font-size:12px;color:var(--g500);margin-bottom:6px;">Click a board to add its ID:</div>'
+      +items.map(b=>`<span class="bchip${boards.includes(b.id)?' selected':''}" data-bid="${b.id}" onclick="addFetchedBoard('${b.id}',this)" style="margin-bottom:4px;" title="ID: ${b.id}">${b.name}</span>`).join('');
+  }catch(e){
+    res.style.display='';res.innerHTML=`<span style="font-size:12px;color:var(--red);">Error: ${e.message}</span>`;
+  }finally{
+    btn.disabled=false;btn.textContent='Fetch my boards';
+  }
+}
+function addFetchedBoard(id,el){
+  if(!boards.includes(id)){
+    boards.push(id);
+    document.getElementById('s-boards').value=boards.join(', ');
+    renderChips();
+  }
+  el.classList.add('selected');
+}
 
 /* ── QUICK TIME ───────────────────────────────────────────── */
 function quickTime(hour){
