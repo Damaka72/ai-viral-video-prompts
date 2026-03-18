@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinterest Sales Engine — AI Viral Video Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ── AUTH GATE ─────────────────────────────────────────── */
+#auth-gate{
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#e60023 0%,#ad081b 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Sans',sans-serif;
+}
+#auth-gate.hidden{display:none;}
+.auth-box{
+  background:#fff;border-radius:14px;padding:2.5rem 2rem;
+  width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+  text-align:center;
+}
+.auth-logo{width:44px;height:44px;background:#e60023;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:inline-flex;align-items:center;justify-content:center;margin-bottom:1.25rem;}
+.auth-logo::after{content:'';width:15px;height:15px;background:#fff;border-radius:50%;transform:rotate(45deg);}
+.auth-box h1{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#0f0f0f;margin-bottom:.35rem;}
+.auth-box p{font-size:13px;color:#777;margin-bottom:1.5rem;}
+.auth-box input{
+  width:100%;padding:11px 14px;border:1.5px solid #e2e2e2;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:14px;color:#0f0f0f;outline:none;
+  transition:border-color .15s;margin-bottom:10px;
+}
+.auth-box input:focus{border-color:#e60023;}
+.auth-box button{
+  width:100%;padding:11px;background:#e60023;color:#fff;border:none;border-radius:8px;
+  font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;
+  transition:background .15s;
+}
+.auth-box button:hover{background:#ad081b;}
+.auth-err{font-size:12px;color:#ad081b;margin-top:8px;min-height:16px;}
+/* ── APP STYLES ─────────────────────────────────────────── */
+:root {
+  --red:#e60023;--red-dark:#ad081b;--red-pale:#fff0f1;
+  --black:#0f0f0f;--white:#fff;
+  --g50:#f9f9f9;--g100:#f0f0f0;--g200:#e2e2e2;--g400:#aaa;--g600:#555;--g800:#222;
+  --green:#047857;--green-pale:#ecfdf5;
+  --amber:#92400e;--amber-pale:#fffbeb;
+  --blue:#1d4ed8;--blue-pale:#eff6ff;
+  --r:10px;--r-sm:6px;
+  --shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--g50);color:var(--black);min-height:100vh;font-size:14px;}
+.nav{height:56px;background:var(--white);border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:200;}
+.nav-brand{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--black);text-decoration:none;}
+.pin-icon{width:26px;height:26px;background:var(--red);border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pin-icon::after{content:'';width:9px;height:9px;background:#fff;border-radius:50%;transform:rotate(45deg);}
+.token-pill{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;}
+.token-pill.ok{background:var(--green-pale);color:var(--green);}
+.token-pill.bad{background:var(--red-pale);color:var(--red);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.logout-btn{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--g100);color:var(--g600);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.logout-btn:hover{background:var(--g200);}
+.page-tabs{display:flex;border-bottom:1px solid var(--g200);background:var(--white);padding:0 1.5rem;}
+.page-tab{padding:12px 18px;font-size:13px;font-weight:500;color:var(--g600);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.page-tab:hover{color:var(--black);}
+.page-tab.active{color:var(--red);border-bottom-color:var(--red);font-weight:600;}
+.page{display:none;padding:1.5rem;max-width:1200px;margin:0 auto;}
+.page.active{display:block;}
+.compose-grid{display:grid;grid-template-columns:1fr 360px;gap:1.5rem;align-items:start;}
+@media(max-width:900px){.compose-grid{grid-template-columns:1fr;}}
+.card{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:1.25rem;}
+.card-head{padding:14px 18px;border-bottom:1px solid var(--g100);display:flex;align-items:center;justify-content:space-between;}
+.card-head h3{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;}
+.card-body{padding:18px;}
+.field{margin-bottom:14px;}
+.field:last-child{margin-bottom:0;}
+.field label{display:block;font-size:11px;font-weight:700;color:var(--g600);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
+.field label .opt{font-weight:400;color:var(--g400);text-transform:none;letter-spacing:0;font-size:11px;}
+input[type=text],input[type=url],input[type=password],input[type=datetime-local],textarea,select{width:100%;padding:9px 11px;border:1.5px solid var(--g200);border-radius:var(--r-sm);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:var(--white);transition:border-color .15s;outline:none;}
+input:focus,textarea:focus,select:focus{border-color:var(--red);}
+textarea{resize:vertical;min-height:80px;line-height:1.55;}
+.char-count{font-size:11px;color:var(--g400);text-align:right;margin-top:3px;}
+.seg{display:flex;background:var(--g100);border-radius:var(--r-sm);padding:3px;margin-bottom:14px;}
+.seg-btn{flex:1;padding:7px 8px;font-size:12px;font-weight:600;border:none;background:transparent;border-radius:5px;cursor:pointer;color:var(--g600);transition:all .15s;font-family:'DM Sans',sans-serif;}
+.seg-btn.active{background:var(--white);color:var(--black);box-shadow:0 1px 3px rgba(0,0,0,.1);}
+.btn{padding:8px 14px;border-radius:var(--r-sm);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1.5px solid transparent;}
+.btn-primary{background:var(--red);color:#fff;border-color:var(--red);}
+.btn-primary:hover{background:var(--red-dark);}
+.btn-primary:disabled{background:var(--g200);border-color:var(--g200);color:var(--g400);cursor:not-allowed;}
+.btn-full{width:100%;padding:11px;font-size:14px;font-family:'Syne',sans-serif;font-weight:700;}
+.btn-ghost{background:transparent;color:var(--g600);border-color:var(--g200);}
+.btn-ghost:hover{border-color:var(--g400);color:var(--black);}
+.btn-dark{background:var(--black);color:#fff;border-color:var(--black);}
+.btn-dark:hover{opacity:.85;}
+.col-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:14px;}
+.col-card{border:1.5px solid var(--g200);border-radius:var(--r-sm);padding:10px 12px;cursor:pointer;transition:all .15s;background:var(--white);}
+.col-card:hover{border-color:var(--red);background:var(--red-pale);}
+.col-card.selected{border-color:var(--red);background:var(--red-pale);}
+.col-card .ci{font-size:18px;margin-bottom:4px;}
+.col-card .cn{font-size:12px;font-weight:600;color:var(--black);line-height:1.3;margin-bottom:2px;}
+.col-card .cc2{font-size:11px;color:var(--g400);}
+.col-card.selected .cn{color:var(--red);}
+.mt-tabs{display:flex;gap:6px;margin-bottom:14px;}
+.mt-tab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--g200);background:var(--white);cursor:pointer;color:var(--g600);transition:all .15s;}
+.mt-tab.active{background:var(--red);border-color:var(--red);color:#fff;}
+.drop-zone{border:2px dashed var(--g200);border-radius:var(--r);padding:1.5rem;text-align:center;cursor:pointer;transition:all .15s;background:var(--g50);}
+.drop-zone:hover,.drop-zone.over{border-color:var(--red);background:var(--red-pale);}
+.di{font-size:1.8rem;margin-bottom:6px;}
+.dl{font-size:13px;font-weight:500;color:var(--g600);margin-bottom:3px;}
+.ds{font-size:11px;color:var(--g400);}
+.mprev{border-radius:var(--r-sm);overflow:hidden;position:relative;background:var(--g100);margin-bottom:8px;}
+.mprev img,.mprev video{width:100%;max-height:200px;object-fit:cover;display:block;}
+.rm-btn{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.board-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.bchip{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;border:1.5px solid var(--g200);background:var(--white);cursor:pointer;transition:all .15s;color:var(--g600);}
+.bchip:hover{border-color:var(--red);color:var(--red);}
+.bchip.selected{background:var(--red);border-color:var(--red);color:#fff;}
+.pin-mock{border-radius:var(--r);overflow:hidden;background:var(--white);border:1px solid var(--g200);}
+.pm-img{background:var(--g100);min-height:180px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.pm-img img,.pm-img video{width:100%;max-height:220px;object-fit:cover;display:block;}
+.pm-ph{text-align:center;color:var(--g400);padding:2rem;}
+.pm-ph span{font-size:2.5rem;display:block;margin-bottom:6px;}
+.pm-body{padding:14px;}
+.pm-col{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--red);margin-bottom:4px;}
+.pm-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;line-height:1.3;margin-bottom:5px;}
+.pm-desc{font-size:12px;color:var(--g600);line-height:1.55;margin-bottom:7px;}
+.pm-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.pm-tag{font-size:11px;color:var(--red);font-weight:500;}
+.pm-link{margin-top:9px;padding-top:9px;border-top:1px solid var(--g100);font-size:11px;color:var(--blue);}
+.msg{padding:10px 14px;border-radius:var(--r-sm);font-size:13px;font-weight:500;margin-bottom:12px;}
+.msg.success{background:var(--green-pale);color:var(--green);}
+.msg.error{background:var(--red-pale);color:var(--red-dark);}
+.msg.info{background:var(--blue-pale);color:var(--blue);}
+.msg.warning{background:var(--amber-pale);color:var(--amber);}
+.msg.hidden{display:none;}
+.queue-filters{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--g100);flex-wrap:wrap;}
+.fbtn{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;border:1.5px solid var(--g200);background:transparent;cursor:pointer;color:var(--g600);transition:all .15s;font-family:'DM Sans',sans-serif;}
+.fbtn.active{background:var(--black);border-color:var(--black);color:#fff;}
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--g400);background:var(--g50);border-bottom:1px solid var(--g100);}
+td{padding:11px 16px;border-bottom:1px solid var(--g50);vertical-align:middle;color:var(--g600);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--g50);}
+.t-title{font-weight:500;color:var(--black);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.badge{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge-pending{background:var(--amber-pale);color:var(--amber);}
+.badge-posted{background:var(--green-pale);color:var(--green);}
+.badge-failed{background:var(--red-pale);color:var(--red-dark);}
+.empty{padding:2.5rem;text-align:center;color:var(--g400);}
+.empty span{font-size:2rem;display:block;margin-bottom:8px;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem;}
+.sbox{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px;text-align:center;}
+.snum{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;}
+.slbl{font-size:11px;color:var(--g400);margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+.settings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;}
+.hint{font-size:11px;color:var(--g400);line-height:1.5;margin-top:4px;}
+.snote{font-size:12px;color:var(--g600);line-height:1.6;padding:10px 12px;background:var(--g50);border-radius:var(--r-sm);border-left:3px solid var(--g200);margin-bottom:12px;}
+.divider{border:none;border-top:1px solid var(--g100);margin:12px 0;}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .55s linear infinite;vertical-align:middle;margin-right:5px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<!-- ── AUTH GATE ──────────────────────────────────────────────── -->
+<div id="auth-gate">
+  <div class="auth-box">
+    <div class="auth-logo"></div>
+    <h1>Pinterest Sales Engine</h1>
+    <p>Admin access only. Enter your password to continue.</p>
+    <input type="password" id="pw-input" placeholder="Password" autocomplete="current-password"
+      onkeydown="if(event.key==='Enter')checkAuth()"/>
+    <button onclick="checkAuth()">Unlock</button>
+    <div class="auth-err" id="auth-err"></div>
+  </div>
+</div>
+
+<!-- ── APP ───────────────────────────────────────────────────── -->
+<nav class="nav">
+  <a class="nav-brand" href="#">
+    <div class="pin-icon"></div>
+    Pinterest Sales Engine
+  </a>
+  <div class="nav-right">
+    <span class="token-pill bad" id="tok-ind">No token</span>
+    <button class="logout-btn" onclick="logout()">Lock</button>
+  </div>
+</nav>
+<div class="page-tabs">
+  <button class="page-tab active" onclick="showPage('compose',this)">✦ Create Pin</button>
+  <button class="page-tab" onclick="showPage('queue',this)">Queue</button>
+  <button class="page-tab" onclick="showPage('settings',this)">Settings</button>
+</div>
+<!-- COMPOSE -->
+<div class="page active" id="page-compose">
+  <div class="compose-grid">
+    <div>
+      <!-- 1. COLLECTION -->
+      <div class="card">
+        <div class="card-head"><h3>1 · Which collection are you promoting?</h3></div>
+        <div class="card-body">
+          <div class="col-grid" id="col-grid"></div>
+          <div class="field" id="dest-url-wrap" style="display:none;">
+            <label>Destination URL <span class="opt">(optional override — defaults to aiviralvideoprompts.com)</span></label>
+            <input type="url" id="dest-url" placeholder="https://aiviralvideoprompts.com/…" oninput="updatePreview()"/>
+          </div>
+        </div>
+      </div>
+      <!-- 2. MEDIA -->
+      <div class="card">
+        <div class="card-head"><h3>2 · Media</h3></div>
+        <div class="card-body">
+          <div class="mt-tabs">
+            <button class="mt-tab active" onclick="switchMT('image',this)">🖼 Image</button>
+            <button class="mt-tab" onclick="switchMT('video',this)">🎬 Video</button>
+            <button class="mt-tab" onclick="switchMT('pdf',this)">📄 PDF</button>
+          </div>
+          <div id="mt-image">
+            <div class="seg">
+              <button class="seg-btn active" onclick="switchSrc('i-up','i-src',this)">Upload</button>
+              <button class="seg-btn" onclick="switchSrc('i-url','i-src',this)">Paste URL</button>
+            </div>
+            <div id="i-up">
+              <div class="drop-zone" id="i-drop" onclick="document.getElementById('i-file').click()" ondragover="dov(event,'i-drop')" ondragleave="dlv('i-drop')" ondrop="ddr(event,'i-drop','i-prev','image')">
+                <input type="file" id="i-file" accept="image/*" style="display:none" onchange="filePicked(this,'i-prev','i-lbl','image')">
+                <div id="i-prev"></div>
+                <div id="i-lbl"><div class="di">🖼</div><div class="dl">Drop image or click to browse</div><div class="ds">PNG, JPG, WEBP · 1000×1500px recommended</div></div>
+              </div>
+            </div>
+            <div id="i-url" style="display:none;">
+              <div class="field">
+                <label>Image URL</label>
+                <input type="url" id="i-url-val" placeholder="https://…/image.jpg" oninput="urlPrev('i-url-val','i-url-prev','image')"/>
+              </div>
+              <div id="i-url-prev"></div>
+            </div>
+          </div>
+          <div id="mt-video" style="display:none;">
+            <div class="seg">
+              <button class="seg-btn active" onclick="switchSrc('v-up','v-src',this)">Upload</button>
+              <button class="seg-btn" onclick="switchSrc('v-url','v-src',this)">Paste URL</button>
+            </div>
+            <div id="v-up">
+              <div class="drop-zone" id="v-drop" onclick="document.getElementById('v-file').click()" ondragover="dov(event,'v-drop')" ondragleave="dlv('v-drop')" ondrop="ddr(event,'v-drop','v-prev','video')">
+                <input type="file" id="v-file" accept="video/*" style="display:none" onchange="filePicked(this,'v-prev','v-lbl','video')">
+                <div id="v-prev"></div>
+                <div id="v-lbl"><div class="di">🎬</div><div class="dl">Drop video or click to browse</div><div class="ds">MP4, MOV · 9:16 portrait recommended</div></div>
+              </div>
+            </div>
+            <div id="v-url" style="display:none;">
+              <div class="field">
+                <label>Video URL</label>
+                <input type="url" id="v-url-val" placeholder="https://…/video.mp4" oninput="urlPrev('v-url-val','v-url-prev','video')"/>
+              </div>
+              <div id="v-url-prev"></div>
+            </div>
+          </div>
+          <div id="mt-pdf" style="display:none;">
+            <div class="seg">
+              <button class="seg-btn active" onclick="switchSrc('p-up','p-src',this)">Upload</button>
+              <button class="seg-btn" onclick="switchSrc('p-url','p-src',this)">Paste URL</button>
+            </div>
+            <div id="p-up">
+              <div class="drop-zone" onclick="document.getElementById('p-file').click()">
+                <input type="file" id="p-file" accept=".pdf" style="display:none" onchange="filePicked(this,'p-prev','p-lbl','pdf')">
+                <div id="p-prev"></div>
+                <div id="p-lbl"><div class="di">📄</div><div class="dl">Drop PDF or click to browse</div><div class="ds">Pinterest shows the first page as a carousel cover</div></div>
+              </div>
+            </div>
+            <div id="p-url" style="display:none;">
+              <div class="field">
+                <label>PDF URL</label>
+                <input type="url" id="p-url-val" placeholder="https://…/doc.pdf"/>
+              </div>
+            </div>
+          </div>
+          <p class="hint" style="margin-top:10px;">Uploaded files are sent directly to Pinterest's API. URLs must be publicly accessible.</p>
+        </div>
+      </div>
+      <!-- 3. COPY -->
+      <div class="card">
+        <div class="card-head">
+          <h3>3 · Pin copy</h3>
+          <button class="btn btn-dark" id="ai-btn" onclick="generateCopy()">✦ Generate with AI</button>
+        </div>
+        <div class="card-body">
+          <div id="copy-msg" class="msg hidden"></div>
+          <div class="field">
+            <label>Title</label>
+            <input type="text" id="p-title" maxlength="100" placeholder="Keyword-rich title that sells…" oninput="updatePreview();cc('p-title','cc1',100)"/>
+            <div class="char-count" id="cc1">0 / 100</div>
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea id="p-desc" maxlength="500" placeholder="Engaging, benefit-driven description…" oninput="updatePreview();cc('p-desc','cc2',500)"></textarea>
+            <div class="char-count" id="cc2">0 / 500</div>
+          </div>
+          <div class="field">
+            <label>Hashtags <span class="opt">(comma-separated, no #)</span></label>
+            <input type="text" id="p-tags" placeholder="aivideo, promptengineering, contentcreator" oninput="updatePreview()"/>
+          </div>
+          <div class="field">
+            <label>Internal note <span class="opt">(not posted)</span></label>
+            <input type="text" id="p-note" placeholder="e.g. Week 3 creativity campaign"/>
+          </div>
+        </div>
+      </div>
+      <!-- 4. BOARD & TIMING -->
+      <div class="card">
+        <div class="card-head"><h3>4 · Board &amp; timing</h3></div>
+        <div class="card-body">
+          <div class="field">
+            <label>Post to board</label>
+            <div class="board-chips" id="board-chips"><span style="font-size:12px;color:var(--g400);">Add board IDs in Settings first.</span></div>
+          </div>
+          <div class="divider"></div>
+          <div class="seg">
+            <button class="seg-btn active" onclick="switchWhen('now',this)">Post now</button>
+            <button class="seg-btn" onclick="switchWhen('schedule',this)">Schedule</button>
+          </div>
+          <div id="sched-wrap" style="display:none;">
+            <div class="field">
+              <label>Date &amp; time</label>
+              <input type="datetime-local" id="sched-time"/>
+            </div>
+            <p class="snote" style="margin-top:0;">Stored in Supabase — posts automatically via Edge Function every minute. No need to keep this tab open.</p>
+          </div>
+          <div id="post-msg" class="msg hidden"></div>
+          <button class="btn btn-primary btn-full" id="post-btn" onclick="handlePost()">Post to Pinterest</button>
+        </div>
+      </div>
+    </div><!-- /left -->
+    <!-- RIGHT: PREVIEW -->
+    <div style="position:sticky;top:72px;">
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-head"><h3>Live preview</h3></div>
+        <div class="pin-mock">
+          <div class="pm-img" id="prev-media">
+            <div class="pm-ph"><span>📌</span><div style="font-size:12px;">Media appears here</div></div>
+          </div>
+          <div class="pm-body">
+            <div class="pm-col" id="prev-col">No collection selected</div>
+            <div class="pm-title" id="prev-title" style="color:var(--g400);font-weight:400;">Your title</div>
+            <div class="pm-desc" id="prev-desc">Your description…</div>
+            <div class="pm-tags" id="prev-tags"></div>
+            <div class="pm-link" id="prev-link">aiviralvideoprompts.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- QUEUE -->
+<div class="page" id="page-queue">
+  <div class="stats-row">
+    <div class="sbox"><div class="snum" id="s-total">—</div><div class="slbl">Total</div></div>
+    <div class="sbox"><div class="snum" id="s-pend">—</div><div class="slbl">Scheduled</div></div>
+    <div class="sbox"><div class="snum" id="s-post">—</div><div class="slbl">Posted</div></div>
+  </div>
+  <div class="card" style="margin-bottom:0;">
+    <div class="card-head"><h3>Pin queue</h3><button class="btn btn-ghost" onclick="loadQueue()">↻ Refresh</button></div>
+    <div class="queue-filters">
+      <button class="fbtn active" onclick="setFilter('all',this)">All</button>
+      <button class="fbtn" onclick="setFilter('pending',this)">Scheduled</button>
+      <button class="fbtn" onclick="setFilter('posted',this)">Posted</button>
+      <button class="fbtn" onclick="setFilter('failed',this)">Failed</button>
+    </div>
+    <div id="queue-body"><div class="empty"><span>📋</span>No pins yet.</div></div>
+  </div>
+</div>
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <div class="settings-grid">
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-head"><h3>Pinterest credentials</h3></div>
+      <div class="card-body">
+        <div class="field">
+          <label>Access token</label>
+          <input type="password" id="s-token" placeholder="Paste your Pinterest access token…" oninput="onToken()"/>
+        </div>
+        <div class="field">
+          <label>Board IDs <span class="opt">(comma-separated)</span></label>
+          <input type="text" id="s-boards" placeholder="1234567890, 0987654321" oninput="onBoards()"/>
+          <div class="hint">Find board IDs in the Pinterest URL when viewing a board.</div>
+        </div>
+        <div id="s-msg" class="msg hidden"></div>
+        <button class="btn btn-primary" onclick="saveSettings()">Save settings</button>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-head"><h3>Change admin password</h3></div>
+      <div class="card-body">
+        <div class="field">
+          <label>Current password</label>
+          <input type="password" id="pw-current" placeholder="Current password"/>
+        </div>
+        <div class="field">
+          <label>New password</label>
+          <input type="password" id="pw-new" placeholder="New password (min 8 chars)"/>
+        </div>
+        <div class="field">
+          <label>Confirm new password</label>
+          <input type="password" id="pw-confirm" placeholder="Repeat new password"/>
+        </div>
+        <div id="pw-msg" class="msg hidden"></div>
+        <button class="btn btn-primary" onclick="changePassword()">Update password</button>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-head"><h3>Supabase setup</h3></div>
+      <div class="card-body">
+        <p class="snote">To enable automatic scheduled posting, add your Pinterest token as a Supabase secret:</p>
+        <ol style="font-size:13px;color:var(--g600);line-height:1.8;padding-left:18px;">
+          <li>Go to <strong>Supabase dashboard → Edge Functions</strong></li>
+          <li>Click <strong>pinterest-scheduler → Secrets</strong></li>
+          <li>Add secret: <code style="background:var(--g100);padding:1px 5px;border-radius:3px;">PINTEREST_ACCESS_TOKEN</code> = your token</li>
+        </ol>
+        <div class="divider"></div>
+        <p class="snote" style="margin-bottom:0;">The Edge Function runs every minute checking for pending pins — fully serverless. All pins link back to <strong>aiviralvideoprompts.com</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── AUTH ─────────────────────────────────────────────────────── */
+// Default password hash: SHA-256 of "PinAdmin2025!"
+// To change, update this constant with the new hash (see changePassword()).
+const DEFAULT_HASH='47cc62c5fbead51c292984b3b4244db03f5931c2a33424530ae9a09745402174';
+const AUTH_KEY='ps_auth_v1';
+const HASH_KEY='ps_pw_hash';
+
+async function sha256(str){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function getStoredHash(){return localStorage.getItem(HASH_KEY)||DEFAULT_HASH;}
+
+async function checkAuth(){
+  const pw=document.getElementById('pw-input').value;
+  if(!pw)return;
+  const h=await sha256(pw);
+  if(h===getStoredHash()){
+    sessionStorage.setItem(AUTH_KEY,'1');
+    document.getElementById('auth-gate').classList.add('hidden');
+    document.getElementById('auth-err').textContent='';
+    init();
+  }else{
+    document.getElementById('auth-err').textContent='Incorrect password. Try again.';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+function logout(){
+  sessionStorage.removeItem(AUTH_KEY);
+  location.reload();
+}
+
+async function changePassword(){
+  const cur=document.getElementById('pw-current').value;
+  const nw=document.getElementById('pw-new').value;
+  const cf=document.getElementById('pw-confirm').value;
+  const msg=document.getElementById('pw-msg');
+  const curH=await sha256(cur);
+  if(curH!==getStoredHash()){showMsg(msg,'error','Current password is incorrect.');return;}
+  if(nw.length<8){showMsg(msg,'error','New password must be at least 8 characters.');return;}
+  if(nw!==cf){showMsg(msg,'error','New passwords do not match.');return;}
+  const newH=await sha256(nw);
+  localStorage.setItem(HASH_KEY,newH);
+  document.getElementById('pw-current').value='';
+  document.getElementById('pw-new').value='';
+  document.getElementById('pw-confirm').value='';
+  showMsg(msg,'success','Password updated successfully.');
+  setTimeout(()=>msg.className='msg hidden',3000);
+}
+
+// Check session on load — show gate if not authenticated
+if(!sessionStorage.getItem(AUTH_KEY)){
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('pw-input').focus();
+  });
+}else{
+  document.getElementById('auth-gate').classList.add('hidden');
+}
+
+/* ── APP ──────────────────────────────────────────────────────── */
+const SB_URL='https://mvttihozhozigtrwqsyy.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dHRpaG96aG96aWd0cndxc3l5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwNDU5NTYsImV4cCI6MjA4NzYyMTk1Nn0.g2GdUhXuxZm_EpF_WknmPAUNbrRqnqFTB5p0bpQvVlU';
+const SITE='https://www.aiviralvideoprompts.com';
+const COLS=[
+  {id:'creativity',icon:'🎨',name:'Creativity & Art',cnt:'8,025 prompts',url:'https://aiviralvideoprompts.gumroad.com/l/jjhsh'},
+  {id:'business',icon:'💼',name:'Business & Innovation',cnt:'8,024 prompts',url:'https://aiviralvideoprompts.gumroad.com/l/cyonc'},
+  {id:'education',icon:'📚',name:'Education & Social Impact',cnt:'2,624 prompts',url:'https://aiviralvideoprompts.gumroad.com/l/llskfw'},
+  {id:'culture',icon:'🌍',name:'Culture & Traditions',cnt:'2,025 prompts',url:'https://aiviralvideoprompts.gumroad.com/l/ct'},
+  {id:'future',icon:'🚀',name:'Future & Tech',cnt:'2,025 prompts',url:'https://aiviralvideoprompts.gumroad.com/l/hgbde'},
+  {id:'inspiration',icon:'💫',name:'Inspiration & Human Experience',cnt:'2,025 prompts',url:'https://aiviralvideoprompts.gumroad.com/l/mzsrzs'},
+  {id:'imaginative',icon:'✨',name:'Imaginative Prompts',cnt:'2,025 prompts',url:'https://aiviralvideoprompts.gumroad.com/l/im'},
+  {id:'mega',icon:'🎁',name:'Mega Bundle',cnt:'46,000+ prompts',url:'https://aiviralvideoprompts.gumroad.com/l/aimega'},
+];
+let token=localStorage.getItem('pt_tok')||'';
+let boards=JSON.parse(localStorage.getItem('pt_boards')||'[]');
+let selBoard='';
+let selCol=null;
+let mediaType='image';
+let mediaSrc=null;
+let whenMode='now';
+let allPins=[];
+let qFilter='all';
+
+function init(){
+  renderCols();
+  if(token){document.getElementById('s-token').value=token;refreshTokenInd();}
+  if(boards.length){document.getElementById('s-boards').value=boards.join(', ');renderChips();}
+  loadQueue();
+}
+function showPage(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='queue')loadQueue();
+}
+function renderCols(){
+  document.getElementById('col-grid').innerHTML=COLS.map(c=>`
+    <div class="col-card${selCol?.id===c.id?' selected':''}" onclick="pickCol('${c.id}')">
+      <div class="ci">${c.icon}</div>
+      <div class="cn">${c.name}</div>
+      <div class="cc2">${c.cnt}</div>
+    </div>`).join('');
+}
+function pickCol(id){
+  selCol=COLS.find(c=>c.id===id);
+  renderCols();
+  document.getElementById('dest-url-wrap').style.display='';
+  updatePreview();
+}
+function switchMT(t,el){
+  mediaType=t;mediaSrc=null;
+  document.querySelectorAll('.mt-tab').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  ['image','video','pdf'].forEach(x=>document.getElementById('mt-'+x).style.display=x===t?'':'none');
+  updatePreview();
+}
+function switchSrc(showId,group,el){
+  el.closest('.seg').querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const map={
+    'i-src':['i-up','i-url'],'v-src':['v-up','v-url'],'p-src':['p-up','p-url']
+  };
+  map[group].forEach(id=>document.getElementById(id).style.display=id===showId?'':'none');
+  mediaSrc=null;updatePreview();
+}
+function dov(e,id){e.preventDefault();document.getElementById(id).classList.add('over');}
+function dlv(id){document.getElementById(id).classList.remove('over');}
+function ddr(e,dropId,prevId,type){e.preventDefault();dlv(dropId);const f=e.dataTransfer.files[0];if(f)handleFile(f,prevId,dropId.replace('-drop','-lbl'),type);}
+function filePicked(inp,prevId,lblId,type){if(inp.files[0])handleFile(inp.files[0],prevId,lblId,type);}
+function handleFile(file,prevId,lblId,type){
+  const obj=URL.createObjectURL(file);
+  mediaSrc={type:'file',file,objUrl:obj};
+  const lbl=document.getElementById(lblId);
+  if(lbl)lbl.style.display='none';
+  const p=document.getElementById(prevId);
+  if(type==='video'){p.innerHTML=`<div class="mprev"><video src="${obj}" controls style="max-height:180px;width:100%;"></video><button class="rm-btn" onclick="clearFile('${prevId}','${lblId}')">✕</button></div>`;}
+  else if(type==='pdf'){p.innerHTML=`<div class="mprev" style="padding:12px;background:var(--g50);display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">📄</span><span style="font-size:13px;font-weight:500;">${file.name}</span><button class="rm-btn" style="position:static;margin-left:auto;" onclick="clearFile('${prevId}','${lblId}')">✕</button></div>`;}
+  else{p.innerHTML=`<div class="mprev"><img src="${obj}"/><button class="rm-btn" onclick="clearFile('${prevId}','${lblId}')">✕</button></div>`;}
+  updatePreview();
+}
+function clearFile(prevId,lblId){
+  mediaSrc=null;
+  document.getElementById(prevId).innerHTML='';
+  const l=document.getElementById(lblId);if(l)l.style.display='';
+  updatePreview();
+}
+function urlPrev(inpId,prevId,type){
+  const url=document.getElementById(inpId).value.trim();
+  mediaSrc=url?{type:'url',url}:null;
+  const p=document.getElementById(prevId);
+  if(!url){p.innerHTML='';updatePreview();return;}
+  if(type==='video'){p.innerHTML=`<div class="mprev"><video src="${url}" controls style="max-height:180px;width:100%;"></video></div>`;}
+  else{p.innerHTML=`<div class="mprev"><img src="${url}" onerror="this.parentElement.innerHTML='<p style=padding:10px;font-size:12px;color:var(--g400)>Could not load preview</p>'"/></div>`;}
+  updatePreview();
+}
+function renderChips(){
+  const c=document.getElementById('board-chips');
+  if(!boards.length){c.innerHTML='<span style="font-size:12px;color:var(--g400);">Add board IDs in Settings first.</span>';return;}
+  c.innerHTML=boards.map(b=>`<span class="bchip${selBoard===b?' selected':''}" onclick="pickBoard('${b}')">${b}</span>`).join('');
+}
+function pickBoard(b){selBoard=b;renderChips();}
+function switchWhen(m,el){
+  whenMode=m;
+  el.closest('.seg').querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sched-wrap').style.display=m==='schedule'?'':'none';
+  document.getElementById('post-btn').textContent=m==='schedule'?'Schedule pin':'Post to Pinterest';
+}
+function cc(id,outId,max){document.getElementById(outId).textContent=`${document.getElementById(id).value.length} / ${max}`;}
+function updatePreview(){
+  const title=document.getElementById('p-title').value;
+  const desc=document.getElementById('p-desc').value;
+  const tags=document.getElementById('p-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const durl=(document.getElementById('dest-url')?.value.trim())||selCol?.url||SITE;
+  document.getElementById('prev-col').textContent=selCol?`${selCol.icon} ${selCol.name}`:'No collection selected';
+  const te=document.getElementById('prev-title');
+  te.textContent=title||'Your title';te.style.color=title?'var(--black)':'var(--g400)';te.style.fontWeight=title?'700':'400';
+  document.getElementById('prev-desc').textContent=desc||'Your description…';
+  document.getElementById('prev-tags').innerHTML=tags.map(t=>`<span class="pm-tag">#${t}</span>`).join('');
+  document.getElementById('prev-link').textContent=durl.replace(/https?:\/\//,'');
+  const me=document.getElementById('prev-media');
+  let mh='<div class="pm-ph"><span>📌</span><div style="font-size:12px;">Media appears here</div></div>';
+  if(mediaSrc){
+    const src=mediaSrc.objUrl||mediaSrc.url;
+    if(mediaType==='video'&&src)mh=`<video src="${src}" style="width:100%;max-height:220px;object-fit:cover;" muted></video>`;
+    else if(mediaType==='pdf')mh=`<div style="padding:2rem;text-align:center;"><span style="font-size:3rem;">📄</span><div style="font-size:13px;color:var(--g600);margin-top:6px;">PDF document</div></div>`;
+    else if(src)mh=`<img src="${src}" style="width:100%;max-height:220px;object-fit:cover;" onerror="this.style.display='none'"/>`;
+  }
+  me.innerHTML=mh;
+}
+async function generateCopy(){
+  const btn=document.getElementById('ai-btn');
+  const msg=document.getElementById('copy-msg');
+  if(!selCol){showMsg(msg,'error','Select a collection first.');return;}
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>Generating…';
+  msg.className='msg hidden';
+  const prompt=`You are a Pinterest marketing expert for a business selling AI video prompt collections.
+Collection: "${selCol.name}" (${selCol.cnt})
+Website: aiviralvideoprompts.com
+Goal: Get Pinterest users curious and clicking through to buy.
+Write ONE Pinterest pin. Return ONLY valid JSON, no markdown:
+{"title":"max 100 chars, keyword-rich, curiosity-driven, hints at results","description":"150-300 chars, specific creative benefit, ends with soft CTA mentioning aiviralvideoprompts.com","hashtags":["tag1","tag2","tag3","tag4","tag5","tag6"]}
+Rules: No fake income claims. Focus on creative empowerment, time saved, professional quality. Mix broad Pinterest tags with niche AI/video tags (no # symbol in array).`;
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,messages:[{role:'user',content:prompt}]})});
+    const d=await r.json();
+    const txt=d.content.find(b=>b.type==='text')?.text||'';
+    const pin=JSON.parse(txt.replace(/```json|```/g,'').trim());
+    document.getElementById('p-title').value=pin.title;
+    document.getElementById('p-desc').value=pin.description;
+    document.getElementById('p-tags').value=pin.hashtags.join(', ');
+    cc('p-title','cc1',100);cc('p-desc','cc2',500);
+    updatePreview();
+    showMsg(msg,'success','Copy generated — edit as needed.');
+  }catch(e){showMsg(msg,'error','Generation failed. Try again.');}
+  btn.disabled=false;btn.innerHTML='✦ Generate with AI';
+}
+function validate(){
+  if(!token)return'Add your Pinterest token in Settings first.';
+  if(!selCol)return'Select a collection to promote.';
+  if(!mediaSrc)return'Add media (image, video, or PDF).';
+  if(!document.getElementById('p-title').value.trim())return'Pin title is required.';
+  if(!document.getElementById('p-desc').value.trim())return'Pin description is required.';
+  if(!selBoard)return'Select a board to post to.';
+  if(whenMode==='schedule'&&!document.getElementById('sched-time').value)return'Set a date and time.';
+  return null;
+}
+async function handlePost(){
+  const msg=document.getElementById('post-msg');
+  const err=validate();
+  if(err){showMsg(msg,'error',err);return;}
+  const btn=document.getElementById('post-btn');
+  btn.disabled=true;btn.innerHTML=`<span class="spin"></span>${whenMode==='schedule'?'Saving…':'Posting…'}`;
+  msg.className='msg hidden';
+  const title=document.getElementById('p-title').value.trim();
+  const desc=document.getElementById('p-desc').value.trim();
+  const tags=document.getElementById('p-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const note=document.getElementById('p-note').value.trim();
+  const destUrl=(document.getElementById('dest-url')?.value.trim())||selCol?.url||SITE;
+  if(mediaSrc.type==='file'){
+    showMsg(msg,'warning','File uploads require public hosting. Please host your file and use "Paste URL" instead, or use Supabase Storage (contact support to enable).');
+    btn.disabled=false;btn.textContent=whenMode==='schedule'?'Schedule pin':'Post to Pinterest';
+    return;
+  }
+  const mediaUrl=mediaSrc.url;
+  if(whenMode==='now'){await postNow(title,desc,tags,mediaUrl,destUrl,note);}
+  else{await saveScheduled(title,desc,tags,mediaUrl,destUrl,note);}
+  btn.disabled=false;btn.textContent=whenMode==='schedule'?'Schedule pin':'Post to Pinterest';
+}
+async function postNow(title,desc,tags,mediaUrl,destUrl,note){
+  const msg=document.getElementById('post-msg');
+  const body={board_id:selBoard,title,description:desc,link:destUrl,media_source:{source_type:mediaType==='video'?'video_id':'image_url',url:mediaUrl}};
+  try{
+    const r=await fetch('https://api.pinterest.com/v5/pins',{method:'POST',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const d=await r.json();
+    if(r.ok){
+      await saveDb(title,desc,tags,mediaUrl,destUrl,note,'posted',d.id,null);
+      showMsg(msg,'success',`Posted! Pin ID: ${d.id}`);
+      loadQueue();
+    }else{showMsg(msg,'error',`Pinterest error: ${d.message||JSON.stringify(d)}`);}
+  }catch(e){showMsg(msg,'error','Network error. Check your token.');}
+}
+async function saveScheduled(title,desc,tags,mediaUrl,destUrl,note){
+  const msg=document.getElementById('post-msg');
+  const st=document.getElementById('sched-time').value;
+  const ok=await saveDb(title,desc,tags,mediaUrl,destUrl,note,'pending',null,st);
+  if(ok){showMsg(msg,'success',`Scheduled for ${new Date(st).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'})}. Supabase will post automatically.`);loadQueue();}
+  else{showMsg(msg,'error','Failed to save. Check Supabase connection.');}
+}
+async function saveDb(title,desc,tags,mediaUrl,destUrl,note,status,pinId,schedTime){
+  const rec={title,description:desc,hashtags:tags,image_url:mediaUrl,link_url:destUrl,board_id:selBoard,media_type:mediaType,collection_name:selCol?.name||null,collection_url:selCol?.url||null,pin_note:note||null,scheduled_for:schedTime?new Date(schedTime).toISOString():new Date().toISOString(),status};
+  if(pinId)rec.pinterest_pin_id=pinId;
+  const r=await fetch(`${SB_URL}/rest/v1/pinterest_pins`,{method:'POST',headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(rec)});
+  return r.ok;
+}
+async function loadQueue(){
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/pinterest_pins?order=scheduled_for.desc&limit=100`,{headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}});
+    allPins=await r.json();
+    if(!Array.isArray(allPins))allPins=[];
+  }catch(e){allPins=[];}
+  renderQueue();
+  document.getElementById('s-total').textContent=allPins.length;
+  document.getElementById('s-pend').textContent=allPins.filter(p=>p.status==='pending').length;
+  document.getElementById('s-post').textContent=allPins.filter(p=>p.status==='posted').length;
+}
+function setFilter(f,el){
+  qFilter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderQueue();
+}
+function renderQueue(){
+  const pins=qFilter==='all'?allPins:allPins.filter(p=>p.status===qFilter);
+  const body=document.getElementById('queue-body');
+  if(!pins.length){body.innerHTML='<div class="empty"><span>📋</span>No pins here yet.</div>';return;}
+  body.innerHTML=`<div style="overflow-x:auto;"><table>
+    <thead><tr><th>Title</th><th>Collection</th><th>Type</th><th>Board</th><th>Scheduled</th><th>Status</th><th>Pin ID</th></tr></thead>
+    <tbody>${pins.map(p=>`<tr>
+      <td class="t-title" title="${p.title}">${p.title}</td>
+      <td style="font-size:12px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.collection_name||'—'}</td>
+      <td>${p.media_type==='video'?'🎬':p.media_type==='pdf'?'📄':'🖼'}</td>
+      <td style="font-size:12px;">${p.board_id}</td>
+      <td style="font-size:12px;white-space:nowrap;">${new Date(p.scheduled_for).toLocaleString('en-GB',{dateStyle:'short',timeStyle:'short'})}</td>
+      <td><span class="badge badge-${p.status}">${p.status}</span></td>
+      <td style="font-size:11px;color:var(--g400);">${p.pinterest_pin_id||'—'}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+function onToken(){token=document.getElementById('s-token').value.trim();refreshTokenInd();}
+function refreshTokenInd(){const i=document.getElementById('tok-ind');i.textContent=token?'Token set':'No token';i.className='token-pill '+(token?'ok':'bad');}
+function onBoards(){boards=document.getElementById('s-boards').value.split(',').map(b=>b.trim()).filter(Boolean);renderChips();}
+function saveSettings(){
+  localStorage.setItem('pt_tok',token);
+  localStorage.setItem('pt_boards',JSON.stringify(boards));
+  const m=document.getElementById('s-msg');
+  showMsg(m,'success','Settings saved.');
+  setTimeout(()=>m.className='msg hidden',3000);
+}
+function showMsg(el,type,text){el.className=`msg ${type}`;el.textContent=text;}
+
+// Only initialise app if already authenticated (gate was hidden on load)
+if(sessionStorage.getItem(AUTH_KEY)){init();}
+
+setInterval(()=>{if(sessionStorage.getItem(AUTH_KEY))loadQueue();},30000);
+</script>
+</body>
+</html>
