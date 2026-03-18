@@ -439,9 +439,21 @@ tr:hover td{background:var(--g50);}
         </div>
         <div class="divider"></div>
         <div class="field">
-          <label>Anthropic API Key <span class="opt">(for AI copy generation)</span></label>
+          <label>AI provider <span class="opt">(for copy generation)</span></label>
+          <div class="seg" style="margin-bottom:0;">
+            <button class="seg-btn active" id="prov-gemini" onclick="setProvider('gemini',this)">Gemini <span style="font-size:10px;font-weight:400;">(recommended)</span></button>
+            <button class="seg-btn" id="prov-anthropic" onclick="setProvider('anthropic',this)">Claude</button>
+          </div>
+        </div>
+        <div class="field" id="field-gemini">
+          <label>Gemini API Key</label>
+          <input type="password" id="s-geminikey" placeholder="AIza…" oninput="onGeminiKey()"/>
+          <div class="hint">Get a free key at aistudio.google.com. Stored only in your browser.</div>
+        </div>
+        <div class="field" id="field-anthropic" style="display:none;">
+          <label>Anthropic API Key</label>
           <input type="password" id="s-antkey" placeholder="sk-ant-…" oninput="onAntKey()"/>
-          <div class="hint">Required for "Generate with AI". Get your key at console.anthropic.com. Stored only in your browser.</div>
+          <div class="hint">Get your key at console.anthropic.com. Stored only in your browser.</div>
         </div>
         <div id="s-msg" class="msg hidden"></div>
         <button class="btn btn-primary" onclick="saveSettings()">Save settings</button>
@@ -560,6 +572,8 @@ const COLS=[
 let token=localStorage.getItem('pt_tok')||'';
 let boards=JSON.parse(localStorage.getItem('pt_boards')||'[]');
 let antKey=localStorage.getItem('ant_key')||'';
+let geminiKey=localStorage.getItem('gemini_key')||'';
+let aiProvider=localStorage.getItem('ai_provider')||'gemini';
 let selBoard='';
 let selCol=null;
 let mediaType='image';
@@ -574,6 +588,8 @@ function init(){
   if(token){document.getElementById('s-token').value=token;refreshTokenInd();}
   if(boards.length){document.getElementById('s-boards').value=boards.join(', ');renderChips();}
   if(antKey){document.getElementById('s-antkey').value=antKey;}
+  if(geminiKey){document.getElementById('s-geminikey').value=geminiKey;}
+  setProvider(aiProvider,document.getElementById('prov-'+aiProvider));
   // default bulk start date to today
   const today=new Date();
   document.getElementById('bulk-start').value=today.toISOString().slice(0,10);
@@ -713,6 +729,26 @@ Write ONE Pinterest pin. Return ONLY valid JSON, no markdown:
 Rules: No fake income claims. Focus on creative empowerment, time saved, professional quality. Mix broad Pinterest tags with niche AI/video tags (no # symbol in array).`;
 }
 
+async function callGemini(prompt){
+  if(!geminiKey)throw new Error('NO_KEY');
+  const r=await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
+    {method:'POST',headers:{'Content-Type':'application/json'},
+     body:JSON.stringify({contents:[{parts:[{text:prompt}]}],
+       generationConfig:{temperature:0.9,maxOutputTokens:600}})}
+  );
+  const d=await r.json();
+  if(!r.ok){
+    const code=r.status;
+    if(code===400&&d.error?.message?.includes('API_KEY'))throw new Error('Invalid Gemini API key — check Settings.');
+    if(code===429)throw new Error('Rate limit hit — wait a moment and try again.');
+    throw new Error(d.error?.message||`Gemini API error ${code}`);
+  }
+  // normalise to same shape as Anthropic response
+  const text=d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+  return {content:[{type:'text',text}]};
+}
+
 async function callClaude(prompt){
   if(!antKey)throw new Error('NO_KEY');
   const r=await fetch('https://api.anthropic.com/v1/messages',{
@@ -728,22 +764,29 @@ async function callClaude(prompt){
   const d=await r.json();
   if(!r.ok){
     const code=r.status;
-    if(code===401)throw new Error('Invalid API key — check your Anthropic key in Settings.');
+    if(code===401)throw new Error('Invalid Anthropic API key — check Settings.');
     if(code===429)throw new Error('Rate limit hit — wait a moment and try again.');
     throw new Error(d.error?.message||`API error ${code}`);
   }
   return d;
 }
 
+async function callAI(prompt){
+  if(aiProvider==='gemini')return callGemini(prompt);
+  return callClaude(prompt);
+}
+
+function activeKey(){return aiProvider==='gemini'?geminiKey:antKey;}
+
 async function generateCopy(variant=0){
   const btn=document.getElementById('ai-btn');
   const msg=document.getElementById('copy-msg');
   if(!selCol){showMsg(msg,'error','Select a collection first.');return;}
-  if(!antKey){showMsg(msg,'error','Add your Anthropic API key in Settings first.');return;}
+  if(!activeKey()){showMsg(msg,'error',`Add your ${aiProvider==='gemini'?'Gemini':'Anthropic'} API key in Settings first.`);return;}
   btn.disabled=true;btn.innerHTML='<span class="spin"></span>Generating…';
   msg.className='msg hidden';
   try{
-    const d=await callClaude(buildPinPrompt(selCol,variant));
+    const d=await callAI(buildPinPrompt(selCol,variant));
     const txt=d.content.find(b=>b.type==='text')?.text||'';
     const pin=JSON.parse(txt.replace(/```json[\s\S]*?```|```/g,'').trim());
     document.getElementById('p-title').value=pin.title;
@@ -871,10 +914,20 @@ function onToken(){token=document.getElementById('s-token').value.trim();refresh
 function refreshTokenInd(){const i=document.getElementById('tok-ind');i.textContent=token?'Token set':'No token';i.className='token-pill '+(token?'ok':'bad');}
 function onBoards(){boards=document.getElementById('s-boards').value.split(',').map(b=>b.trim()).filter(Boolean);renderChips();}
 function onAntKey(){antKey=document.getElementById('s-antkey').value.trim();}
+function onGeminiKey(){geminiKey=document.getElementById('s-geminikey').value.trim();}
+function setProvider(p,el){
+  aiProvider=p;
+  document.querySelectorAll('#prov-gemini,#prov-anthropic').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');
+  document.getElementById('field-gemini').style.display=p==='gemini'?'':'none';
+  document.getElementById('field-anthropic').style.display=p==='anthropic'?'':'none';
+}
 function saveSettings(){
   localStorage.setItem('pt_tok',token);
   localStorage.setItem('pt_boards',JSON.stringify(boards));
   localStorage.setItem('ant_key',antKey);
+  localStorage.setItem('gemini_key',geminiKey);
+  localStorage.setItem('ai_provider',aiProvider);
   const m=document.getElementById('s-msg');
   showMsg(m,'success','Settings saved.');
   setTimeout(()=>m.className='msg hidden',3000);
@@ -910,7 +963,7 @@ async function bulkSchedule(){
   if(!selCol){showMsg(bmsg,'error','Select a collection (step 1) first.');return;}
   if(!selBoard){showMsg(bmsg,'error','Select a board (step 4) first.');return;}
   if(!mediaSrc||mediaSrc.type==='file'){showMsg(bmsg,'error','Paste a media URL (step 2) first — file uploads not supported for bulk.');return;}
-  if(!antKey){showMsg(bmsg,'error','Add your Anthropic API key in Settings first.');return;}
+  if(!activeKey()){showMsg(bmsg,'error',`Add your ${aiProvider==='gemini'?'Gemini':'Anthropic'} API key in Settings first.`);return;}
   const startDateVal=document.getElementById('bulk-start').value;
   if(!startDateVal){showMsg(bmsg,'error','Choose a starting date.');return;}
 
@@ -932,7 +985,7 @@ async function bulkSchedule(){
   for(let i=0;i<bulkCount;i++){
     bprog.textContent=`Generating pin ${i+1} of ${bulkCount}…`;
     try{
-      const d=await callClaude(buildPinPrompt(selCol,i+1));
+      const d=await callAI(buildPinPrompt(selCol,i+1));
       const txt=d.content.find(b=>b.type==='text')?.text||'';
       const pin=JSON.parse(txt.replace(/```json[\s\S]*?```|```/g,'').trim());
       const destUrl=getDestUrl();
