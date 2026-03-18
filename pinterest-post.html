@@ -943,8 +943,8 @@ async function fetchBoards(){
   btn.disabled=true;btn.textContent='Fetching…';
   res.style.display='none';
   try{
-    const r=await fetch('https://api.pinterest.com/v5/boards?page_size=25',{
-      headers:{'Authorization':`Bearer ${token}`}
+    const r=await fetch('https://mvttihozhozigtrwqsyy.supabase.co/functions/v1/pinterest-boards?page_size=50',{
+      headers:{'x-pinterest-token':token}
     });
     const data=await r.json();
     if(!r.ok)throw new Error(data.message||'Pinterest API error');
