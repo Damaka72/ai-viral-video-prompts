@@ -6,6 +6,24 @@
 <title>Pinterest Sales Engine — AI Viral Video Prompts</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
+/* ── DAILY TRACKER ──────────────────────────────────────── */
+.daily-bar{background:var(--white);border-bottom:1px solid var(--g200);padding:8px 1.5rem;display:flex;align-items:center;gap:12px;font-size:12px;}
+.daily-bar-label{font-weight:600;color:var(--g800);white-space:nowrap;}
+.daily-progress{flex:1;max-width:200px;height:6px;background:var(--g100);border-radius:3px;overflow:hidden;}
+.daily-progress-fill{height:100%;background:var(--red);border-radius:3px;transition:width .4s;}
+.daily-progress-fill.done{background:var(--green);}
+.daily-sub{color:var(--g400);}
+/* ── QUICK TIME BTNS ─────────────────────────────────────── */
+.qtime-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.qtime-btn{padding:5px 11px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--g200);background:var(--white);cursor:pointer;color:var(--g600);transition:all .15s;font-family:'DM Sans',sans-serif;}
+.qtime-btn:hover{border-color:var(--red);color:var(--red);}
+/* ── BULK SCHEDULER ──────────────────────────────────────── */
+.bulk-progress{font-size:12px;color:var(--g600);margin-top:8px;min-height:16px;}
+.bulk-count-row{display:flex;gap:8px;margin-bottom:14px;}
+.bulk-count-btn{flex:1;padding:8px;border-radius:var(--r-sm);font-size:13px;font-weight:600;border:1.5px solid var(--g200);background:var(--white);cursor:pointer;color:var(--g600);transition:all .15s;font-family:'DM Sans',sans-serif;text-align:center;}
+.bulk-count-btn.active{background:var(--red);border-color:var(--red);color:#fff;}
+/* ── UTM PREVIEW ─────────────────────────────────────────── */
+.utm-pill{display:inline-block;font-size:10px;background:var(--blue-pale);color:var(--blue);padding:2px 6px;border-radius:4px;margin-left:5px;font-weight:600;}
 /* ── AUTH GATE ─────────────────────────────────────────── */
 #auth-gate{
   position:fixed;inset:0;z-index:9999;
@@ -190,6 +208,12 @@ tr:hover td{background:var(--g50);}
   <button class="page-tab" onclick="showPage('queue',this)">Queue</button>
   <button class="page-tab" onclick="showPage('settings',this)">Settings</button>
 </div>
+<!-- DAILY TRACKER -->
+<div class="daily-bar" id="daily-bar">
+  <span class="daily-bar-label" id="daily-label">Today: 0 / 5 pins</span>
+  <div class="daily-progress"><div class="daily-progress-fill" id="daily-fill" style="width:0%"></div></div>
+  <span class="daily-sub" id="daily-sub">Post 5 pins/day for steady growth</span>
+</div>
 <!-- COMPOSE -->
 <div class="page active" id="page-compose">
   <div class="compose-grid">
@@ -319,6 +343,15 @@ tr:hover td{background:var(--g50);}
           </div>
           <div id="sched-wrap" style="display:none;">
             <div class="field">
+              <label>Quick pick <span class="opt">(peak Pinterest times)</span></label>
+              <div class="qtime-row">
+                <button class="qtime-btn" onclick="quickTime(9)">9 am</button>
+                <button class="qtime-btn" onclick="quickTime(13)">1 pm</button>
+                <button class="qtime-btn" onclick="quickTime(17)">5 pm</button>
+                <button class="qtime-btn" onclick="quickTime(20)">8 pm</button>
+              </div>
+            </div>
+            <div class="field">
               <label>Date &amp; time</label>
               <input type="datetime-local" id="sched-time"/>
             </div>
@@ -326,6 +359,28 @@ tr:hover td{background:var(--g50);}
           </div>
           <div id="post-msg" class="msg hidden"></div>
           <button class="btn btn-primary btn-full" id="post-btn" onclick="handlePost()">Post to Pinterest</button>
+        </div>
+      </div>
+      <!-- 5. BULK SCHEDULE -->
+      <div class="card">
+        <div class="card-head"><h3>5 · Bulk schedule <span style="font-size:11px;font-weight:400;color:var(--g400);">— generate &amp; schedule a week of pins in one click</span></h3></div>
+        <div class="card-body">
+          <div class="field">
+            <label>How many pins to generate?</label>
+            <div class="bulk-count-row">
+              <button class="bulk-count-btn active" onclick="setBulkCount(5,this)">5 pins<br><span style="font-size:10px;font-weight:400;">1 week</span></button>
+              <button class="bulk-count-btn" onclick="setBulkCount(10,this)">10 pins<br><span style="font-size:10px;font-weight:400;">2 weeks</span></button>
+              <button class="bulk-count-btn" onclick="setBulkCount(15,this)">15 pins<br><span style="font-size:10px;font-weight:400;">3 weeks</span></button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Starting date</label>
+            <input type="date" id="bulk-start" />
+          </div>
+          <p class="snote">Requires: a collection selected above, a board selected above, and a media URL pasted above. Pins will be auto-scheduled at 9am, 1pm, 5pm &amp; 8pm across the selected days.</p>
+          <div id="bulk-msg" class="msg hidden"></div>
+          <div class="bulk-progress" id="bulk-progress"></div>
+          <button class="btn btn-dark btn-full" id="bulk-btn" onclick="bulkSchedule()">⚡ Generate &amp; Schedule All Pins</button>
         </div>
       </div>
     </div><!-- /left -->
@@ -382,6 +437,12 @@ tr:hover td{background:var(--g50);}
           <input type="text" id="s-boards" placeholder="1234567890, 0987654321" oninput="onBoards()"/>
           <div class="hint">Find board IDs in the Pinterest URL when viewing a board.</div>
         </div>
+        <div class="divider"></div>
+        <div class="field">
+          <label>Anthropic API Key <span class="opt">(for AI copy generation)</span></label>
+          <input type="password" id="s-antkey" placeholder="sk-ant-…" oninput="onAntKey()"/>
+          <div class="hint">Required for "Generate with AI". Get your key at console.anthropic.com. Stored only in your browser.</div>
+        </div>
         <div id="s-msg" class="msg hidden"></div>
         <button class="btn btn-primary" onclick="saveSettings()">Save settings</button>
       </div>
@@ -423,8 +484,6 @@ tr:hover td{background:var(--g50);}
 
 <script>
 /* ── AUTH ─────────────────────────────────────────────────────── */
-// Default password hash: SHA-256 of "PinAdmin2025!"
-// To change, update this constant with the new hash (see changePassword()).
 const DEFAULT_HASH='47cc62c5fbead51c292984b3b4244db03f5931c2a33424530ae9a09745402174';
 const AUTH_KEY='ps_auth_v1';
 const HASH_KEY='ps_pw_hash';
@@ -500,6 +559,7 @@ const COLS=[
 ];
 let token=localStorage.getItem('pt_tok')||'';
 let boards=JSON.parse(localStorage.getItem('pt_boards')||'[]');
+let antKey=localStorage.getItem('ant_key')||'';
 let selBoard='';
 let selCol=null;
 let mediaType='image';
@@ -507,11 +567,16 @@ let mediaSrc=null;
 let whenMode='now';
 let allPins=[];
 let qFilter='all';
+let bulkCount=5;
 
 function init(){
   renderCols();
   if(token){document.getElementById('s-token').value=token;refreshTokenInd();}
   if(boards.length){document.getElementById('s-boards').value=boards.join(', ');renderChips();}
+  if(antKey){document.getElementById('s-antkey').value=antKey;}
+  // default bulk start date to today
+  const today=new Date();
+  document.getElementById('bulk-start').value=today.toISOString().slice(0,10);
   loadQueue();
 }
 function showPage(id,el){
@@ -595,17 +660,31 @@ function switchWhen(m,el){
   document.getElementById('post-btn').textContent=m==='schedule'?'Schedule pin':'Post to Pinterest';
 }
 function cc(id,outId,max){document.getElementById(outId).textContent=`${document.getElementById(id).value.length} / ${max}`;}
+function addUtm(url,colId){
+  try{
+    const u=new URL(url);
+    u.searchParams.set('utm_source','pinterest');
+    u.searchParams.set('utm_medium','organic_social');
+    u.searchParams.set('utm_campaign',colId||'general');
+    return u.toString();
+  }catch(e){return url;}
+}
+function getDestUrl(){
+  const override=document.getElementById('dest-url')?.value.trim();
+  const base=override||(selCol?.url||SITE);
+  return addUtm(base,selCol?.id||'');
+}
 function updatePreview(){
   const title=document.getElementById('p-title').value;
   const desc=document.getElementById('p-desc').value;
   const tags=document.getElementById('p-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
-  const durl=(document.getElementById('dest-url')?.value.trim())||selCol?.url||SITE;
+  const durl=getDestUrl();
   document.getElementById('prev-col').textContent=selCol?`${selCol.icon} ${selCol.name}`:'No collection selected';
   const te=document.getElementById('prev-title');
   te.textContent=title||'Your title';te.style.color=title?'var(--black)':'var(--g400)';te.style.fontWeight=title?'700':'400';
   document.getElementById('prev-desc').textContent=desc||'Your description…';
   document.getElementById('prev-tags').innerHTML=tags.map(t=>`<span class="pm-tag">#${t}</span>`).join('');
-  document.getElementById('prev-link').textContent=durl.replace(/https?:\/\//,'');
+  document.getElementById('prev-link').innerHTML=durl.replace(/https?:\/\//,'')+`<span class="utm-pill">UTM</span>`;
   const me=document.getElementById('prev-media');
   let mh='<div class="pm-ph"><span>📌</span><div style="font-size:12px;">Media appears here</div></div>';
   if(mediaSrc){
@@ -616,31 +695,64 @@ function updatePreview(){
   }
   me.innerHTML=mh;
 }
-async function generateCopy(){
-  const btn=document.getElementById('ai-btn');
-  const msg=document.getElementById('copy-msg');
-  if(!selCol){showMsg(msg,'error','Select a collection first.');return;}
-  btn.disabled=true;btn.innerHTML='<span class="spin"></span>Generating…';
-  msg.className='msg hidden';
-  const prompt=`You are a Pinterest marketing expert for a business selling AI video prompt collections.
-Collection: "${selCol.name}" (${selCol.cnt})
+function buildPinPrompt(col,variant){
+  const vars=['',
+    ' Focus angle: time saved.',
+    ' Focus angle: professional quality results.',
+    ' Focus angle: creative freedom and inspiration.',
+    ' Focus angle: standing out from competitors.',
+    ' Focus angle: beginner-friendly, no experience needed.',
+  ];
+  const v=vars[variant%vars.length]||'';
+  return `You are a Pinterest marketing expert for a business selling AI video prompt collections.
+Collection: "${col.name}" (${col.cnt})
 Website: aiviralvideoprompts.com
-Goal: Get Pinterest users curious and clicking through to buy.
+Goal: Get Pinterest users curious and clicking through to buy.${v}
 Write ONE Pinterest pin. Return ONLY valid JSON, no markdown:
 {"title":"max 100 chars, keyword-rich, curiosity-driven, hints at results","description":"150-300 chars, specific creative benefit, ends with soft CTA mentioning aiviralvideoprompts.com","hashtags":["tag1","tag2","tag3","tag4","tag5","tag6"]}
 Rules: No fake income claims. Focus on creative empowerment, time saved, professional quality. Mix broad Pinterest tags with niche AI/video tags (no # symbol in array).`;
+}
+
+async function callClaude(prompt){
+  if(!antKey)throw new Error('NO_KEY');
+  const r=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':antKey,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:600,messages:[{role:'user',content:prompt}]})
+  });
+  const d=await r.json();
+  if(!r.ok){
+    const code=r.status;
+    if(code===401)throw new Error('Invalid API key — check your Anthropic key in Settings.');
+    if(code===429)throw new Error('Rate limit hit — wait a moment and try again.');
+    throw new Error(d.error?.message||`API error ${code}`);
+  }
+  return d;
+}
+
+async function generateCopy(variant=0){
+  const btn=document.getElementById('ai-btn');
+  const msg=document.getElementById('copy-msg');
+  if(!selCol){showMsg(msg,'error','Select a collection first.');return;}
+  if(!antKey){showMsg(msg,'error','Add your Anthropic API key in Settings first.');return;}
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>Generating…';
+  msg.className='msg hidden';
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,messages:[{role:'user',content:prompt}]})});
-    const d=await r.json();
+    const d=await callClaude(buildPinPrompt(selCol,variant));
     const txt=d.content.find(b=>b.type==='text')?.text||'';
-    const pin=JSON.parse(txt.replace(/```json|```/g,'').trim());
+    const pin=JSON.parse(txt.replace(/```json[\s\S]*?```|```/g,'').trim());
     document.getElementById('p-title').value=pin.title;
     document.getElementById('p-desc').value=pin.description;
     document.getElementById('p-tags').value=pin.hashtags.join(', ');
     cc('p-title','cc1',100);cc('p-desc','cc2',500);
     updatePreview();
     showMsg(msg,'success','Copy generated — edit as needed.');
-  }catch(e){showMsg(msg,'error','Generation failed. Try again.');}
+  }catch(e){showMsg(msg,'error',e.message==='NO_KEY'?'Add your Anthropic API key in Settings first.':e.message||'Generation failed. Try again.');}
   btn.disabled=false;btn.innerHTML='✦ Generate with AI';
 }
 function validate(){
@@ -664,7 +776,7 @@ async function handlePost(){
   const desc=document.getElementById('p-desc').value.trim();
   const tags=document.getElementById('p-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
   const note=document.getElementById('p-note').value.trim();
-  const destUrl=(document.getElementById('dest-url')?.value.trim())||selCol?.url||SITE;
+  const destUrl=getDestUrl();
   if(mediaSrc.type==='file'){
     showMsg(msg,'warning','File uploads require public hosting. Please host your file and use "Paste URL" instead, or use Supabase Storage (contact support to enable).');
     btn.disabled=false;btn.textContent=whenMode==='schedule'?'Schedule pin':'Post to Pinterest';
@@ -683,16 +795,35 @@ async function postNow(title,desc,tags,mediaUrl,destUrl,note){
     const d=await r.json();
     if(r.ok){
       await saveDb(title,desc,tags,mediaUrl,destUrl,note,'posted',d.id,null);
-      showMsg(msg,'success',`Posted! Pin ID: ${d.id}`);
+      msg.className='msg success';
+      msg.innerHTML=`Posted! Pin ID: ${d.id} — <button onclick="resetForm()" style="background:none;border:none;color:var(--green);font-weight:700;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif;font-size:13px;">Post another</button>`;
       loadQueue();
     }else{showMsg(msg,'error',`Pinterest error: ${d.message||JSON.stringify(d)}`);}
-  }catch(e){showMsg(msg,'error','Network error. Check your token.');}
+  }catch(e){showMsg(msg,'error',`Network error: ${e.message||'Check your token and connection.'}`);}
+}
+function resetForm(){
+  document.getElementById('p-title').value='';
+  document.getElementById('p-desc').value='';
+  document.getElementById('p-tags').value='';
+  document.getElementById('p-note').value='';
+  document.getElementById('cc1').textContent='0 / 100';
+  document.getElementById('cc2').textContent='0 / 500';
+  mediaSrc=null;
+  document.getElementById('i-prev').innerHTML='';
+  document.getElementById('i-lbl').style.display='';
+  document.getElementById('post-msg').className='msg hidden';
+  document.getElementById('copy-msg').className='msg hidden';
+  updatePreview();
 }
 async function saveScheduled(title,desc,tags,mediaUrl,destUrl,note){
   const msg=document.getElementById('post-msg');
   const st=document.getElementById('sched-time').value;
   const ok=await saveDb(title,desc,tags,mediaUrl,destUrl,note,'pending',null,st);
-  if(ok){showMsg(msg,'success',`Scheduled for ${new Date(st).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'})}. Supabase will post automatically.`);loadQueue();}
+  if(ok){
+    msg.className='msg success';
+    msg.innerHTML=`Scheduled for ${new Date(st).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'})}. Supabase will post automatically. — <button onclick="resetForm()" style="background:none;border:none;color:var(--green);font-weight:700;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif;font-size:13px;">Schedule another</button>`;
+    loadQueue();
+  }
   else{showMsg(msg,'error','Failed to save. Check Supabase connection.');}
 }
 async function saveDb(title,desc,tags,mediaUrl,destUrl,note,status,pinId,schedTime){
@@ -711,6 +842,7 @@ async function loadQueue(){
   document.getElementById('s-total').textContent=allPins.length;
   document.getElementById('s-pend').textContent=allPins.filter(p=>p.status==='pending').length;
   document.getElementById('s-post').textContent=allPins.filter(p=>p.status==='posted').length;
+  updateDailyTracker();
 }
 function setFilter(f,el){
   qFilter=f;
@@ -738,14 +870,121 @@ function renderQueue(){
 function onToken(){token=document.getElementById('s-token').value.trim();refreshTokenInd();}
 function refreshTokenInd(){const i=document.getElementById('tok-ind');i.textContent=token?'Token set':'No token';i.className='token-pill '+(token?'ok':'bad');}
 function onBoards(){boards=document.getElementById('s-boards').value.split(',').map(b=>b.trim()).filter(Boolean);renderChips();}
+function onAntKey(){antKey=document.getElementById('s-antkey').value.trim();}
 function saveSettings(){
   localStorage.setItem('pt_tok',token);
   localStorage.setItem('pt_boards',JSON.stringify(boards));
+  localStorage.setItem('ant_key',antKey);
   const m=document.getElementById('s-msg');
   showMsg(m,'success','Settings saved.');
   setTimeout(()=>m.className='msg hidden',3000);
 }
 function showMsg(el,type,text){el.className=`msg ${type}`;el.textContent=text;}
+
+/* ── QUICK TIME ───────────────────────────────────────────── */
+function quickTime(hour){
+  const now=new Date();
+  const d=new Date(now);
+  d.setHours(hour,0,0,0);
+  // if that slot has already passed today, use tomorrow
+  if(d<=now)d.setDate(d.getDate()+1);
+  // format as YYYY-MM-DDTHH:MM for datetime-local input
+  const pad=n=>String(n).padStart(2,'0');
+  const val=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(hour)}:00`;
+  document.getElementById('sched-time').value=val;
+}
+
+/* ── BULK SCHEDULER ───────────────────────────────────────── */
+function setBulkCount(n,el){
+  bulkCount=n;
+  document.querySelectorAll('.bulk-count-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+const PEAK_HOURS=[9,13,17,20];
+
+async function bulkSchedule(){
+  const bmsg=document.getElementById('bulk-msg');
+  const bprog=document.getElementById('bulk-progress');
+  const btn=document.getElementById('bulk-btn');
+  if(!selCol){showMsg(bmsg,'error','Select a collection (step 1) first.');return;}
+  if(!selBoard){showMsg(bmsg,'error','Select a board (step 4) first.');return;}
+  if(!mediaSrc||mediaSrc.type==='file'){showMsg(bmsg,'error','Paste a media URL (step 2) first — file uploads not supported for bulk.');return;}
+  if(!antKey){showMsg(bmsg,'error','Add your Anthropic API key in Settings first.');return;}
+  const startDateVal=document.getElementById('bulk-start').value;
+  if(!startDateVal){showMsg(bmsg,'error','Choose a starting date.');return;}
+
+  btn.disabled=true;bmsg.className='msg hidden';
+  const startDate=new Date(startDateVal+'T00:00:00');
+  const slots=[];
+  // build N time slots spread across PEAK_HOURS cycling through days
+  let slotDate=new Date(startDate);
+  let hourIdx=0;
+  while(slots.length<bulkCount){
+    const dt=new Date(slotDate);
+    dt.setHours(PEAK_HOURS[hourIdx%PEAK_HOURS.length],0,0,0);
+    slots.push(new Date(dt));
+    hourIdx++;
+    if(hourIdx%PEAK_HOURS.length===0)slotDate.setDate(slotDate.getDate()+1);
+  }
+
+  let ok=0,failed=0;
+  for(let i=0;i<bulkCount;i++){
+    bprog.textContent=`Generating pin ${i+1} of ${bulkCount}…`;
+    try{
+      const d=await callClaude(buildPinPrompt(selCol,i+1));
+      const txt=d.content.find(b=>b.type==='text')?.text||'';
+      const pin=JSON.parse(txt.replace(/```json[\s\S]*?```|```/g,'').trim());
+      const destUrl=getDestUrl();
+      const saved=await saveDb(
+        pin.title,pin.description,pin.hashtags,
+        mediaSrc.url,destUrl,'',
+        'pending',null,slots[i].toISOString()
+      );
+      if(saved)ok++;else failed++;
+    }catch(e){
+      failed++;
+      // if API key error, abort early
+      if(e.message&&(e.message.includes('API key')||e.message==='NO_KEY')){
+        showMsg(bmsg,'error',e.message);
+        bprog.textContent='';
+        btn.disabled=false;
+        return;
+      }
+    }
+    // small delay to avoid rate limits
+    await new Promise(r=>setTimeout(r,800));
+  }
+
+  bprog.textContent='';
+  if(failed===0){
+    showMsg(bmsg,'success',`${ok} pins scheduled! Spread across ${Math.ceil(bulkCount/PEAK_HOURS.length)} day(s) at peak times.`);
+  }else{
+    showMsg(bmsg,'warning',`${ok} scheduled, ${failed} failed. Check your settings and try again.`);
+  }
+  btn.disabled=false;
+  loadQueue();
+}
+
+/* ── DAILY TRACKER ────────────────────────────────────────── */
+function updateDailyTracker(){
+  const todayStr=new Date().toDateString();
+  const todayPins=allPins.filter(p=>{
+    const d=new Date(p.scheduled_for);
+    return d.toDateString()===todayStr&&(p.status==='posted'||p.status==='pending');
+  });
+  const count=todayPins.length;
+  const target=5;
+  const pct=Math.min(100,Math.round(count/target*100));
+  document.getElementById('daily-label').textContent=`Today: ${count} / ${target} pins`;
+  const fill=document.getElementById('daily-fill');
+  fill.style.width=pct+'%';
+  fill.className='daily-progress-fill'+(count>=target?' done':'');
+  const sub=document.getElementById('daily-sub');
+  if(count>=target){sub.textContent='Target met! Great work.';}
+  else if(count===0){sub.textContent='Post 5 pins/day for steady growth';}
+  else{sub.textContent=`${target-count} more to hit today's target`;}
+}
 
 // Only initialise app if already authenticated (gate was hidden on load)
 if(sessionStorage.getItem(AUTH_KEY)){init();}
