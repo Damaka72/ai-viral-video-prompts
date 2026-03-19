@@ -297,7 +297,7 @@ tr:hover td{background:var(--g50);}
               </div>
             </div>
           </div>
-          <p class="hint" style="margin-top:10px;">Uploaded files are sent directly to Pinterest's API. URLs must be publicly accessible.</p>
+          <p class="hint" style="margin-top:10px;">Uploaded files are stored in Supabase Storage and posted to Pinterest automatically. URLs must be publicly accessible.</p>
         </div>
       </div>
       <!-- 3. COPY -->
@@ -827,6 +827,19 @@ function validate(){
   if(whenMode==='schedule'&&!document.getElementById('sched-time').value)return'Set a date and time.';
   return null;
 }
+async function uploadToStorage(file){
+  const ext=file.name.split('.').pop()||'bin';
+  const fileName=`${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const bucket='AI Viral Video Prompts';
+  const r=await fetch(`${SB_URL}/storage/v1/object/${encodeURIComponent(bucket)}/${fileName}`,{
+    method:'POST',
+    headers:{'Authorization':`Bearer ${SB_KEY}`,'Content-Type':file.type||'application/octet-stream'},
+    body:file,
+  });
+  if(!r.ok){const d=await r.json();throw new Error(d.message||`Storage error ${r.status}`);}
+  return `${SB_URL}/storage/v1/object/public/${encodeURIComponent(bucket)}/${fileName}`;
+}
+
 async function handlePost(){
   const msg=document.getElementById('post-msg');
   const err=validate();
@@ -839,12 +852,19 @@ async function handlePost(){
   const tags=document.getElementById('p-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
   const note=document.getElementById('p-note').value.trim();
   const destUrl=getDestUrl();
+  let mediaUrl;
   if(mediaSrc.type==='file'){
-    showMsg(msg,'warning','File uploads require public hosting. Please host your file and use "Paste URL" instead, or use Supabase Storage (contact support to enable).');
-    btn.disabled=false;btn.textContent=whenMode==='schedule'?'Schedule pin':'Post to Pinterest';
-    return;
+    btn.innerHTML=`<span class="spin"></span>Uploading media…`;
+    try{
+      mediaUrl=await uploadToStorage(mediaSrc.file);
+    }catch(e){
+      showMsg(msg,'error',`Upload failed: ${e.message}`);
+      btn.disabled=false;btn.textContent=whenMode==='schedule'?'Schedule pin':'Post to Pinterest';
+      return;
+    }
+  }else{
+    mediaUrl=mediaSrc.url;
   }
-  const mediaUrl=mediaSrc.url;
   if(whenMode==='now'){await postNow(title,desc,tags,mediaUrl,destUrl,note);}
   else{await saveScheduled(title,desc,tags,mediaUrl,destUrl,note);}
   btn.disabled=false;btn.textContent=whenMode==='schedule'?'Schedule pin':'Post to Pinterest';
@@ -1013,7 +1033,8 @@ async function bulkSchedule(){
   const btn=document.getElementById('bulk-btn');
   if(!selCol){showMsg(bmsg,'error','Select a collection (step 1) first.');return;}
   if(!selBoard){showMsg(bmsg,'error','Select a board (step 4) first.');return;}
-  if(!mediaSrc||mediaSrc.type==='file'){showMsg(bmsg,'error','Paste a media URL (step 2) first — file uploads not supported for bulk.');return;}
+  if(!mediaSrc){showMsg(bmsg,'error','Add media (step 2) first.');return;}
+  if(mediaSrc.type==='file'){showMsg(bmsg,'error','Paste a media URL (step 2) for bulk scheduling — file uploads work for single pins only.');return;}
   if(!activeKey()){showMsg(bmsg,'error',`Add your ${aiProvider==='gemini'?'Gemini':'Anthropic'} API key in Settings first.`);return;}
   const startDateVal=document.getElementById('bulk-start').value;
   if(!startDateVal){showMsg(bmsg,'error','Choose a starting date.');return;}
