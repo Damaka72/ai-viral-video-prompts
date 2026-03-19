@@ -737,7 +737,7 @@ async function callGemini(prompt,_retry=0){
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
     {method:'POST',headers:{'Content-Type':'application/json'},
      body:JSON.stringify({contents:[{parts:[{text:prompt}]}],
-       generationConfig:{temperature:0.9,maxOutputTokens:600}})}
+       generationConfig:{temperature:0.9,maxOutputTokens:1024}})}
   );
   const d=await r.json();
   if(!r.ok){
@@ -768,7 +768,7 @@ async function callClaude(prompt){
       'anthropic-version':'2023-06-01',
       'anthropic-dangerous-direct-browser-access':'true'
     },
-    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:600,messages:[{role:'user',content:prompt}]})
+    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1024,messages:[{role:'user',content:prompt}]})
   });
   const d=await r.json();
   if(!r.ok){
@@ -787,6 +787,16 @@ async function callAI(prompt){
 
 function activeKey(){return aiProvider==='gemini'?geminiKey:antKey;}
 
+function parseAIJson(txt){
+  const clean=txt.replace(/```json\s*/g,'').replace(/```/g,'').trim();
+  try{return JSON.parse(clean);}
+  catch(e){
+    if(e instanceof SyntaxError&&/unexpected end|unexpected eof/i.test(e.message))
+      throw new Error('AI response was cut off — try again (increase prompt length may help).');
+    throw new Error('AI returned invalid JSON — try again.');
+  }
+}
+
 async function generateCopy(variant=0){
   const btn=document.getElementById('ai-btn');
   const msg=document.getElementById('copy-msg');
@@ -797,7 +807,7 @@ async function generateCopy(variant=0){
   try{
     const d=await callAI(buildPinPrompt(selCol,variant));
     const txt=d.content.find(b=>b.type==='text')?.text||'';
-    const pin=JSON.parse(txt.replace(/```json[\s\S]*?```|```/g,'').trim());
+    const pin=parseAIJson(txt);
     document.getElementById('p-title').value=pin.title;
     document.getElementById('p-desc').value=pin.description;
     document.getElementById('p-tags').value=pin.hashtags.join(', ');
@@ -1028,7 +1038,7 @@ async function bulkSchedule(){
     try{
       const d=await callAI(buildPinPrompt(selCol,i+1));
       const txt=d.content.find(b=>b.type==='text')?.text||'';
-      const pin=JSON.parse(txt.replace(/```json[\s\S]*?```|```/g,'').trim());
+      const pin=parseAIJson(txt);
       const destUrl=getDestUrl();
       const saved=await saveDb(
         pin.title,pin.description,pin.hashtags,
