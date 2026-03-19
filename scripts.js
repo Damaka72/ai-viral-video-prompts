@@ -261,131 +261,34 @@ function handleLeadSubmit(event) {
     const firstName = document.getElementById('leadFirstName').value;
     const lastName = document.getElementById('leadLastName').value;
 
-    // Validate inputs
     if (!email || !firstName || !lastName) {
         alert('Please fill in all fields.');
         return false;
     }
 
-    // Show loading state on button
     const submitButton = document.querySelector('.lead-popup-button');
     const originalButtonText = submitButton.innerHTML;
     submitButton.innerHTML = '⏳ SUBMITTING...';
     submitButton.disabled = true;
 
-    // ============================================
-    // CONSTANT CONTACT INTEGRATION
-    // ============================================
-    // Fill in the hidden Constant Contact form programmatically
-
-    console.log('Starting submission process...');
-    console.log('Email:', email);
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-
-    // Wait for Constant Contact form to be fully loaded
-    setTimeout(function() {
-        try {
-            // Find the Constant Contact form
-            const hiddenFormContainer = document.querySelector('#ctct-hidden-form');
-            console.log('Hidden form container found:', hiddenFormContainer ? 'YES' : 'NO');
-
-            if (!hiddenFormContainer) {
-                alert('Error: Constant Contact form not loaded. Please refresh and try again.');
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
-                return;
-            }
-
-            const ccForm = hiddenFormContainer.querySelector('form');
-            console.log('CC Form found:', ccForm ? 'YES' : 'NO');
-
-            if (!ccForm) {
-                alert('Note: Email may not have been submitted to Constant Contact. Please contact support.');
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
-                return;
-            }
-
-            // Find all input fields and log them for debugging
-            const allInputs = ccForm.querySelectorAll('input');
-            console.log('Total input fields found:', allInputs.length);
-            allInputs.forEach(function(input, index) {
-                console.log('Input ' + index + ':', input.type, input.name, input.placeholder);
-            });
-
-            // Find fields by various selectors (case-insensitive)
-            let ccEmailField, ccFirstNameField, ccLastNameField;
-
-            allInputs.forEach(function(input) {
-                const name = (input.name || '').toLowerCase();
-                const placeholder = (input.placeholder || '').toLowerCase();
-                const type = (input.type || '').toLowerCase();
-
-                // Email field
-                if (type === 'email' || name.includes('email') || placeholder.includes('email')) {
-                    ccEmailField = input;
-                }
-                // First name field
-                if (name.includes('first') || placeholder.includes('first')) {
-                    ccFirstNameField = input;
-                }
-                // Last name field
-                if (name.includes('last') || placeholder.includes('last')) {
-                    ccLastNameField = input;
-                }
-            });
-
-            console.log('Email field found:', ccEmailField ? 'YES' : 'NO');
-            console.log('First name field found:', ccFirstNameField ? 'YES' : 'NO');
-            console.log('Last name field found:', ccLastNameField ? 'YES' : 'NO');
-
-            // Fill in the fields
-            if (ccEmailField) {
-                ccEmailField.value = email;
-                ccEmailField.dispatchEvent(new Event('input', { bubbles: true }));
-                ccEmailField.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-            if (ccFirstNameField) {
-                ccFirstNameField.value = firstName;
-                ccFirstNameField.dispatchEvent(new Event('input', { bubbles: true }));
-                ccFirstNameField.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-            if (ccLastNameField) {
-                ccLastNameField.value = lastName;
-                ccLastNameField.dispatchEvent(new Event('input', { bubbles: true }));
-                ccLastNameField.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-
-            // Find and click the submit button
-            const submitBtn = ccForm.querySelector('button[type="submit"], input[type="submit"], button');
-            console.log('Submit button found:', submitBtn ? 'YES' : 'NO');
-
-            if (submitBtn) {
-                console.log('Clicking Constant Contact submit button...');
-                submitBtn.click();
-
-                // Show success after brief delay
-                setTimeout(function() {
-                    handleSuccessfulSubmission();
-                }, 2000);
-            } else {
-                // Try form.submit() as fallback
-                console.log('No submit button, trying form.submit()...');
-                ccForm.submit();
-
-                setTimeout(function() {
-                    handleSuccessfulSubmission();
-                }, 2000);
-            }
-
-        } catch (error) {
-            console.error('Error submitting to Constant Contact:', error);
-            alert('An error occurred: ' + error.message);
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
+    fetch('https://mvttihozhozigtrwqsyy.supabase.co/functions/v1/beehiiv-subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, first_name: firstName, last_name: lastName }),
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        if (data.data && data.data.id) {
+            handleSuccessfulSubmission();
+        } else {
+            throw new Error(data.message || data.error || 'Subscription failed.');
         }
-    }, 3000); // Wait 3 seconds for CC widget to fully load
+    })
+    .catch(function(err) {
+        alert('Something went wrong: ' + err.message + '\nPlease try again.');
+        submitButton.innerHTML = originalButtonText;
+        submitButton.disabled = false;
+    });
 
     return false;
 }
