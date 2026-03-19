@@ -853,7 +853,7 @@ async function postNow(title,desc,tags,mediaUrl,destUrl,note){
   const msg=document.getElementById('post-msg');
   const body={board_id:selBoard,title,description:desc,link:destUrl,media_source:{source_type:mediaType==='video'?'video_id':'image_url',url:mediaUrl}};
   try{
-    const r=await fetch('https://api.pinterest.com/v5/pins',{method:'POST',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const r=await fetch('https://mvttihozhozigtrwqsyy.supabase.co/functions/v1/pinterest-create-pin',{method:'POST',headers:{'x-pinterest-token':token,'Content-Type':'application/json'},body:JSON.stringify(body)});
     const d=await r.json();
     if(r.ok){
       await saveDb(title,desc,tags,mediaUrl,destUrl,note,'posted',d.id,null);
