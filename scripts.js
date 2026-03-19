@@ -253,7 +253,7 @@ function initLeadMagnetPopup() {
     });
 }
 
-// Handle form submission - CONSTANT CONTACT INTEGRATION
+// Handle form submission - BEEHIIV INTEGRATION
 function handleLeadSubmit(event) {
     event.preventDefault();
 
@@ -284,8 +284,8 @@ function handleLeadSubmit(event) {
             throw new Error(data.message || data.error || 'Subscription failed.');
         }
     })
-    .catch(function(err) {
-        alert('Something went wrong: ' + err.message + '\nPlease try again.');
+    .catch(function() {
+        alert('Something went wrong. Please try again.');
         submitButton.innerHTML = originalButtonText;
         submitButton.disabled = false;
     });
@@ -305,7 +305,7 @@ function handleSuccessfulSubmission() {
                 <div style="font-size: 5rem; margin-bottom: 1rem;">🎉</div>
                 <h2 style="color: #4ecdc4; font-size: 2rem; margin-bottom: 1rem;">Success!</h2>
                 <p style="font-size: 1.2rem; color: #e0e0e0; margin-bottom: 2rem;">
-                    Check your email for your <strong>50 FREE AI Video Prompts!</strong>
+                    Check your email for your <strong>100 FREE AI Video Prompts!</strong>
                 </p>
                 <p style="color: #999; font-size: 0.9rem;">
                     (Don't forget to check your spam folder)
