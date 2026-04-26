@@ -212,6 +212,27 @@ main {
 .generate-btn:active:not(:disabled) { transform: scale(0.99); }
 .generate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
+/* ── COPY ALL FOR CLAUDE BUTTON ── */
+.copy-all-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: opacity 0.2s, transform 0.1s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-top: 0.75rem;
+}
+.copy-all-btn:hover:not(:disabled) { opacity: 0.9; }
+.copy-all-btn:active:not(:disabled) { transform: scale(0.99); }
+.copy-all-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.copy-all-btn.copied { background: var(--green); }
+
 /* ── LOADING ── */
 #loadingSection {
   display: none;
@@ -566,6 +587,9 @@ main {
     <button class="generate-btn" id="generateBtn" onclick="generateWeek()">
       ✨ Generate This Week's Content
     </button>
+    <button class="copy-all-btn" id="copyAllBtn" onclick="copyAllForClaude()">
+      Copy all for Claude ↗
+    </button>
   </div>
 
   <!-- ERROR BANNER -->
@@ -590,6 +614,24 @@ main {
 
 <!-- TOAST -->
 <div id="toast"></div>
+
+<!-- CLAUDE COPY MODAL (clipboard fallback) -->
+<div id="claudeModal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(45,0,77,0.65); align-items:center; justify-content:center; padding:1.5rem;">
+  <div style="background:white; border-radius:18px; max-width:640px; width:100%; box-shadow:0 32px 80px rgba(0,0,0,0.35); overflow:hidden;">
+    <div style="padding:1.25rem 1.75rem; border-bottom:1px solid var(--border-light); display:flex; align-items:center; justify-content:space-between;">
+      <div style="font-weight:700; font-size:1rem; color:var(--text);">Copy all for Claude</div>
+      <button onclick="closeClaudeModal()" style="background:none; border:none; font-size:1.5rem; color:var(--muted); cursor:pointer; line-height:1; padding:0 4px; font-family:'Inter',sans-serif;">&times;</button>
+    </div>
+    <div style="padding:1.5rem 1.75rem;">
+      <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.875rem;">Clipboard access was denied. Select all and copy manually:</p>
+      <textarea id="claudeModalText" readonly style="width:100%; height:220px; padding:0.875rem; border:1.5px solid var(--border); border-radius:9px; font-family:'Inter',sans-serif; font-size:0.8rem; color:var(--text); background:var(--bg); resize:vertical; outline:none; line-height:1.6;"></textarea>
+      <div style="display:flex; gap:0.75rem; margin-top:1rem; justify-content:flex-end;">
+        <button onclick="document.getElementById('claudeModalText').select()" style="padding:0.625rem 1.25rem; border:1.5px solid var(--border); border-radius:8px; background:white; font-family:'Inter',sans-serif; font-size:0.875rem; font-weight:600; color:var(--muted); cursor:pointer; transition:all 0.18s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Select All</button>
+        <button onclick="closeClaudeModal()" style="padding:0.625rem 1.25rem; border:none; border-radius:8px; background:var(--primary); font-family:'Inter',sans-serif; font-size:0.875rem; font-weight:700; color:white; cursor:pointer; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 // ── Auth gate (exact pattern from social-agent.html) ──────────
@@ -929,6 +971,95 @@ function updateProgress() {
     pill.textContent = day.slice(0,3) + (postedState[i] ? ' ✓' : '');
     pills.appendChild(pill);
   });
+}
+
+// ── Copy all for Claude ───────────────────────────────────────
+async function copyAllForClaude() {
+  const btn = document.getElementById('copyAllBtn');
+  const ORIGINAL_LABEL = 'Copy all for Claude ↗';
+  try {
+    // Step 1: validate — check posts exist and have content
+    if (!currentPosts.length || !currentPosts.some(p => p && p.tiktok_caption)) {
+      showToast('Generate your posts first');
+      return;
+    }
+
+    // Step 3: read form values
+    const pack       = document.getElementById('packSelect').value || '';
+    const rawDiscount = document.getElementById('discountInput').value.trim();
+    const discount   = rawDiscount || 'none';
+
+    // Week commencing date — today as DD/MM/YYYY (no week-date field on page)
+    const now      = new Date();
+    const weekDate = String(now.getDate()).padStart(2,'0') + '/'
+                   + String(now.getMonth() + 1).padStart(2,'0') + '/'
+                   + now.getFullYear();
+
+    // Step 2: extract data — only posts that have tiktok_caption content
+    const postsWithContent = currentPosts.filter(p => p && p.tiktok_caption);
+
+    const parts = [
+      `AIVVP WEEKLY POSTS — ${weekDate}`,
+      `Pack: ${pack}`,
+      `Discount code: ${discount}`,
+      '',
+    ];
+
+    postsWithContent.forEach(post => {
+      // Strip HTML, get first line only, collapse whitespace
+      const rawCaption = (post.tiktok_caption || '').replace(/<[^>]*>/g, '');
+      const hook       = rawCaption.split('\n')[0].trim().replace(/\s+/g, ' ');
+      // Strip HTML, collapse newlines and extra whitespace
+      const rawCTA     = (post.gumroad_cta || '').replace(/<[^>]*>/g, '').trim()
+                           .replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ');
+      const dayName    = (post.day || '').toUpperCase();
+      parts.push('---', dayName, `Hook: ${hook}`, `CTA: ${rawCTA}`);
+    });
+
+    parts.push(
+      '---',
+      'Please create one Instagram post design in Canva for each day using my AIVVP template — purple #4A0080 background, pink #E91E8C accent bar, white text, aiviralvideoprompts.com badge at the bottom. Send me five edit links, one per day.'
+    );
+
+    const text = parts.join('\n');
+
+    // Step 5: copy to clipboard
+    btn.disabled = true;
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      showToast('Copied — paste into Claude to create your Canva designs');
+      setTimeout(() => {
+        btn.textContent = ORIGINAL_LABEL;
+        btn.classList.remove('copied');
+        btn.disabled = false;
+      }, 3000);
+    } catch {
+      // Clipboard permission denied — fall back to modal
+      btn.disabled = false;
+      btn.textContent = ORIGINAL_LABEL;
+      showClaudeModal(text);
+    }
+
+  } catch (err) {
+    console.error('[copyAllForClaude]', err);
+    showToast('Something went wrong — try again');
+    btn.textContent = ORIGINAL_LABEL;
+    btn.classList.remove('copied');
+    btn.disabled = false;
+  }
+}
+
+function showClaudeModal(text) {
+  document.getElementById('claudeModalText').value = text;
+  const m = document.getElementById('claudeModal');
+  m.style.display = 'flex';
+  setTimeout(() => document.getElementById('claudeModalText').select(), 50);
+}
+
+function closeClaudeModal() {
+  document.getElementById('claudeModal').style.display = 'none';
 }
 
 // ── Regenerate a single post ──────────────────────────────────
