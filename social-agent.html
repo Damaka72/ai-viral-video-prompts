@@ -622,11 +622,11 @@ textarea { min-height: 68px; }
       <div class="obj-grid" id="objGrid">
         <button class="obj-card active" data-obj="newsletter" onclick="selectObjective(this)">
           <span class="obj-icon">🎯</span>
-          <span class="obj-label">Grow Newsletter</span>
+          <span class="obj-label">Grow List</span>
         </button>
         <button class="obj-card" data-obj="directory" onclick="selectObjective(this)">
           <span class="obj-icon">🏢</span>
-          <span class="obj-label">Fill Directory</span>
+          <span class="obj-label">Drive Sales</span>
         </button>
         <button class="obj-card" data-obj="reach" onclick="selectObjective(this)">
           <span class="obj-icon">📣</span>
@@ -637,7 +637,7 @@ textarea { min-height: 68px; }
           <span class="obj-label">Build Authority</span>
         </button>
       </div>
-      <p class="obj-desc" id="objDesc">Drive sign-ups to The Old Oak Weekly. 3 of 5 days include a natural newsletter CTA woven into the post.</p>
+      <p class="obj-desc" id="objDesc">Grow the AI Viral Video Prompts email list. 3 of 5 days include a natural sign-up CTA woven into the post.</p>
     </div>
 
     <div class="sidebar-section">
@@ -979,28 +979,28 @@ document.addEventListener('DOMContentLoaded', () => {
 // ═══════════════════════════════════════════════════════════════
 const OBJECTIVES = {
   newsletter: {
-    desc: 'Drive sign-ups to The Old Oak Weekly. 3 of 5 days include a natural newsletter CTA woven into the post.',
-    prompt: `CAMPAIGN OBJECTIVE — Grow Newsletter Sign-ups:
-The overarching goal this week is to convert followers into subscribers of The Old Oak Weekly (sign-up at oldoaktown.co.uk).
+    desc: 'Grow the AI Viral Video Prompts email list for future prompt pack launches. 3 of 5 days include a natural sign-up CTA woven into the post.',
+    prompt: `CAMPAIGN OBJECTIVE — Grow the Email List:
+The overarching goal this week is to grow the AI Viral Video Prompts email list — the audience for future product launches and prompt pack releases.
 STRATEGIC RULES:
-- Exactly 3 of the 5 days must include a newsletter call-to-action woven naturally into the post — never bolted on as a last line
+- Exactly 3 of the 5 days must include a sign-up call-to-action woven naturally into the post — never bolted on as a last line
 - The remaining 2 days are pure value content with no CTA — these build the trust that makes the CTA days work
-- CTAs to rotate (use each at most once): "Get the full story every week — sign up free at oldoaktown.co.uk", "Join thousands of West Londoners who get the briefing before anyone else", "Inside The Old Oak Weekly this week: [tease something specific to the theme]", "Never miss an update — it's free, it's local, it's yours"
-- FACEBOOK: The closing question on CTA days should transition naturally into the sign-up mention
-- INSTAGRAM: On CTA days, the final line should reference the newsletter link in bio
-- LINKEDIN: Position the newsletter as the essential weekly briefing for anyone with professional interest in Old Oak — developers, planners, investors`
+- CTAs to rotate (use each at most once): "Get early access to new prompt packs — join the list at aiviralvideoprompts.com", "New packs drop to the list first — sign up free", "Be the first to know when we launch", "Join the list — it's free and you get the good stuff first"
+- TIKTOK: On CTA days, the final line should reference the link in bio
+- INSTAGRAM: On CTA days, the final line should reference the list link in bio
+- TWITTER/X: Position the list as the insider track for creators who want to stay ahead of what is working`
   },
   directory: {
-    desc: 'Spotlight local businesses and drive free listings. Builds both revenue and community value.',
-    prompt: `CAMPAIGN OBJECTIVE — Grow the Business Directory:
-The overarching goal this week is to drive local business owners to list on the Old Oak Town directory (oldoaktown.co.uk/business-directory).
+    desc: 'Generate Gumroad prompt pack sales. Show what a prompt produces — teach first, sell through the teaching.',
+    prompt: `CAMPAIGN OBJECTIVE — Drive Gumroad Prompt Pack Sales:
+The overarching goal this week is to generate sales of the AI Viral Video Prompts packs on Gumroad — through demonstration and value, never through hard selling.
 STRATEGIC RULES:
-- At least 2 days should feature a warm spotlight on a local business — write it as community celebration, not advertising
-- At least 2 days should include a soft CTA for business owners: "Is your business on the directory? It's free — oldoaktown.co.uk", "Know a local business that deserves more visibility? Tag them below"
-- 1 day should be pure community content with no business CTA — earn trust before asking
-- FACEBOOK: "Tag a local business owner who should see this" is a highly effective closing call-to-action this week
-- INSTAGRAM: Lead with local pride and community identity, not sales language
-- LINKEDIN: Direct appeal to business owners and entrepreneurs: "If you serve West London, you should be here. Free listing at oldoaktown.co.uk"`
+- At least 2 days should show a prompt pack in action — what the prompt is, what it produces, why it works. Make the value undeniable before the price is mentioned
+- At least 2 days should include a soft CTA: "Get the prompt pack →", "Browse all packs at aiviralvideoprompts.com"
+- 1 day should be pure teaching content with no product mention — earn trust before asking
+- TIKTOK: Lead with the output or the hook — show before you tell
+- INSTAGRAM: Strong visual hook, short caption, CTA in the final line and bio
+- TWITTER/X: Be specific — name the prompt type, the result it produces, the format it works best in`
   },
   reach: {
     desc: 'Maximise shares, tags, and new follows. Content designed to travel beyond existing followers.',
@@ -1009,24 +1009,25 @@ The overarching goal this week is to grow total reach — new followers, organic
 STRATEGIC RULES:
 - Every post needs a "forward momentum" hook that makes existing followers want to show it to someone who doesn't follow yet
 - Use surprising stats, before/after contrasts, local nostalgia, or vivid future vision to trigger saves and shares
-- Explicit sharing prompts: "Share this with a neighbour", "Tag someone who commutes through this area", "Save this — Old Oak Common is the biggest change to West London in a generation"
-- Write as if explaining to someone who's never heard of the project — that's who gets tagged in
-- FACEBOOK: The closing question should invite people to tag a specific type of person (a neighbour, someone flat-hunting in West London, a friend who works in construction)
-- INSTAGRAM: Strong hook lines, emotionally vivid, designed for saves — saves signal reach to the algorithm
-- LINKEDIN: Hook the professional who will share with their network: urban planners, architects, investors, developers`
+- Explicit sharing prompts: "Share this with a creator who needs to hear it", "Tag a business owner who keeps saying they'll start doing video", "Save this — the hook structures that work on video haven't changed, only how fast you can build them now"
+- Write as if talking to someone who just picked up their phone to record their first video — that is who gets tagged in
+- TIKTOK: Strong hook in the first 2 seconds — this is the most shareable format for this objective
+- INSTAGRAM: Visual hook, short punchy caption, designed for saves — saves signal reach to the algorithm
+- TWITTER/X: Hook the creator or marketer who will share with their network: content creators, marketing leads, solopreneurs, brand builders`
   },
   trust: {
-    desc: 'No CTAs — pure value content. Establishes Old Oak Town as the definitive go-to local source.',
+    desc: 'No CTAs — pure value content. Establishes AI Viral Video Prompts as the go-to resource for AI video strategy and prompt-driven content creation.',
     prompt: `CAMPAIGN OBJECTIVE — Build Community Authority & Trust:
 The overarching goal this week is depth and credibility. Zero conversion CTAs. This is the long-term investment that makes every other objective easier.
 STRATEGIC RULES:
-- Every post must deliver specific, useful, hard-to-find information — dates, planning references, named sources, real numbers
-- Do not include any sign-up prompts, directory pushes, or conversion CTAs of any kind this week
-- Position Old Oak Town as the most informed, most reliable, most local voice on the regeneration — not a social media account, but a trusted institution
-- When in doubt, go deeper — more detail is better than less this week
-- FACEBOOK: Long-form posts this week. Give people something to save, return to, and share in local Facebook groups
-- INSTAGRAM: Structure captions like mini-infographics — numbered facts, clear headers, dense useful content
-- LINKEDIN: Write the 200–250 word analysis posts that get shared by planners, journalists, and property professionals`
+- Every post must deliver specific, useful insight — draw from the 7 content pillars: what makes video go viral, AI tools for video, prompt pack spotlights, before and after, creator mindset, platform intelligence, quick wins
+- Content should leave someone thinking "I can actually do this — and I know exactly what to try next"
+- Do not include any sign-up prompts, product pushes, or conversion CTAs of any kind this week
+- Position AI Viral Video Prompts as the most practical, most tested voice on AI video content — not just another tools account, but a creator who has built the system and is sharing what actually works
+- When in doubt, go more specific — one framework, one format, one actionable step beats broad inspiration every time
+- TIKTOK: Teach one thing completely — a hook structure, a format, a prompt type — in under 60 seconds
+- INSTAGRAM: Structure captions like mini-frameworks — numbered steps, clear headers, immediately actionable
+- TWITTER/X: Write the threads that get saved and shared by creators, marketers, and solopreneurs who want to improve their video output`
   }
 };
 
@@ -1708,21 +1709,21 @@ function loadFromSpreadsheet(file) {
 function downloadSampleCSV() {
   const sample = [
     'day,platform,caption,hashtags,best_time,media_url,day_theme',
-    'Monday,facebook,"Big news from Old Oak Common — construction reaches a new milestone this week! 🏗️",#OldOak #HS2 #WestLondon,9:00am,,Week in Review',
-    'Monday,instagram,"Construction update 🏗️ — things are moving fast at Old Oak Common. Watch this space!",#OldOakCommon #HS2 #London,11:00am,https://example.com/image.jpg,Week in Review',
-    'Monday,linkedin,"OPDC publishes Q1 planning update for Old Oak Common — key figures and milestones inside.",#UrbanRegeneration #HS2 #OldOak,8:00am,,Week in Review',
-    'Tuesday,facebook,"Did you know 25,500 new homes are planned for Old Oak Common? Here\'s what that means for local residents.",#OldOak #Housing #WestLondon,9:00am,,Community Focus',
-    'Tuesday,instagram,"Community garden project blooms in Old Oak 🌱 — residents take ownership of shared green spaces.",#OldOakCommunity #GreenSpaces,11:00am,,Community Focus',
-    'Tuesday,linkedin,"65,000 jobs expected at Old Oak Common by 2039 — what sectors are driving regeneration growth?",#Jobs #Regeneration #HS2,8:00am,,Community Focus',
-    'Wednesday,facebook,"Planning applications up 18% in the Old Oak area — here\'s what\'s in the pipeline.",#OldOak #Planning #WestLondon,9:00am,,Planning Watch',
-    'Wednesday,instagram,"New local business spotlight: meet the entrepreneurs setting up shop in Old Oak 🛍️",#OldOakBusiness #WestLondon,11:00am,,Planning Watch',
-    'Wednesday,linkedin,"How Old Oak Common\'s HS2 interchange will reshape commuter patterns across West London.",#HS2 #Transport #OldOak,8:00am,,Planning Watch',
-    'Thursday,facebook,"Community event this weekend: Old Oak Common residents open day — all welcome 🌳",#OldOak #Community #WestLondon,9:00am,,Community Events',
-    'Thursday,instagram,"Behind the scenes at Old Oak Common 📸 — our photographer captures the scale of regeneration.",#OldOakCommon #Photography,11:00am,,Community Events',
-    'Thursday,linkedin,"OPDC announces new infrastructure investment for Park Royal — details and timeline.",#ParkRoyal #Infrastructure #OPDC,8:00am,,Community Events',
-    'Friday,facebook,"Week in review: the top 5 Old Oak Common stories you need to know 📰",#OldOak #WeeklyRoundup #HS2,9:00am,,Week Wrap',
-    'Friday,instagram,"Friday vibes from Old Oak Common 🌳 — have a great weekend from the team!",#OldOakCommon #WeekendVibes,11:00am,,Week Wrap',
-    'Friday,linkedin,"Weekly digest: Old Oak Common development highlights and what\'s coming next.",#OldOak #UrbanDevelopment #WeeklyDigest,8:00am,,Week Wrap'
+    'Monday,tiktok,"The hook that stopped 2M people scrolling last week — here\'s the structure, and here\'s how to write it with AI in 3 minutes. 🎬",#VideoMarketing #AIContent #TikTokTips,9:00am,,Hook Structures',
+    'Monday,instagram,"This one hook structure gets saved more than any other. 🎯\n\nHere\'s why it works — and the AI prompt that builds it.",#ContentCreation #AIVideo #VideoTips,11:00am,,Hook Structures',
+    'Monday,twitter,"Most video hooks fail for one reason: they talk about the creator, not the viewer. Here is the fix — and it takes 30 seconds to implement.",#VideoMarketing #ContentCreation,8:00am,,Hook Structures',
+    'Tuesday,tiktok,"Before and after: same idea, two different hooks. Watch which one you\'d stop scrolling for — the difference is one structural change. 👀",#VideoTips #ContentStrategy #AIPrompts,9:00am,,Before & After',
+    'Tuesday,instagram,"Same idea. Weak execution vs strong execution. 📊\n\nHere\'s what changed and why it matters.",#VideoContent #AITools #ContentCreation,11:00am,,Before & After',
+    'Tuesday,twitter,"The fastest way to improve your video content: film the same idea twice using two different hook structures. Then look at the data. The numbers don\'t lie.",#VideoMarketing #AIContent,8:00am,,Before & After',
+    'Wednesday,tiktok,"You don\'t need a ring light. You don\'t need a script. You need a structure. Here are 3 that work on every platform right now. ⚡",#ContentCreation #VideoTips #AIPrompts,9:00am,,Quick Wins',
+    'Wednesday,instagram,"3 video structures that work on every platform. 🎬\n\nPick one. Film it today.",#VideoMarketing #ContentStrategy #AIVideo,11:00am,,Quick Wins',
+    'Wednesday,twitter,"Stop overthinking the equipment. The creators getting the most views right now are using their phones and a proven structure. Here\'s the structure.",#VideoContent #CreatorTips,8:00am,,Quick Wins',
+    'Thursday,tiktok,"The \'who am I to post this\' feeling is real. Here\'s how to reframe it — and why the people who post anyway are the ones who build audiences. 🎯",#CreatorMindset #ContentCreation #VideoTips,9:00am,,Creator Mindset',
+    'Thursday,instagram,"Every creator has the same fear before they post. 🎤\n\nHere\'s what separates the ones who grow from the ones who wait.",#CreatorLife #VideoContent #Mindset,11:00am,,Creator Mindset',
+    'Thursday,twitter,"Posting consistently is not a discipline problem. It is a system problem. Build the system and the consistency follows. Here is the system.",#ContentCreation #VideoMarketing #CreatorTips,8:00am,,Creator Mindset',
+    'Friday,tiktok,"Week wrap: the 3 video formats getting the most reach this week across TikTok and Instagram Reels. 📈 Save this.",#VideoMarketing #ContentStrategy #TikTokTips,9:00am,,Week Wrap',
+    'Friday,instagram,"Friday content check ✅\n\nThe 3 formats worth trying next week — based on what actually worked this week.",#ContentCreation #VideoTips #WeekendPlanning,11:00am,,Week Wrap',
+    'Friday,twitter,"Weekly digest: what is working in video right now, what has stopped working, and the one prompt type that is outperforming everything else this week.",#VideoMarketing #AIContent #WeeklyDigest,8:00am,,Week Wrap'
   ].join('\n');
 
   const blob = new Blob([sample], { type: 'text/csv;charset=utf-8;' });
