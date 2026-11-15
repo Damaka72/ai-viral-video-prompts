@@ -1,40 +1,57 @@
-// Modal functions
+// ============================================
+// INLINE VIDEO PLAYERS (click thumbnail to play in place)
+// ============================================
+const thumbnailOriginals = new WeakMap();
+
+function resetInlinePlayer(thumb) {
+    const original = thumbnailOriginals.get(thumb);
+    if (original !== undefined) {
+        thumb.innerHTML = original;
+        thumb.classList.remove('playing');
+        thumb.setAttribute('role', 'button');
+        thumb.setAttribute('tabindex', '0');
+        thumbnailOriginals.delete(thumb);
+    }
+}
+
+function resetAllInlinePlayers(except) {
+    document.querySelectorAll('.video-thumbnail.playing').forEach(t => {
+        if (t !== except) resetInlinePlayer(t);
+    });
+}
+
+function playInline(thumb) {
+    if (thumb.classList.contains('playing')) return;
+    const card = thumb.closest('.video-card');
+    const videoId = card && card.getAttribute('data-video-id');
+    if (!videoId) return;
+
+    // Only one video plays at a time
+    resetAllInlinePlayers(thumb);
+
+    thumbnailOriginals.set(thumb, thumb.innerHTML);
+    thumb.classList.add('playing');
+    thumb.removeAttribute('role');
+    thumb.removeAttribute('tabindex');
+
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0`;
+    iframe.title = thumb.getAttribute('aria-label') || 'Video example';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.setAttribute('frameborder', '0');
+    thumb.innerHTML = '';
+    thumb.appendChild(iframe);
+}
+
+// Modal functions (the modal now shows the exact prompt; video plays in the card)
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) return;
 
-    // Find the video card that has the matching modal ID set in its onclick attribute
-    let cardElement = document.querySelector(`.video-card[onclick*="${modalId}"]`);
+    // Stop any inline video so audio doesn't play behind the modal
+    resetAllInlinePlayers();
 
-    // If the card wasn't found (e.g., if the button was clicked), try finding the card via the button's parent
-    if (!cardElement) {
-        const button = document.querySelector(`button[onclick*="${modalId}"]`);
-        if (button) {
-            cardElement = button.closest('.video-card');
-        }
-    }
-
-    const videoId = cardElement ? cardElement.getAttribute('data-video-id') : null;
-
-    if (videoId) {
-        // Inject the YouTube iframe with autoplay into the modal's video container
-        const videoContainer = modal.querySelector(`#${modalId}-video`);
-        if (videoContainer) {
-            videoContainer.innerHTML = `
-                <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/${videoId}?autoplay=1"
-                    title="Video Example"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-            `;
-        }
-    }
-
-    // Display the modal
     modal.style.display = 'block';
     modal.setAttribute('aria-hidden', 'false');
 
@@ -52,20 +69,14 @@ function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) return;
 
-    // Stop video playback by clearing the container content
-    const videoContainer = modal.querySelector(`#${modalId}-video`);
-    if (videoContainer) {
-        videoContainer.innerHTML = ''; // This unloads the iframe and stops the video
-    }
-
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
 
     // Restore body scroll
     document.body.style.overflow = '';
 
-    // Return focus to the element that opened the modal
-    const triggerElement = document.querySelector(`.video-card[onclick*="${modalId}"]`);
+    // Return focus to the button that opened the modal
+    const triggerElement = document.querySelector(`.prompt-button[onclick*="${modalId}"]`);
     if (triggerElement) {
         triggerElement.focus();
     }
@@ -121,23 +132,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Make video cards keyboard accessible
-    document.querySelectorAll('.video-card').forEach(card => {
-        // Make cards focusable
-        card.setAttribute('tabindex', '0');
-
-        // Add keyboard support
-        card.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
+    // Inline video players: click or Enter/Space on a thumbnail plays it in place
+    document.querySelectorAll('.video-thumbnail').forEach(thumb => {
+        thumb.addEventListener('click', () => playInline(thumb));
+        thumb.addEventListener('keydown', e => {
+            if (e.target === thumb && (e.key === 'Enter' || e.key === ' ')) {
                 e.preventDefault();
-                // Extract modal ID from onclick attribute
-                const onclickAttr = this.getAttribute('onclick');
-                if (onclickAttr) {
-                    const match = onclickAttr.match(/openModal\('([^']+)'\)/);
-                    if (match && match[1]) {
-                        openModal(match[1]);
-                    }
-                }
+                playInline(thumb);
             }
         });
     });
