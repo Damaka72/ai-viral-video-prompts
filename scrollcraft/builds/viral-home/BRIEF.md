@@ -123,12 +123,22 @@ The hero clip scrubs under the wheel. Beside it, the verbatim prompt sits in dim
 
 Install `playwright-core` in the build folder and run `shoot.mjs` at desktop, phone and reduced motion. Check dead scroll, cues that never reach full opacity, composited contrast per line, and legs stuck on a poster (the one scrub clip). Declared authored silence: the near-black beat before object one. A contact sheet. **Not coverable here:** a real phone (decoder, autoplay, Low Power Mode, touch).
 
-## Decisions for the owner (found in the live copy; none changed)
+## Owner decisions on the open items (resolved)
 
-1. **Free sample count.** The popup says "100 FREE AI Video Prompts"; the PDF it delivers is `50-free-prompts.pdf` and says 50. Which is true?
-2. **PDF repeats the dropped claims** ("used by top creators to generate millions of views"). The PDF is a deliverable you send people; it should match the page.
-3. **Example 4 mismatch.** It is titled "The Overnight Success Myth" but its prompt describes a co-working ad pitch. Which title or prompt is right?
-4. **Two Mega Bundle links.** The hero button goes to `/l/hnjjmr`; the example cards go to `/l/aimega`. Which is current?
-5. **"Collection: Mega Prompt Studio"** appears on all six examples, but isn't one of the 13 collection names. What should it say?
-6. **Stale tracking token.** The hero bundle link carries an old Google linker value (`_gl=...`). I'd strip it in the new page. OK?
-7. **Em dashes** in site copy: a diff of proposed punctuation changes will come after the build, for approval. The six example prompts are verbatim and are not changed.
+1. **Free sample:** 50 (the PDF is correct). The live popup and success message now say 50.
+2. **PDF wording:** amended. The "top creators, millions of views" sentence is gone; "124+ categories" became "13 specialized collections"; the closing list uses the real collection names.
+3. **Example 4:** retitled "The Pitch: Our Ad Is Our Voice" to match its prompt. Check that the title also suits the film itself.
+4. **Mega Bundle links:** all go to Gumroad. The page uses the hero's link (`/l/hnjjmr`) everywhere. The other link (`/l/aimega`) is no longer used. **Please confirm `hnjjmr` is the live listing.**
+5. **Collection name on the six examples:** one consistent name, "AI Mega Video Prompts" (the bundle's own name).
+6. **Stale tracking token:** stripped from the bundle link.
+7. **Em dashes:** the new page has one visible em dash, inside example 5's verbatim prompt ("ticked\u2014and no relief"), which is left as written. Nothing else to approve.
+
+## Build notes: where the built page differs from this plan
+
+- **Hero is a pinned act, not a scrub, until the footage arrives.** The owner has the six files but they have not been supplied. The generator switches the hero to the page's one scrub automatically when `scrollcraft/builds/viral-home/assets/hero.mp4` (and `hero-poster.webp`) exist. Until then the prompt still lights word by word, driven by scroll, beside the YouTube player. **The peak is weaker until then.**
+- **Players load only after a click**, from youtube-nocookie.com, so no third-party cookies before a choice.
+- **The free-sample popup opens only when asked for.** The live page opens it by itself after 15 seconds, on exit intent and at 70% scroll; that would interrupt the peak. Form fields and the Beehiiv endpoint are unchanged.
+- **The index of objects is a film strip along the bottom edge** (21 ticks on desktop, three tabs on a phone). Jumps move the rail to the chosen object.
+- **Prompts in the rails are clipped to three lines** with "Read the whole prompt"; the hero shows its prompt in full.
+- **Dropped from the live page:** the promotional banner, the emoji, the "Save 67%" meta description (13 collections at $1 is $13, so $9 is about 31% off), and every views/revenue claim.
+- **Length:** 12.3 screens desktop, 12.4 phone (plan: about 11, budget 14).

@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Viral Video Prompts (preview)</title>
+<meta name="description" content="46,714 AI video prompts in 13 collections: $1 each, or $9 for all of them. See six films and the exact prompts that made them.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://aiviralvideoprompts.com/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2307090F'/><path d='M12 9l12 7-12 7z' fill='%23FF2D5F'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+/* viral-home: gallery / catalogue. Cinematic and dark. Six colour roles, one accent (pink).
+   Teal is a region (the tally), never confetti. Two faces. Offset, tinted shadows only. */
+:root {
+  --sc-canvas: #07090F;
+  --sc-surface: #0E111B;
+  --sc-ink: #EEF0F6;
+  --sc-ink-soft: #A9AFC4;
+  --sc-accent: #FF2D5F;
+  --sc-accent-ink: #07090F;
+  --sc-font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --sc-font-text: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sc-shadow-color: 232 50% 2%;
+  --teal: #4ECDC4;
+  --teal-ground: #08171A;
+  --line: rgba(238, 240, 246, .16);
+  --strip: 3.25rem;
+}
+html { scroll-behavior: auto; }
+body { margin: 0; background: var(--sc-canvas); color: var(--sc-ink); font-family: var(--sc-font-text); font-size: var(--sc-t-base);
+  line-height: 1.6; -webkit-font-smoothing: antialiased; padding-bottom: var(--strip); }
+:focus-visible { outline: 3px solid var(--sc-accent); outline-offset: 3px; border-radius: 3px; }
+.skip { position: absolute; left: -999px; top: 0; z-index: 100; background: var(--sc-ink); color: var(--sc-canvas); padding: .75rem 1rem; }
+.skip:focus { left: 0; }
+.wrap { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: var(--sc-gutter); box-sizing: border-box; }
+h1, h2, h3 { margin: 0; font-weight: 400; }
+p { margin: 0; text-wrap: pretty; }
+
+/* masthead: the catalogue's name, small. The h1 is real. */
+.mast { position: absolute; z-index: 40; top: 0; left: 0; padding: 1.1rem var(--sc-gutter); pointer-events: none; }
+.mast h1 { font-family: var(--sc-font-text); font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--sc-ink-soft); }
+
+/* labels: one schema, facts only */
+.label h2, .label h3 { font-family: var(--sc-font-display); font-size: clamp(1.7rem, 1.2rem + 1.4vw, 2.6rem); line-height: 1.08; letter-spacing: -.01em; }
+.meta { color: var(--sc-ink-soft); font-size: .92rem; line-height: 1.5; }
+.field { margin-top: 1.4rem; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--sc-ink-soft); }
+.prompt { margin-top: .5rem; font-size: 1.02rem; line-height: 1.7; color: var(--sc-ink); max-width: 46ch; letter-spacing: .005em; font-weight: 500; }
+.count { font-family: var(--sc-font-display); font-size: clamp(2.6rem, 2rem + 2vw, 3.8rem); line-height: 1; margin-top: 1rem; font-variant-numeric: tabular-nums; }
+.count span { font-family: var(--sc-font-text); font-size: .9rem; color: var(--sc-ink-soft); letter-spacing: .02em; }
+.price { font-family: var(--sc-font-display); font-size: 2rem; margin-top: .75rem; font-variant-numeric: tabular-nums; }
+.act { display: inline-flex; align-items: center; min-height: 44px; margin-top: 1rem; padding: .6rem 1.2rem; border-radius: 6px; border: 0; cursor: pointer;
+  background: var(--sc-accent); color: var(--sc-accent-ink); font: inherit; font-weight: 700; font-size: .95rem; text-decoration: none;
+  box-shadow: 0 1px 2px hsl(var(--sc-shadow-color) / .5), 0 8px 16px -8px hsl(var(--sc-shadow-color) / .7); transition: transform .2s ease; }
+.act:hover { transform: translateY(-1px); }
+.act--big { min-height: 52px; padding: .8rem 1.6rem; font-size: 1.05rem; }
+.meta .act { margin-top: 0; min-height: 36px; padding: .3rem .8rem; margin-left: .4rem; vertical-align: middle; }
+.more { margin-top: .7rem; background: none; border: 0; color: var(--sc-ink); font: inherit; font-weight: 600; font-size: .88rem; cursor: pointer; text-decoration: underline; text-decoration-color: var(--sc-accent); text-decoration-thickness: 2px; text-underline-offset: .3em; min-height: 44px; padding: 0; }
+
+/* films: a click-to-play poster. The player loads only after a click (no cookies before). */
+.film { position: relative; aspect-ratio: 16 / 9; background: #10131F; border-radius: 6px; overflow: hidden; width: 100%;
+  box-shadow: 0 2px 4px hsl(var(--sc-shadow-color) / .5), 0 26px 50px -18px hsl(var(--sc-shadow-color) / .85), inset 0 0 0 1px rgba(255, 255, 255, .06); }
+.film__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.film iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.film__play { position: absolute; inset: 0; width: 100%; height: 100%; display: grid; place-items: center; background: none; border: 0; cursor: pointer; }
+.film__play span { width: 4.2rem; height: 4.2rem; border-radius: 50%; background: rgba(7, 9, 15, .72); border: 2px solid var(--sc-ink); display: grid; place-items: center; transition: background-color .2s, border-color .2s; }
+.film__play span::before { content: ""; margin-left: .3rem; border-style: solid; border-width: .7rem 0 .7rem 1.15rem; border-color: transparent transparent transparent var(--sc-ink); }
+.film__play:hover span { background: var(--sc-accent); border-color: var(--sc-accent); }
+.film__play:hover span::before { border-left-color: var(--sc-accent-ink); }
+
+/* object one */
+.hero { background: var(--sc-canvas); }
+.hero__stage { display: grid; align-items: center; padding: 4.2rem var(--sc-gutter) 1.2rem; box-sizing: border-box; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4.5rem); align-items: center; width: 100%; max-width: 92rem; margin-inline: auto; }
+.label--hero h2 { margin-top: .35rem; }
+.meta--end { margin-top: 1.4rem; }
+.js .prompt--hero.lit-ready .w { opacity: .5; transition: opacity .35s ease; }
+.js .prompt--hero.lit-ready .w.on { opacity: 1; }
+@media (max-width: 859px) {
+  .hero__stage { padding-top: 3.4rem; align-items: start; }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .prompt--hero { font-size: .92rem; line-height: 1.55; }
+  .label--hero h2 { font-size: 1.6rem; }
+  .field { margin-top: .8rem; }
+}
+
+/* the lateral walks */
+.walk { background: var(--sc-canvas); }
+.rail { display: flex; align-items: center; gap: clamp(1.5rem, 3vw, 3rem); height: 100%; padding-inline: var(--sc-gutter); box-sizing: border-box; width: max-content; will-change: transform; padding-bottom: var(--strip); }
+.rail__head { flex: 0 0 clamp(13rem, 20vw, 18rem); }
+.rail__head h2 { font-family: var(--sc-font-display); font-size: clamp(2.4rem, 1.6rem + 2.6vw, 4rem); line-height: 1; }
+.rail__head .meta { margin-top: .7rem; }
+.rail__end { flex: 0 0 clamp(12rem, 18vw, 16rem); }
+.obj--film { flex: 0 0 clamp(19rem, 30vw, 28rem); }
+.obj--film .label { margin-top: 1.1rem; }
+.obj--film .label h3 { font-size: clamp(1.5rem, 1.1rem + 1vw, 2rem); }
+.obj--film .meta { margin-top: .35rem; }
+.obj--film .prompt { font-size: .93rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-top: .8rem; }
+.obj--film.is-open .prompt { -webkit-line-clamp: unset; display: block; overflow: visible; }
+.obj--shelf { flex: 0 0 clamp(14rem, 17vw, 16rem); border-top: 1px solid var(--line); padding-top: 1.2rem; }
+.obj--shelf h3 { font-size: clamp(1.35rem, 1.05rem + .8vw, 1.8rem); min-height: 2.2em; }
+.obj--shelf .meta { margin-top: .6rem; min-height: 4.4em; }
+.obj--free { border-top-color: var(--sc-accent); }
+
+/* the tally: the one place teal is a region */
+.tally { background: var(--teal-ground); color: var(--sc-ink); padding-block: clamp(4rem, 8vw, 7rem); }
+.tally__total { font-family: var(--sc-font-display); font-size: clamp(4rem, 2rem + 9vw, 10rem); line-height: .95; color: var(--teal); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.tally__total .unit { font-family: var(--sc-font-text); font-size: clamp(1rem, .8rem + .6vw, 1.4rem); color: var(--sc-ink-soft); letter-spacing: .02em; }
+.tally .meta { margin-top: .8rem; }
+.tally__list { list-style: none; margin: 2.2rem 0 0; padding: 0; columns: 2; column-gap: 3rem; max-width: 56rem; }
+.tally__list li { break-inside: avoid; display: flex; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-top: 1px solid rgba(78, 205, 196, .28); font-size: .95rem; }
+.tally__list .n { font-variant-numeric: tabular-nums; color: var(--teal); font-weight: 600; }
+@media (max-width: 699px) { .tally__list { columns: 1; } }
+
+/* the last object: the bundle, labelled like the rest */
+.close { background: var(--sc-canvas); padding-block: clamp(4rem, 8vw, 7rem) 2rem; }
+.obj--bundle { border-top: 1px solid var(--sc-accent); padding-top: 1.6rem; max-width: 40rem; }
+.obj--bundle h3 { font-size: clamp(2.2rem, 1.4rem + 3vw, 4rem); }
+.obj--bundle .meta { margin-top: .5rem; font-size: 1rem; }
+.foot { margin-top: clamp(4rem, 9vw, 8rem); padding-top: 1.6rem; border-top: 1px solid var(--line); display: grid; gap: .8rem; font-size: .9rem; color: var(--sc-ink-soft); }
+.foot a { color: var(--sc-ink); text-decoration: none; display: inline-block; padding: .55rem 0; margin-right: 1.3rem; }
+.foot a:hover { text-decoration: underline; text-decoration-color: var(--sc-accent); text-decoration-thickness: 2px; text-underline-offset: .3em; }
+.foot p { margin: 0; }
+.small { font-size: .8rem; }
+
+/* the index of objects: a film strip along the bottom edge */
+.strip { position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; height: var(--strip); display: flex; align-items: center; gap: 1rem; padding: 0 var(--sc-gutter);
+  background: rgba(7, 9, 15, .96); border-top: 1px solid var(--line); box-sizing: border-box; }
+.strip__now { font-size: .82rem; font-weight: 600; color: var(--sc-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 34%; }
+.strip__ticks { margin-left: auto; display: flex; align-items: center; }
+.tick { width: 1.5rem; height: 2.75rem; display: grid; place-items: center; text-decoration: none; }
+.tick i { display: block; width: 3px; height: 1rem; border-radius: 2px; background: rgba(238, 240, 246, .34); transition: height .2s ease, background-color .2s ease; }
+.tick:hover i { background: var(--sc-ink); }
+.tick.is-now i { height: 1.7rem; background: var(--sc-accent); }
+.tick[data-first] { margin-left: .9rem; }
+.strip__tabs { display: none; margin-left: auto; gap: .2rem; }
+.strip__tabs a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 .7rem; color: var(--sc-ink); text-decoration: none; font-size: .85rem; font-weight: 600; }
+@media (max-width: 899px) { .strip__ticks { display: none; } .strip__tabs { display: flex; } .strip__now { max-width: 42%; } }
+
+/* the free-sample popup: opens only when asked for */
+.lead { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 1rem; }
+.lead[hidden] { display: none; }
+.lead__overlay { position: absolute; inset: 0; background: rgba(4, 5, 10, .78); }
+.lead__box { position: relative; width: min(30rem, 100%); max-height: 100%; overflow: auto; background: var(--sc-surface); border-radius: 10px; padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: 0 4px 8px hsl(var(--sc-shadow-color) / .5), 0 30px 60px -20px hsl(var(--sc-shadow-color) / .9), inset 0 0 0 1px rgba(255, 255, 255, .07); }
+.lead__box h2 { font-family: var(--sc-font-display); font-size: 2rem; line-height: 1.1; }
+.lead__box > p { margin-top: .6rem; color: var(--sc-ink-soft); }
+.lead__list { margin: 1rem 0; padding: 0; list-style: none; }
+.lead__list li { padding: .25rem 0 .25rem 1.4rem; position: relative; font-size: .95rem; }
+.lead__list li::before { content: ""; position: absolute; left: 0; top: .95em; width: .8rem; height: 2px; background: var(--teal); }
+.lead__close { position: absolute; top: .4rem; right: .5rem; width: 44px; height: 44px; background: none; border: 0; color: var(--sc-ink); font-size: 1.8rem; cursor: pointer; }
+.lead label { display: block; margin: .8rem 0 .3rem; font-size: .82rem; font-weight: 600; }
+.lead input { width: 100%; box-sizing: border-box; min-height: 48px; padding: .6rem .8rem; border-radius: 6px; border: 1.5px solid #3A4260; background: var(--sc-canvas); color: var(--sc-ink); font: inherit; }
+.lead__go { width: 100%; justify-content: center; margin-top: 1.1rem; }
+.lead__err { margin-top: .7rem; color: #FF9DB3; font-size: .9rem; }
+.lead__ok { text-align: center; padding: 1rem 0; }
+.lead__ok h2 { color: var(--teal); }
+.lead .small { margin-top: 1rem; color: var(--sc-ink-soft); }
+
+/* safety: reveal-on-scroll content must never be stranded at opacity 0 */
+html:not(.js) [data-sc-in], html:not(.js) [data-sc-stagger] > *,
+html.sc-failed [data-sc-in], html.sc-failed [data-sc-stagger] > * { opacity: 1 !important; transform: none !important; }
+html:not(.js) .rail, html.sc-failed .rail { width: auto; flex-wrap: wrap; height: auto; padding-block: 2rem; }
+html:not(.js) .sc-stage, html.sc-failed .sc-stage { position: static; height: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .js .prompt--hero.lit-ready .w { opacity: 1 !important; }
+}
+
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="mast"><h1>AI Viral Video Prompts</h1></header>
+
+<main id="main">
+
+  <!-- OBJECT ONE: the film and the words that made it. Already in view, already labelled. -->
+  <section id="obj-film-1" class="hero" data-sc-act="pin" data-sc-span="3.0" data-name="Sculptor Intuitive Clay Creation" data-group="films">
+    <div data-sc-stage class="hero__stage">
+      <div class="hero__grid">
+        <div class="film film--hero" data-yt="D4liZ58W9Jk"><img class="film__poster" src="https://i.ytimg.com/vi/D4liZ58W9Jk/maxresdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/D4liZ58W9Jk/hqdefault.jpg'"><button class="film__play" type="button" aria-label="Play the film: Sculptor Intuitive Clay Creation"><span aria-hidden="true"></span></button></div>
+        <div class="label label--hero">
+          <p class="meta">Cultural Storytelling. Traditional Craftsmanship.</p>
+          <h2>Sculptor Intuitive Clay Creation</h2>
+          <p class="field">Exact prompt</p>
+          <p class="prompt prompt--hero" id="hero-prompt" data-n="32"><span class="w" style="--i:0">Create</span> <span class="w" style="--i:1">a</span> <span class="w" style="--i:2">cinematic</span> <span class="w" style="--i:3">close-up</span> <span class="w" style="--i:4">of</span> <span class="w" style="--i:5">weathered</span> <span class="w" style="--i:6">Inuit</span> <span class="w" style="--i:7">hands</span> <span class="w" style="--i:8">shaping</span> <span class="w" style="--i:9">clay</span> <span class="w" style="--i:10">with</span> <span class="w" style="--i:11">ancestral</span> <span class="w" style="--i:12">precision,</span> <span class="w" style="--i:13">surrounded</span> <span class="w" style="--i:14">by</span> <span class="w" style="--i:15">traditional</span> <span class="w" style="--i:16">tools</span> <span class="w" style="--i:17">and</span> <span class="w" style="--i:18">arctic</span> <span class="w" style="--i:19">light</span> <span class="w" style="--i:20">filtering</span> <span class="w" style="--i:21">through</span> <span class="w" style="--i:22">ice</span> <span class="w" style="--i:23">windows,</span> <span class="w" style="--i:24">capturing</span> <span class="w" style="--i:25">the</span> <span class="w" style="--i:26">sacred</span> <span class="w" style="--i:27">connection</span> <span class="w" style="--i:28">between</span> <span class="w" style="--i:29">artisan</span> <span class="w" style="--i:30">and</span> <span class="w" style="--i:31">earth.</span></p>
+          <p class="meta meta--end">Collection: AI Mega Video Prompts. <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/hnjjmr">Get the bundle, $9</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE OTHER FIVE FILMS: a lateral walk -->
+  <section class="walk" id="films" data-sc-act="pan" data-sc-span="3.4">
+    <div data-sc-stage>
+      <div class="rail" data-sc-pan="0.06">
+        <div class="rail__head"><h2>Films</h2><p class="meta">Five more, each with its exact prompt.</p></div>
+        <article class="obj obj--film" id="obj-film-2" data-name="Cultural Festival Through Child's Eyes" data-group="films">
+          <div class="film " data-yt="BFtC3BO6MCs"><img class="film__poster" src="https://i.ytimg.com/vi/BFtC3BO6MCs/maxresdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/BFtC3BO6MCs/hqdefault.jpg'"><button class="film__play" type="button" aria-label="Play the film: Cultural Festival Through Child's Eyes"><span aria-hidden="true"></span></button></div>
+          <div class="label">
+            <h3>Cultural Festival Through Child's Eyes</h3>
+            <p class="meta">Coming-of-Age Narratives. Human Experience.</p>
+            <p class="prompt" id="prompt-2">Film a cultural festival through the wide-eyed wonder of a 7-year-old, capturing their perspective as they navigate colourful costumes, hear unfamiliar music, and experience tradition for the first time with pure amazement.</p>
+            <button class="more" type="button" aria-expanded="false" aria-controls="prompt-2">Read the whole prompt</button>
+          </div>
+        </article>
+        <article class="obj obj--film" id="obj-film-3" data-name="Modern Family Tale - Magical Objects" data-group="films">
+          <div class="film " data-yt="2KDo4OnZe-E"><img class="film__poster" src="https://i.ytimg.com/vi/2KDo4OnZe-E/maxresdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/2KDo4OnZe-E/hqdefault.jpg'"><button class="film__play" type="button" aria-label="Play the film: Modern Family Tale - Magical Objects"><span aria-hidden="true"></span></button></div>
+          <div class="label">
+            <h3>Modern Family Tale - Magical Objects</h3>
+            <p class="meta">Fantasy Worlds &amp; Alternate Realities. Imaginative Storytelling.</p>
+            <p class="prompt" id="prompt-3">Create a whimsical family story where everyday household objects possess hidden magical powers - the coffee mug that grants morning clarity, the lamp that illuminates truth, the mirror that shows one's heart's desire.</p>
+            <button class="more" type="button" aria-expanded="false" aria-controls="prompt-3">Read the whole prompt</button>
+          </div>
+        </article>
+        <article class="obj obj--film" id="obj-film-4" data-name="The Pitch: Our Ad Is Our Voice" data-group="films">
+          <div class="film " data-yt="UxzGX1c7Th4"><img class="film__poster" src="https://i.ytimg.com/vi/UxzGX1c7Th4/maxresdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/UxzGX1c7Th4/hqdefault.jpg'"><button class="film__play" type="button" aria-label="Play the film: The Pitch: Our Ad Is Our Voice"><span aria-hidden="true"></span></button></div>
+          <div class="label">
+            <h3>The Pitch: Our Ad Is Our Voice</h3>
+            <p class="meta">Business Strategy &amp; Marketing. Entrepreneurship Success Stories.</p>
+            <p class="prompt" id="prompt-4">Create a cinematic video in a vibrant co-working space, where they pitch an ad concept, voice bold and clear. Their gestures are confident, teammates nodding with excitement. They pin 'Our ad is our voice' to a board beside a whiteboard. A dynamic zoom on their united team overlays text: 'Ads fuel engagement.' The mood is collaborative and energetic, with an upbeat electronic track.</p>
+            <button class="more" type="button" aria-expanded="false" aria-controls="prompt-4">Read the whole prompt</button>
+          </div>
+        </article>
+        <article class="obj obj--film" id="obj-film-5" data-name="When Perfect Isn't Enough: A Mental Health Wake-Up Call" data-group="films">
+          <div class="film " data-yt="JGkOUmt54FM"><img class="film__poster" src="https://i.ytimg.com/vi/JGkOUmt54FM/maxresdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/JGkOUmt54FM/hqdefault.jpg'"><button class="film__play" type="button" aria-label="Play the film: When Perfect Isn't Enough: A Mental Health Wake-Up Call"><span aria-hidden="true"></span></button></div>
+          <div class="label">
+            <h3>When Perfect Isn't Enough: A Mental Health Wake-Up Call</h3>
+            <p class="meta">Social Media &amp; Viral Narratives. Mental Health Awareness.</p>
+            <p class="prompt" id="prompt-5">For a college student battling perfectionism: Create a cinematic video that explores 'Smiling While Drowning,' featuring a checklist with every box ticked—and no relief. Focus on quiet realism, not dramatization.</p>
+            <button class="more" type="button" aria-expanded="false" aria-controls="prompt-5">Read the whole prompt</button>
+          </div>
+        </article>
+        <article class="obj obj--film" id="obj-film-6" data-name="Making Physics Beautiful: Science Experiments Go Viral" data-group="films">
+          <div class="film " data-yt="s1f9-sjkz-8"><img class="film__poster" src="https://i.ytimg.com/vi/s1f9-sjkz-8/maxresdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/s1f9-sjkz-8/hqdefault.jpg'"><button class="film__play" type="button" aria-label="Play the film: Making Physics Beautiful: Science Experiments Go Viral"><span aria-hidden="true"></span></button></div>
+          <div class="label">
+            <h3>Making Physics Beautiful: Science Experiments Go Viral</h3>
+            <p class="meta">Science &amp; Education. Educational Experiments.</p>
+            <p class="prompt" id="prompt-6">Create a cinematic short story scene in a glowing San José lab at dawn, where a scientist, demonstrating a radiant physics gravity experiment, channels curiosity. Overlays show objects falling in sync, with text popups: 'This science shapes our world.' The mood is vibrant and educational, with a radiant dawn orange cinematic glow; sound includes lab hums and morning traffic buzz.</p>
+            <button class="more" type="button" aria-expanded="false" aria-controls="prompt-6">Read the whole prompt</button>
+          </div>
+        </article>
+        <div class="rail__end"><p class="meta">Collection for all six films: AI Mega Video Prompts.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE COLLECTIONS: the free sample, then thirteen shelves -->
+  <section class="walk" id="collections" data-sc-act="pan" data-sc-span="4.2">
+    <div data-sc-stage>
+      <div class="rail rail--shelf" data-sc-pan="0.06">
+        <div class="rail__head"><h2>Collections</h2><p class="meta">One free sample, then thirteen shelves at $1 each.</p></div>
+        <article class="obj obj--shelf obj--free" id="obj-free" data-name="Free sample" data-group="collections">
+          <div class="label">
+            <h3>Free sample</h3>
+            <p class="count">50<span> prompts</span></p>
+            <p class="meta">Nine categories. Delivered by email.</p>
+            <p class="price">$0</p>
+            <button class="act" type="button" data-open-popup>Send me the PDF</button>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-1" data-name="Creativity &amp; Art Prompts" data-group="collections">
+          <div class="label">
+            <h3>Creativity &amp; Art Prompts</h3>
+            <p class="count">8,025<span> prompts</span></p>
+            <p class="meta">Artistic Creation, Design Processes.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/jjhsh">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-2" data-name="Business &amp; Innovation" data-group="collections">
+          <div class="label">
+            <h3>Business &amp; Innovation</h3>
+            <p class="count">8,024<span> prompts</span></p>
+            <p class="meta">Business Strategy, Corporate Content.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/cyonc">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-3" data-name="Education &amp; Social Impact" data-group="collections">
+          <div class="label">
+            <h3>Education &amp; Social Impact</h3>
+            <p class="count">2,624<span> prompts</span></p>
+            <p class="meta">Educational Content, Social Change.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/llskfw">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-4" data-name="Culture &amp; Traditions" data-group="collections">
+          <div class="label">
+            <h3>Culture &amp; Traditions</h3>
+            <p class="count">2,025<span> prompts</span></p>
+            <p class="meta">Cultural Heritage, Global Diversity.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/ct">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-5" data-name="Future &amp; Tech Visions" data-group="collections">
+          <div class="label">
+            <h3>Future &amp; Tech Visions</h3>
+            <p class="count">2,025<span> prompts</span></p>
+            <p class="meta">Future Technology, Innovation.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/hgbde">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-6" data-name="Inspiration &amp; Human Experience" data-group="collections">
+          <div class="label">
+            <h3>Inspiration &amp; Human Experience</h3>
+            <p class="count">2,025<span> prompts</span></p>
+            <p class="meta">Emotional Stories, Human Connection.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/mzsrzs">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-7" data-name="Imaginative Prompts" data-group="collections">
+          <div class="label">
+            <h3>Imaginative Prompts</h3>
+            <p class="count">2,025<span> prompts</span></p>
+            <p class="meta">Fantasy Worlds, Creative Stories.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/im">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-8" data-name="Life &amp; Mindset Prompts" data-group="collections">
+          <div class="label">
+            <h3>Life &amp; Mindset Prompts</h3>
+            <p class="count">5,224<span> prompts</span></p>
+            <p class="meta">Personal Development, Mindset.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/lmavp">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-9" data-name="Lifestyle &amp; Trends" data-group="collections">
+          <div class="label">
+            <h3>Lifestyle &amp; Trends</h3>
+            <p class="count">8,025<span> prompts</span></p>
+            <p class="meta">Lifestyle Content, Viral Trends.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/lt">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-10" data-name="Cinematic Formats &amp; Genres" data-group="collections">
+          <div class="label">
+            <h3>Cinematic Formats &amp; Genres</h3>
+            <p class="count">1,824<span> prompts</span></p>
+            <p class="meta">Film Quality, All Genres.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/wifzq">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-11" data-name="Thinking &amp; Learning" data-group="collections">
+          <div class="label">
+            <h3>Thinking &amp; Learning</h3>
+            <p class="count">2,024<span> prompts</span></p>
+            <p class="meta">Educational, Philosophy.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/lcvej">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-12" data-name="Social Media &amp; Viral Formats" data-group="collections">
+          <div class="label">
+            <h3>Social Media &amp; Viral Formats</h3>
+            <p class="count">1,824<span> prompts</span></p>
+            <p class="meta">Platform Optimized, Viral Content.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/dxexd">Get on Gumroad</a>
+          </div>
+        </article>
+        <article class="obj obj--shelf" id="obj-col-13" data-name="Social Good &amp; World Change" data-group="collections">
+          <div class="label">
+            <h3>Social Good &amp; World Change</h3>
+            <p class="count">1,020<span> prompts</span></p>
+            <p class="meta">Social Impact, Activism.</p>
+            <p class="price">$1</p>
+            <a class="act" href="https://aiviralvideoprompts.gumroad.com/l/jovzr">Get on Gumroad</a>
+          </div>
+        </article>
+        <div class="rail__end"><p class="meta">Thirteen collections. Counted next.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE TALLY: the total is the sum of the thirteen labels just passed -->
+  <section class="tally sc-section" id="tally">
+    <div class="wrap tally__in" data-sc-in data-sc-stagger="80">
+      <p class="tally__total"><span data-sc-count="0 46,714">46,714</span> <span class="unit">prompts</span></p>
+      <p class="meta">The sum of the thirteen collections.</p>
+      <ul class="tally__list"><li><span>Creativity &amp; Art Prompts</span><span class="n">8,025</span></li><li><span>Business &amp; Innovation</span><span class="n">8,024</span></li><li><span>Education &amp; Social Impact</span><span class="n">2,624</span></li><li><span>Culture &amp; Traditions</span><span class="n">2,025</span></li><li><span>Future &amp; Tech Visions</span><span class="n">2,025</span></li><li><span>Inspiration &amp; Human Experience</span><span class="n">2,025</span></li><li><span>Imaginative Prompts</span><span class="n">2,025</span></li><li><span>Life &amp; Mindset Prompts</span><span class="n">5,224</span></li><li><span>Lifestyle &amp; Trends</span><span class="n">8,025</span></li><li><span>Cinematic Formats &amp; Genres</span><span class="n">1,824</span></li><li><span>Thinking &amp; Learning</span><span class="n">2,024</span></li><li><span>Social Media &amp; Viral Formats</span><span class="n">1,824</span></li><li><span>Social Good &amp; World Change</span><span class="n">1,020</span></li></ul>
+    </div>
+  </section>
+
+  <!-- THE LAST OBJECT: the bundle, labelled like the rest -->
+  <section class="close sc-section" id="obj-bundle" data-name="AI Mega Video Prompts: the bundle" data-group="bundle">
+    <div class="wrap">
+      <article class="obj obj--bundle" data-sc-in data-sc-stagger="80">
+        <div class="label">
+          <h3>AI Mega Video Prompts</h3>
+          <p class="meta">All 13 collections.</p>
+          <p class="count">46,714<span> prompts</span></p>
+          <p class="price">$9</p>
+          <a class="act act--big" href="https://aiviralvideoprompts.gumroad.com/l/hnjjmr">Get the bundle on Gumroad</a>
+        </div>
+      </article>
+      <footer class="foot">
+        <p class="socials"><a href="https://www.instagram.com/aiviralvideoprompts?igsh=MWVwMHg2ZnVrMndyaw==" rel="noopener">Instagram</a> <a href="https://www.tiktok.com/@aiviralvideoprompts?_r=1&_t=ZN-94lulQG48lW" rel="noopener">TikTok</a> <a href="https://m.youtube.com/channel/UCj5LgseYOC0u4ls1yptIPcg" rel="noopener">YouTube</a> <a href="https://www.facebook.com/profile.php?id=61583626041208" rel="noopener">Facebook</a> <a href="https://pin.it/7AyU0pmoU" rel="noopener">Pinterest</a> <a href="https://www.linkedin.com/company/109539232/admin/dashboard/" rel="noopener">LinkedIn</a></p>
+        <p class="legal"><a href="terms_of_service.html">Terms of Service</a> <a href="privacy_policy.html">Privacy Policy</a></p>
+        <p class="small">AI Viral Video Prompts. Professional AI Video Creation Made Simple.</p>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<nav class="strip" aria-label="Index of objects">
+  <span class="strip__now" id="strip-now" aria-live="off">Sculptor Intuitive Clay Creation</span>
+  <span class="strip__ticks"><a class="tick" href="#obj-film-1" data-target="obj-film-1" data-group="films" aria-label="Sculptor Intuitive Clay Creation"><i></i></a><a class="tick" href="#obj-film-2" data-target="obj-film-2" data-group="films" aria-label="Cultural Festival Through Child's Eyes"><i></i></a><a class="tick" href="#obj-film-3" data-target="obj-film-3" data-group="films" aria-label="Modern Family Tale - Magical Objects"><i></i></a><a class="tick" href="#obj-film-4" data-target="obj-film-4" data-group="films" aria-label="The Pitch: Our Ad Is Our Voice"><i></i></a><a class="tick" href="#obj-film-5" data-target="obj-film-5" data-group="films" aria-label="When Perfect Isn't Enough: A Mental Health Wake-Up Call"><i></i></a><a class="tick" href="#obj-film-6" data-target="obj-film-6" data-group="films" aria-label="Making Physics Beautiful: Science Experiments Go Viral"><i></i></a><a class="tick" href="#obj-free" data-target="obj-free" data-group="collections" aria-label="Free sample"><i></i></a><a class="tick" href="#obj-col-1" data-target="obj-col-1" data-group="collections" aria-label="Creativity &amp; Art Prompts"><i></i></a><a class="tick" href="#obj-col-2" data-target="obj-col-2" data-group="collections" aria-label="Business &amp; Innovation"><i></i></a><a class="tick" href="#obj-col-3" data-target="obj-col-3" data-group="collections" aria-label="Education &amp; Social Impact"><i></i></a><a class="tick" href="#obj-col-4" data-target="obj-col-4" data-group="collections" aria-label="Culture &amp; Traditions"><i></i></a><a class="tick" href="#obj-col-5" data-target="obj-col-5" data-group="collections" aria-label="Future &amp; Tech Visions"><i></i></a><a class="tick" href="#obj-col-6" data-target="obj-col-6" data-group="collections" aria-label="Inspiration &amp; Human Experience"><i></i></a><a class="tick" href="#obj-col-7" data-target="obj-col-7" data-group="collections" aria-label="Imaginative Prompts"><i></i></a><a class="tick" href="#obj-col-8" data-target="obj-col-8" data-group="collections" aria-label="Life &amp; Mindset Prompts"><i></i></a><a class="tick" href="#obj-col-9" data-target="obj-col-9" data-group="collections" aria-label="Lifestyle &amp; Trends"><i></i></a><a class="tick" href="#obj-col-10" data-target="obj-col-10" data-group="collections" aria-label="Cinematic Formats &amp; Genres"><i></i></a><a class="tick" href="#obj-col-11" data-target="obj-col-11" data-group="collections" aria-label="Thinking &amp; Learning"><i></i></a><a class="tick" href="#obj-col-12" data-target="obj-col-12" data-group="collections" aria-label="Social Media &amp; Viral Formats"><i></i></a><a class="tick" href="#obj-col-13" data-target="obj-col-13" data-group="collections" aria-label="Social Good &amp; World Change"><i></i></a><a class="tick" href="#obj-bundle" data-target="obj-bundle" data-group="bundle" aria-label="AI Mega Video Prompts: the bundle"><i></i></a></span>
+  <span class="strip__tabs"><a href="#obj-film-1">Films</a><a href="#obj-free">Collections</a><a href="#obj-bundle">Bundle</a></span>
+</nav>
+
+<div id="leadMagnetPopup" class="lead" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-hidden="true" hidden>
+  <div class="lead__overlay" data-close-popup></div>
+  <div class="lead__box" id="lead-box">
+    <button class="lead__close" type="button" data-close-popup aria-label="Close">&times;</button>
+    <h2 id="popup-title">Get 50 FREE AI Video Prompts</h2>
+    <p>Start creating videos today with 50 hand-picked prompts.</p>
+    <ul class="lead__list">
+      <li>50 Professional Video Prompts</li>
+      <li>Works With Any AI Video Tool</li>
+      <li>Multiple Content Categories</li>
+      <li>Instant Digital Download</li>
+    </ul>
+    <form id="leadMagnetForm" novalidate>
+      <label for="leadFirstName">First name</label><input id="leadFirstName" name="first_name" type="text" autocomplete="given-name" required>
+      <label for="leadLastName">Last name</label><input id="leadLastName" name="last_name" type="text" autocomplete="family-name" required>
+      <label for="leadEmail">Email</label><input id="leadEmail" name="email" type="email" autocomplete="email" required>
+      <button class="act act--big lead__go" type="submit">Get my free prompts now</button>
+      <p class="lead__err" id="lead-err" role="alert" hidden></p>
+    </form>
+    <p class="small">We respect your privacy. Unsubscribe anytime.</p>
+  </div>
+</div>
+
+<script src="scrollcraft.js"></script>
+<script>try{ScrollCraft.mount(document.body);}catch(e){document.documentElement.classList.add('sc-failed');console.warn('scrollcraft',e);}</script>
+<script>
+/* viral-home: the prompt writes the film, the film-strip index, click-to-play films and the
+   free-sample popup. Everything here is enhancement: without it the page is a readable catalogue. */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- the signature move: each word of the exact prompt lights as the hero advances ---- */
+  var hero = document.getElementById('obj-film-1');
+  var prompt = document.getElementById('hero-prompt');
+  var words = prompt ? [].slice.call(prompt.querySelectorAll('.w')) : [];
+  function lightWords() {
+    if (!hero || !words.length) return;
+    var raw = getComputedStyle(hero).getPropertyValue('--sc-p');
+    if (reduce || raw === '' || isNaN(parseFloat(raw))) { words.forEach(function (w) { w.classList.add('on'); }); return; }
+    var p = parseFloat(raw);
+    var t = Math.min(1, Math.max(0, (p - 0.1) / 0.72));
+    var lit = Math.round(t * words.length);
+    words.forEach(function (w, i) { w.classList.toggle('on', i < lit); });
+  }
+  if (prompt && !reduce) prompt.classList.add('lit-ready');
+
+  /* ---- the index of objects ---- */
+  var ticks = [].slice.call(document.querySelectorAll('.tick'));
+  var nowEl = document.getElementById('strip-now');
+  var targets = ticks.map(function (t) { return document.getElementById(t.getAttribute('data-target')); });
+  var lastGroup = null;
+  ticks.forEach(function (t) { var g = t.getAttribute('data-group'); if (g !== lastGroup) { t.setAttribute('data-first', ''); lastGroup = g; } });
+  ticks[0] && ticks[0].removeAttribute('data-first');
+
+  function currentIndex() {
+    var vw = window.innerWidth, vh = window.innerHeight, best = -1, bestD = Infinity;
+    targets.forEach(function (el, i) {
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      if (r.right < 0 || r.left > vw || r.bottom < 0 || r.top > vh) return;
+      var cx = (r.left + r.right) / 2, cy = (r.top + r.bottom) / 2;
+      var d = Math.abs(cx - vw * 0.4) + Math.abs(cy - vh / 2) * 0.35;   /* rails read from just left of centre, so the first item can win */
+      if (el.classList.contains('hero') || el.classList.contains('close')) d = Math.abs(cy - vh / 2) * 0.35;
+      if (d < bestD) { bestD = d; best = i; }
+    });
+    return best;
+  }
+  var lastIdx = -2;
+  function paintStrip() {
+    var i = currentIndex();
+    if (i === lastIdx || i < 0) return;
+    lastIdx = i;
+    ticks.forEach(function (t, k) { t.classList.toggle('is-now', k === i); });
+    var el = targets[i];
+    if (el && nowEl) nowEl.textContent = el.getAttribute('data-name') || '';
+  }
+
+  function jump(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var act = el.closest('[data-sc-act="pan"]');
+    if (act && !reduce) {
+      var rail = act.querySelector('.rail');
+      var overflow = rail.scrollWidth - window.innerWidth;
+      var ov = parseFloat(rail.getAttribute('data-sc-pan')) || 0;
+      var travel = overflow * (1 + ov);
+      var want = el.offsetLeft - (window.innerWidth - el.offsetWidth) / 2;
+      var p = travel > 0 ? Math.min(1, Math.max(0, want / travel)) : 0;
+      var top = act.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo(0, top + p * (act.offsetHeight - window.innerHeight));
+    } else if (act) {
+      el.scrollIntoView({ inline: 'center', block: 'nearest' });
+    } else {
+      var t = el.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo(0, el.classList.contains('hero') ? t : t - 16);
+    }
+  }
+  document.querySelectorAll('.tick, .strip__tabs a').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = (a.getAttribute('data-target') || a.getAttribute('href').replace('#', ''));
+      e.preventDefault(); jump(id);
+    });
+  });
+
+  var ticking = false;
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; lightWords(); paintStrip(); }); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  lightWords(); paintStrip();
+
+  /* ---- films: the player loads only after a click ---- */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.film__play');
+    if (!b) return;
+    var film = b.closest('.film'); var id = film && film.getAttribute('data-yt');
+    if (!id) return;
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0';
+    f.title = b.getAttribute('aria-label') || 'Video';
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    f.allowFullscreen = true;
+    film.innerHTML = ''; film.appendChild(f);
+  });
+
+  /* ---- expand a prompt ---- */
+  document.addEventListener('click', function (e) {
+    var m = e.target.closest('.more');
+    if (!m) return;
+    var obj = m.closest('.obj'); var open = obj.classList.toggle('is-open');
+    m.setAttribute('aria-expanded', open ? 'true' : 'false');
+    m.textContent = open ? 'Show less' : 'Read the whole prompt';
+  });
+
+  /* ---- the free-sample popup (opens only when asked for) ---- */
+  var pop = document.getElementById('leadMagnetPopup'), box = document.getElementById('lead-box'), lastFocus = null;
+  function openPop() {
+    lastFocus = document.activeElement; pop.hidden = false; pop.setAttribute('aria-hidden', 'false');
+    var f = document.getElementById('leadFirstName'); if (f) f.focus();
+  }
+  function closePop() {
+    pop.hidden = true; pop.setAttribute('aria-hidden', 'true'); if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.querySelectorAll('[data-open-popup]').forEach(function (b) { b.addEventListener('click', openPop); });
+  pop.addEventListener('click', function (e) { if (e.target.closest('[data-close-popup]')) closePop(); });
+  document.addEventListener('keydown', function (e) {
+    if (pop.hidden) return;
+    if (e.key === 'Escape') { closePop(); return; }
+    if (e.key === 'Tab') {
+      var f = [].slice.call(box.querySelectorAll('button, input, a[href]')).filter(function (x) { return !x.disabled && x.offsetParent !== null; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  var form = document.getElementById('leadMagnetForm'), err = document.getElementById('lead-err');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); err.hidden = true;
+    var email = document.getElementById('leadEmail').value.trim();
+    var first = document.getElementById('leadFirstName').value.trim();
+    var last = document.getElementById('leadLastName').value.trim();
+    if (!email || !first || !last) { err.textContent = 'Please fill in all fields.'; err.hidden = false; return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = 'Please enter a valid email address.'; err.hidden = false; return; }
+    var btn = form.querySelector('button[type="submit"]'); var label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Submitting...';
+    fetch('https://mvttihozhozigtrwqsyy.supabase.co/functions/v1/beehiiv-subscribe', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, first_name: first, last_name: last })
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d.data && d.data.id) {
+        box.innerHTML = '<button class="lead__close" type="button" data-close-popup aria-label="Close">&times;</button>' +
+          '<div class="lead__ok"><h2>Success</h2><p>Check your email for your 50 FREE AI Video Prompts.</p>' +
+          '<p class="small">Don’t forget to check your spam folder.</p></div>';
+        setTimeout(closePop, 6000);
+      } else { throw new Error('failed'); }
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = label;
+      err.textContent = 'Something went wrong. Please try again.'; err.hidden = false;
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
