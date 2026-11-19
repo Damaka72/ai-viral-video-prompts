@@ -5,7 +5,6 @@ Static HTML/CSS/JS — deployed on Vercel. No build step.
 
 ## Key files
 - `index.html` — main product/sales page
-- `data/` — agent output files (agent-summaries/*.json feeds the Command Hub)
 - `social-agent.html` — legacy social agent (Blotato now handles scheduling)
 
 ## Revenue
